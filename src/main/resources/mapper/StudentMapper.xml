@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itmo.eva.mapper.StudentMapper">
+
+    <resultMap id="BaseResultMap" type="com.itmo.eva.model.entity.Student">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="sid" column="sid" jdbcType="VARCHAR"/>
+            <result property="password" column="password" jdbcType="VARCHAR"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="sex" column="sex" jdbcType="TINYINT"/>
+            <result property="age" column="age" jdbcType="INTEGER"/>
+            <result property="major" column="major" jdbcType="TINYINT"/>
+            <result property="cid" column="cid" jdbcType="INTEGER"/>
+            <result property="grade" column="grade" jdbcType="INTEGER"/>
+            <result property="tag" column="tag" jdbcType="VARCHAR"/>
+            <result property="addressIp" column="addressIp" jdbcType="VARCHAR"/>
+            <result property="addressName" column="addressName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,sid,password,
+        name,sex,age,
+        major,cid,grade,
+        tag,addressIp,addressName
+    </sql>
+</mapper>

@@ -7,11 +7,13 @@ use eva;
 -- 管理员表
 create table e_admin
 (
-    id       int auto_increment comment '用户名'
+    id          int auto_increment comment '用户名'
         primary key,
-    username varchar(256)      not null comment '账号',
-    password varchar(256)      not null comment '密码',
-    role     tinyint default 1 not null comment '权限'
+    username    varchar(256)      not null comment '账号',
+    password    varchar(256)      not null comment '密码',
+    role        tinyint default 1 not null comment '权限',
+    addressIp   varchar(256)      null comment '最近一次登录的ip地址',
+    addressName varchar(256)      null comment '形式:中国-省份-城市'
 )
     comment '管理员表';
 
@@ -35,18 +37,40 @@ create table e_teacher
 -- 学生表
 create table e_student
 (
-    id       bigint auto_increment comment '主键'
+    id          bigint auto_increment comment '主键'
         primary key,
-    sid      varchar(256)  not null comment '学号',
-    password varchar(256)  null comment '密码',
-    name     varchar(256)  not null comment '姓名',
-    sex      tinyint       not null comment '性别',
-    age      int           not null comment '年龄',
-    major    tinyint       not null comment '专业（0-计算机，1-自动化）',
-    cid      int           not null comment '班级id',
-    grade    int           not null comment '年级',
-    tag      varchar(1024) null comment '用户名'
+    sid         varchar(256)  not null comment '学号',
+    password    varchar(256)  null comment '密码',
+    name        varchar(256)  not null comment '姓名',
+    sex         tinyint       not null comment '性别(0-女 1-男）',
+    age         int           not null comment '年龄',
+    major       tinyint       not null comment '专业（0-计算机，1-自动化）',
+    cid         int           not null comment '班级id',
+    grade       int           not null comment '年级',
+    tag         varchar(1024) null comment '用户名',
+    addressIp   varchar(256)  null comment '最近登录的一次ip地址',
+    addressName varchar(256)  null comment '形式:中国-省份-城市'
 )
     comment '学生表';
 
 
+-- 职位表
+create table if not exists eva.`e_position`
+(
+    `id` int not null auto_increment comment '主键' primary key,
+    `name` varchar(256) not null comment '职位名称'
+) comment '职位表';
+
+-- 职称表
+create table if not exists eva.`e_title`
+(
+    `id` int not null auto_increment comment '主键' primary key,
+    `name` varchar(256) not null comment '职称名称'
+) comment '职称表';
+
+-- 职称表
+create table if not exists eva.`e_class`
+(
+    `id` int not null auto_increment comment '主键' primary key,
+    `cid` varchar(256) not null comment '班级号'
+) comment '职称表';

@@ -6,6 +6,8 @@ import java.util.regex.Pattern;
  
 /**
  * 特殊字符操作工具类
+ *
+ * @author chenjiahan
  */
 public class SpecialUtil {
     private static final String DEFAULT_QUERY_REGEX = "[_!$^&*+=|{}';'\",<>/?~！#￥%……&*——|{}【】‘；：”“'。，、？]";

@@ -19,7 +19,7 @@ public interface AdminMapper extends BaseMapper<Admin> {
      * @return 用户信息
      */
     @Select("select * from e_admin where username = #{username} and password = #{password}")
-    Admin queryUserByUsernameAndPassword(String username, String password);
+    Admin getUserByUsernameAndPassword(String username, String password);
 }
 
 

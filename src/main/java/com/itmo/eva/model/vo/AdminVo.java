@@ -16,7 +16,6 @@ public class AdminVo implements Serializable {
     /**
      * 用户名
      */
-    @TableId(type = IdType.AUTO)
     private Long id;
 
     /**
@@ -24,7 +23,5 @@ public class AdminVo implements Serializable {
      */
     private String username;
 
-
-    @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

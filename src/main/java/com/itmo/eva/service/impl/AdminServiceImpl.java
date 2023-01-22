@@ -49,7 +49,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin>
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "包含特殊字符");
         }
         // 查询用户
-        Admin admin = adminMapper.queryUserByUsernameAndPassword(username, password);
+        Admin admin = adminMapper.getUserByUsernameAndPassword(username, password);
         // 用户不存在
         if (admin == null) {
             log.info("user login failed, username cannot match password!");

@@ -11,6 +11,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
+/**
+ * 生成解析token
+ *
+ * @author chenjiahan
+ */
 @Slf4j
 public class JwtUtil {
 

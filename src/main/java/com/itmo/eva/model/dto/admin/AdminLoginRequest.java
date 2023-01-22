@@ -13,4 +13,6 @@ public class AdminLoginRequest implements Serializable {
     private String username;
 
     private String password;
+
+    private static final long serialVersionUID = 1L;
 }
