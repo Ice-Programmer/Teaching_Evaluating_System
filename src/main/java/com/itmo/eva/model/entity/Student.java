@@ -61,7 +61,7 @@ public class Student implements Serializable {
     private Integer grade;
 
     /**
-     * 用户名
+     * 课程标签
      */
     private String tag;
 

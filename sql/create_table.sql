@@ -68,9 +68,9 @@ create table if not exists eva.`e_title`
     `name` varchar(256) not null comment '职称名称'
 ) comment '职称表';
 
--- 职称表
+-- 班级表
 create table if not exists eva.`e_class`
 (
     `id` int not null auto_increment comment '主键' primary key,
     `cid` varchar(256) not null comment '班级号'
-) comment '职称表';
+) comment '班级表';

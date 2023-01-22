@@ -56,7 +56,7 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher>
            throw new BusinessException(ErrorCode.PARAMS_ERROR, "请求参数为空");
         }
 
-        // 判断该教师是否存在
+        // 判断该教师是否存在 【根据姓名和邮箱】
         String name = teacherAddRequest.getName();
         String email = teacherAddRequest.getEmail();
         if (StringUtils.isAnyBlank(name, email)) {
@@ -101,16 +101,16 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher>
         if (teacherUpdateRequest == null || teacherUpdateRequest.getId() <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
-        Teacher teacher = new Teacher();
-        BeanUtils.copyProperties(teacherUpdateRequest, teacher);
-        // 参数校验
-        this.validTeacher(teacher, false);
-        Long id = teacherUpdateRequest.getId();
         // 判断是否存在
+        Long id = teacherUpdateRequest.getId();
         Teacher oldTeacher = this.getById(id);
         if (oldTeacher == null) {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "教师信息不存在");
         }
+        Teacher teacher = new Teacher();
+        BeanUtils.copyProperties(teacherUpdateRequest, teacher);
+        // 参数校验
+        this.validTeacher(teacher, false);
         boolean update = this.updateById(teacher);
 
         return update;
@@ -150,11 +150,16 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher>
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "没有数据记录");
         }
 
+        List<Position> positionList = positionMapper.selectList(null);
+        Map<Integer, String> positionMap = positionList.stream().collect(Collectors.toMap(Position::getId, Position::getName));
+        List<Title> titleList = titleMapper.selectList(null);
+        Map<Integer, String> titleMap = titleList.stream().collect(Collectors.toMap(Title::getId, Title::getName));
+
         List<TeacherVo> teacherVoList = teacherList.stream().map((teacher) -> {
             TeacherVo teacherVo = new TeacherVo();
             BeanUtils.copyProperties(teacher, teacherVo);
-            teacherVo.setPosition(positionMapper.getPositionNameById(teacher.getPosition()));
-            teacherVo.setTitle(titleMapper.getTitleNameById(teacher.getTitle()));
+            teacherVo.setPosition(positionMap.get(teacher.getPosition()));
+            teacherVo.setTitle(titleMap.get(teacher.getTitle()));
             return teacherVo;
         }).collect(Collectors.toList());
 
