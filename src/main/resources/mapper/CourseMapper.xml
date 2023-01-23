@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itmo.eva.mapper.CourseMapper">
+
+    <resultMap id="BaseResultMap" type="com.itmo.eva.model.entity.Course">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="cName" column="cName" jdbcType="VARCHAR"/>
+            <result property="eName" column="eName" jdbcType="VARCHAR"/>
+            <result property="major" column="major" jdbcType="INTEGER"/>
+            <result property="tid" column="tid" jdbcType="INTEGER"/>
+            <result property="grade" column="grade" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,cName,eName,
+        major,tid,grade
+    </sql>
+</mapper>

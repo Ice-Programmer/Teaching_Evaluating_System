@@ -21,6 +21,9 @@ public interface TeacherMapper extends BaseMapper<Teacher> {
      */
     @Select("select * from e_teacher where name = #{name} and email = #{email}")
     Teacher getTeacherByNameAndEmail(String name, String email);
+
+    @Select("select name from e_teacher where id = #{tid}")
+    String getNameById(Long tid);
 }
 
 

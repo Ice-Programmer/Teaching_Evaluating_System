@@ -74,3 +74,14 @@ create table if not exists eva.`e_class`
     `id` int not null auto_increment comment '主键' primary key,
     `cid` varchar(256) not null comment '班级号'
 ) comment '班级表';
+
+-- 课程表
+create table if not exists eva.`e_course`
+(
+    `id` int not null auto_increment comment '主键' primary key,
+    `cName` varchar(256) not null comment '课程中文名',
+    `eName` varchar(256) not null comment '课程中文名',
+    `major` varchar(256) not null comment '专业',
+    `tid` int not null comment '教师id',
+    `grade` int null comment '年级'
+) comment '课程表';
