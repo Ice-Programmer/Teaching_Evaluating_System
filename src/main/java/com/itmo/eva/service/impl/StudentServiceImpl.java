@@ -8,20 +8,26 @@ import com.itmo.eva.mapper.StudentClassMapper;
 import com.itmo.eva.mapper.StudentMapper;
 import com.itmo.eva.model.dto.student.StudentAddRequest;
 import com.itmo.eva.model.dto.student.StudentUpdateRequest;
-import com.itmo.eva.model.entity.Student;
-import com.itmo.eva.model.entity.StudentClass;
+import com.itmo.eva.model.entity.*;
 import com.itmo.eva.model.enums.GenderEnum;
 import com.itmo.eva.model.enums.MajorEnum;
 import com.itmo.eva.model.vo.StudentVo;
 import com.itmo.eva.service.StudentService;
 import com.itmo.eva.utils.SpecialUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -167,6 +173,80 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student>
         }).collect(Collectors.toList());
 
         return studentVoList;
+    }
+
+    @Override
+    public Boolean excelImport(MultipartFile file) {
+        // 1.判断文件是否为空
+        if (file.isEmpty()) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "请重新上传文件");
+        }
+        XSSFWorkbook wb = null;
+
+        try {
+            // 2.POI获取Excel文件信息
+            wb = new XSSFWorkbook(file.getInputStream());
+            XSSFSheet sheet = wb.getSheetAt(0);
+
+            // 3.定义程序集合来接收文件内容
+            List<Student> studentList = new ArrayList<>();
+            XSSFRow row = null;
+
+            List<StudentClass> classList = studentClassMapper.selectList(null);
+            Map<String, Integer> classMap = classList.stream().collect(Collectors.toMap(StudentClass::getCid, StudentClass::getId));
+
+            //4.接收数据 装入集合中
+            for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
+                row = sheet.getRow(i);
+                String name = row.getCell(0).getStringCellValue();
+                String sid = row.getCell(1).getStringCellValue();
+                String sex = row.getCell(2).getStringCellValue();
+                if (!"男".equals(sex) && !"女".equals(sex)) {
+                    String error = "在第" + i + "行，性别错误";
+                    throw new BusinessException(ErrorCode.PARAMS_ERROR, error);
+                }
+                Integer age = Integer.valueOf(new DataFormatter().formatCellValue(row.getCell(3)));
+                String major = row.getCell(4).getStringCellValue();  // 专业
+                if (!"计算机科学与技术".equals(major) && !"自动化".equals(major)) {
+                    String error = "在第" + i + "行，专业错误";
+                    throw new BusinessException(ErrorCode.PARAMS_ERROR, error);
+                }
+                String cid = row.getCell(5).getStringCellValue();  // 班级号
+                int grade = Integer.parseInt(new DataFormatter().formatCellValue(row.getCell(6)));
+                if (grade <= 0 || grade > 8) {
+                    String error = "在第" + i + "行，年级错误错误";
+                    throw new BusinessException(ErrorCode.PARAMS_ERROR, error);
+                }
+
+                // 校验数据
+                Student student = new Student();
+                student.setSid(sid);
+                student.setName(name);
+                student.setSex(sex.equals("男") ? 1 : 0);
+                student.setAge(age);
+                student.setMajor(major.equals("自动化") ? 1 : 0);
+                student.setCid(classMap.get(cid));
+                student.setGrade(grade);
+                // 校验数据
+                this.validStudent(student, true);
+
+                Student oldStudent = baseMapper.getStudentBySid(sid);
+                if (oldStudent != null) {
+                    String error = "在第" + i + "行，数据已存在";
+                    throw new BusinessException(ErrorCode.DATA_REPEAT, error);
+                }
+
+                studentList.add(student);
+            }
+
+            // 将列表保存至数据库中
+            boolean save = this.saveBatch(studentList);
+
+            return save;
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

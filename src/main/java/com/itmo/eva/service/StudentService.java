@@ -5,6 +5,7 @@ import com.itmo.eva.model.dto.student.StudentUpdateRequest;
 import com.itmo.eva.model.entity.Student;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.itmo.eva.model.vo.StudentVo;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -50,6 +51,13 @@ public interface StudentService extends IService<Student> {
      * 获取学生列表
      */
     List<StudentVo> listStudent();
+
+    /**
+     * Excel批量插入
+     * @param file excel
+     * @return 插入成功
+     */
+    Boolean excelImport(MultipartFile file);
 
 
     /**

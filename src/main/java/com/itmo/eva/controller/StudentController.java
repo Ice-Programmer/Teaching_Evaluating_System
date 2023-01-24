@@ -18,6 +18,7 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequestMapping("/student")
+@CrossOrigin
 public class StudentController {
 
     @Resource
@@ -91,6 +92,7 @@ public class StudentController {
      * @return 学生信息
      */
     @GetMapping("/get")
+    @CrossOrigin
     public BaseResponse<StudentVo> getStudentById(@RequestBody IdRequest idRequest) {
         if (idRequest == null || idRequest.getId() == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "请求参数为空");
