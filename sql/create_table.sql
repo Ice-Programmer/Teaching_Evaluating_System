@@ -97,3 +97,13 @@ create table e_evaluate
     e_time      varchar(200) null comment '结束时间',
     status      int          null comment '发布状态（0-评测结束 1-正在评测）'
 ) comment '评测表';
+
+-- 评价体系表
+create table if not exists eva.`e_system`
+(
+    `id` int not null auto_increment comment '主键' primary key,
+    `name` varchar(256) not null comment '指标名称',
+    `level` int not null comment '评价级别',
+    `kind` int not null comment '0为俄方，1为中方',
+    `sid` int not null comment '二级指标指向一级指标'
+) comment '评价体系表';

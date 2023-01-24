@@ -5,6 +5,7 @@ import com.itmo.eva.model.dto.teacher.TeacherUpdateRequest;
 import com.itmo.eva.model.entity.Teacher;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.itmo.eva.model.vo.TeacherVo;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -47,6 +48,13 @@ public interface TeacherService extends IService<Teacher> {
      * 获取教师列表
      */
     List<TeacherVo> listTeacher();
+
+    /**
+     * Excel批量插入
+     * @param file excel
+     * @return 插入成功
+     */
+    Boolean excelImport(MultipartFile file);
 
 
     /**

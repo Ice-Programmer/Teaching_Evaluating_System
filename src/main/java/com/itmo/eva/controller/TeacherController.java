@@ -7,9 +7,14 @@ import com.itmo.eva.model.dto.teacher.TeacherUpdateRequest;
 import com.itmo.eva.model.vo.TeacherVo;
 import com.itmo.eva.service.TeacherService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -115,9 +120,55 @@ public class TeacherController {
         if (teacherVoList == null) {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
         }
-
         return ResultUtils.success(teacherVoList);
     }
+
+    /**
+     * Excel文件批量上传教师信息
+     * @param file excel
+     * @return 保存成功
+     */
+    @PostMapping("/excel/import")
+    public BaseResponse<Boolean> saveExcel(@RequestParam("file") MultipartFile file) {
+
+        Boolean isImport = teacherService.excelImport(file);
+
+        if (!isImport) {
+            throw new BusinessException(ErrorCode.SYSTEM_ERROR, "保存文件失败！");
+        }
+
+        return ResultUtils.success(true);
+    }
+
+    /**
+     * 下载示例Excel
+     * @param response 请求
+     * @return 示例
+     */
+    @GetMapping("/excel/export")
+    public BaseResponse<Boolean> exportExcel(HttpServletResponse response) {
+
+        //2.建立Excel对象，封装数据
+        response.setCharacterEncoding("UTF-8");
+        //2.1创建Excel对象
+        XSSFWorkbook wb = new XSSFWorkbook();
+        //2.3创建sheet对象
+        XSSFSheet sheet = wb.createSheet("教师信息表");
+        //2.3创建表头
+        XSSFRow xssfRow = sheet.createRow(0);
+        xssfRow.createCell(0).setCellValue("教师名称");
+        xssfRow.createCell(1).setCellValue("性别");
+        xssfRow.createCell(2).setCellValue("年龄");
+        xssfRow.createCell(3).setCellValue("职位");
+        xssfRow.createCell(4).setCellValue("职称");
+        xssfRow.createCell(5).setCellValue("专业");
+        xssfRow.createCell(6).setCellValue("邮箱");
+        xssfRow.createCell(7).setCellValue("国籍");
+
+        return ResultUtils.success(true);
+    }
+
+
 
 
 }

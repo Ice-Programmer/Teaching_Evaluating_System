@@ -18,10 +18,17 @@ import com.itmo.eva.model.enums.MajorEnum;
 import com.itmo.eva.model.vo.TeacherVo;
 import com.itmo.eva.service.TeacherService;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -164,6 +171,94 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher>
         }).collect(Collectors.toList());
 
         return teacherVoList;
+    }
+
+    /**
+     * Excel 批量插入
+     * @param file excel
+     * @return 插入成功
+     */
+    @Override
+    public Boolean excelImport(MultipartFile file) {
+        // 1.判断文件是否为空
+        if (file.isEmpty()) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "请重新上传文件");
+        }
+        XSSFWorkbook wb = null;
+
+        try {
+            // 2.POI获取Excel文件信息
+            wb = new XSSFWorkbook(file.getInputStream());
+            XSSFSheet sheet = wb.getSheetAt(0);
+
+            // 3.定义程序集合来接收文件内容
+            List<Teacher> teacherList = new ArrayList<>();
+            XSSFRow row = null;
+
+            // 定义职称和职位的列表
+            List<Position> positionList = positionMapper.selectList(null);
+            List<Title> titleList = titleMapper.selectList(null);
+
+            // 将列表转化为map
+            Map<String, Integer> positionMap = positionList.stream().collect(Collectors.toMap(Position::getName, Position::getId));
+            Map<String, Integer> titleMap = titleList.stream().collect(Collectors.toMap(Title::getName, Title::getId));
+
+            //4.接收数据 装入集合中
+            for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
+                row = sheet.getRow(i);
+                String name = row.getCell(0).getStringCellValue();
+                String sex = row.getCell(1).getStringCellValue();
+                if (!"男".equals(sex) && !"女".equals(sex)) {
+                    String error = "在第" + i + "行，性别错误";
+                    throw new BusinessException(ErrorCode.PARAMS_ERROR, error);
+                }
+                Integer age = Integer.valueOf(new DataFormatter().formatCellValue(row.getCell(2)));
+                String position = row.getCell(3).getStringCellValue();  // 职位
+                if (!positionMap.containsKey(position)) {
+                    String error = "在第" + i + "行，职位错误";
+                    throw new BusinessException(ErrorCode.PARAMS_ERROR, error);
+                }
+                String title = row.getCell(4).getStringCellValue();  // 职称
+                if (!titleMap.containsKey(title)) {
+                    String error = "在第" + i + "行，职称错误";
+                    throw new BusinessException(ErrorCode.PARAMS_ERROR, error);
+                }
+                String major = row.getCell(5).getStringCellValue();  // 专业
+                if (!"计算机科学与技术".equals(major) && !"自动化".equals(major)) {
+                    String error = "在第" + i + "行，专业错误";
+                    throw new BusinessException(ErrorCode.PARAMS_ERROR, error);
+                }
+                String email = row.getCell(6).getStringCellValue(); // 邮箱
+                String identity = row.getCell(7).getStringCellValue(); // 国籍
+                Teacher teacher = new Teacher();
+                teacher.setName(name);
+                teacher.setSex(sex.equals("男") ? 1 : 0);
+                teacher.setAge(age);
+                teacher.setPosition(positionMap.get(position));
+                teacher.setTitle(titleMap.get(title));
+                teacher.setMajor(major.equals("自动化") ? 1 : 0);
+                teacher.setEmail(email);
+                teacher.setIdentity(identity.contains("俄") ? 0 : 1);
+                // 校验数据
+                this.validTeacher(teacher, true);
+
+                Teacher oldTeacher = baseMapper.getTeacherByNameAndEmail(name, email);
+                if (oldTeacher != null) {
+                    String error = "在第" + i + "行，数据已存在";
+                    throw new BusinessException(ErrorCode.DATA_REPEAT, error);
+                }
+
+                teacherList.add(teacher);
+            }
+
+            // 将列表保存至数据库中
+            boolean save = this.saveBatch(teacherList);
+
+            return save;
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
