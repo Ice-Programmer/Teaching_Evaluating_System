@@ -128,8 +128,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
         }
         CourseVo courseInfo = new CourseVo();
         // 获取教师名称
-        courseInfo.setTeacher(teacherMapper.getNameById(course.getTid()));
         BeanUtils.copyProperties(course, courseInfo);
+        courseInfo.setTeacher(teacherMapper.getNameById(course.getTid()));
 
         return courseInfo;
     }

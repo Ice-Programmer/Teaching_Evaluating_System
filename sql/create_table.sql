@@ -85,3 +85,15 @@ create table if not exists eva.`e_course`
     `tid` int not null comment '教师id',
     `grade` int null comment '年级'
 ) comment '课程表';
+
+-- 评测表
+create table e_evaluate
+(
+    id          int auto_increment
+        primary key,
+    name        varchar(200) null comment '评测名称',
+    create_time varchar(200) null comment '创建时间',
+    start_time  varchar(200) null comment '开始时间',
+    e_time      varchar(200) null comment '结束时间',
+    status      int          null comment '发布状态（0-评测结束 1-正在评测）'
+) comment '评测表';

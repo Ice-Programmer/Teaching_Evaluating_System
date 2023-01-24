@@ -87,14 +87,15 @@ public class TeacherController {
     /**
      * 根据 id 获取
      *
-     * @param id id请求体
+     * @param idRequest id请求体
      * @return 教师信息
      */
     @GetMapping("/get")
-    public BaseResponse<TeacherVo> getTeacherById(Long id) {
-        if (id == null) {
+    public BaseResponse<TeacherVo> getTeacherById(@RequestBody IdRequest idRequest) {
+        if (idRequest == null || idRequest.getId() == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "请求参数为空");
         }
+        Long id = idRequest.getId();
         TeacherVo teacherInfo = teacherService.getTeacherById(id);
 
         if (teacherInfo == null) {

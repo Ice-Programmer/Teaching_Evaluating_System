@@ -2,10 +2,11 @@ package com.itmo.eva.controller;
 
 import com.itmo.eva.common.*;
 import com.itmo.eva.exception.BusinessException;
-import com.itmo.eva.model.dto.course.CourseAddRequest;
-import com.itmo.eva.model.dto.course.CourseUpdateRequest;
-import com.itmo.eva.model.vo.CourseVo;
-import com.itmo.eva.service.CourseService;
+import com.itmo.eva.model.dto.evaluate.EvaluateAddRequest;
+import com.itmo.eva.model.dto.evaluate.EvaluateUpdateRequest;
+import com.itmo.eva.model.vo.EvaluateVo;
+import com.itmo.eva.service.EvaluateService;
+import com.itmo.eva.service.EvaluateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,28 +14,28 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * 课程接口
+ * 评测接口
  */
 @RestController
 @Slf4j
-@RequestMapping("/course")
-public class CourseController {
+@RequestMapping("/evaluate")
+public class EvaluateController {
 
     @Resource
-    private CourseService courseService;
+    private EvaluateService evaluateService;
 
     /**
-     * 添加课程
+     * 添加评测
      *
-     * @param courseAddRequest 添加请求体
+     * @param evaluateAddRequest 添加请求体
      * @return 添加成功
      */
     @PostMapping("/add")
-    public BaseResponse<Boolean> addCourse(@RequestBody CourseAddRequest courseAddRequest) {
-        if (courseAddRequest == null) {
+    public BaseResponse<Boolean> addEvaluate(@RequestBody EvaluateAddRequest evaluateAddRequest) {
+        if (evaluateAddRequest == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "添加参数为空");
         }
-        Boolean save = courseService.addCourse(courseAddRequest);
+        Boolean save = evaluateService.addEvaluate(evaluateAddRequest);
 
         if (!save) {
             throw new BusinessException(ErrorCode.OPERATION_ERROR, "保存数据失败！");
@@ -44,18 +45,18 @@ public class CourseController {
     }
 
     /**
-     * 删除课程信息
+     * 删除评测信息
      *
      * @param deleteRequest 删除请求体
      * @return 删除成功
      */
     @PostMapping("/delete")
-    public BaseResponse<Boolean> deleteCourse(@RequestBody DeleteRequest deleteRequest) {
+    public BaseResponse<Boolean> deleteEvaluate(@RequestBody DeleteRequest deleteRequest) {
         Long id = deleteRequest.getId();
         if (id == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "id为空");
         }
-        Boolean delete = courseService.deleteCourse(id);
+        Boolean delete = evaluateService.deleteEvaluate(id);
 
         if (!delete) {
             throw new BusinessException(ErrorCode.OPERATION_ERROR, "删除信息失败！");
@@ -65,17 +66,17 @@ public class CourseController {
     }
 
     /**
-     * 更新课程信息
+     * 更新评测信息
      *
-     * @param courseUpdateRequest 更新请求体
+     * @param evaluateUpdateRequest 更新请求体
      * @return 更新成功
      */
     @PostMapping("/update")
-    public BaseResponse<Boolean> updateCourse(@RequestBody CourseUpdateRequest courseUpdateRequest) {
-        if (courseUpdateRequest == null) {
+    public BaseResponse<Boolean> updateEvaluate(@RequestBody EvaluateUpdateRequest evaluateUpdateRequest) {
+        if (evaluateUpdateRequest == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "请求参数为空");
         }
-        Boolean update = courseService.updateCourse(courseUpdateRequest);
+        Boolean update = evaluateService.updateEvaluate(evaluateUpdateRequest);
 
         if (!update) {
             throw new BusinessException(ErrorCode.OPERATION_ERROR, "更新数据失败！");
@@ -88,35 +89,35 @@ public class CourseController {
      * 根据 id 获取
      *
      * @param idRequest id请求体
-     * @return 课程信息
+     * @return 评测信息
      */
     @PostMapping("/get")
-    public BaseResponse<CourseVo> getCourseById(@RequestBody IdRequest idRequest) {
+    public BaseResponse<EvaluateVo> getEvaluateById(@RequestBody IdRequest idRequest) {
         if (idRequest == null || idRequest.getId() == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "请求参数为空");
         }
         Long id = idRequest.getId();
-        CourseVo courseInfo = courseService.getCourseById(id);
+        EvaluateVo evaluateInfo = evaluateService.getEvaluateById(id);
 
-        if (courseInfo == null) {
+        if (evaluateInfo == null) {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
         }
-        return ResultUtils.success(courseInfo);
+        return ResultUtils.success(evaluateInfo);
     }
 
     /**
      * 获取列表
      *
-     * @return 所有课程信息
+     * @return 所有评测信息
      */
     @GetMapping("/list")
-    public BaseResponse<List<CourseVo>> listCourse() {
-        List<CourseVo> courseVoList = courseService.listCourse();
-        if (courseVoList == null) {
+    public BaseResponse<List<EvaluateVo>> listEvaluate() {
+        List<EvaluateVo> evaluateVoList = evaluateService.listEvaluate();
+        if (evaluateVoList == null) {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
         }
 
-        return ResultUtils.success(courseVoList);
+        return ResultUtils.success(evaluateVoList);
     }
 
 

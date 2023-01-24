@@ -1,6 +1,11 @@
 package com.itmo.eva.utils;
 
+import org.apache.commons.lang3.StringUtils;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
  
@@ -85,6 +90,28 @@ public class SpecialUtil {
         return start;
     }
 
+    /**
+     * 验证字符串是否为指定日期格式
+     * @param oriDateStr 待验证字符串
+     * @param pattern 日期字符串格式, 例如 "yyyy-MM-dd"
+     * @return 有效性结果, true 为正确, false 为错误
+     */
+    public static boolean dateStrIsValid(String oriDateStr, String pattern) {
+        if (StringUtils.isBlank(oriDateStr) || StringUtils.isBlank(pattern)) {
+            return true;
+        }
 
- 
+        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
+
+        try {
+            Date date = dateFormat.parse(oriDateStr);
+            return !oriDateStr.equals(dateFormat.format(date));
+        } catch (ParseException e) {
+            return true;
+        }
+    }
+
+
+
+
 }

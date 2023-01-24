@@ -27,6 +27,7 @@ public class AdminController {
 
     /**
      * 用户登陆
+     *
      * @param adminLoginRequest 管理员登陆请求体
      * @return token
      */
@@ -44,6 +45,12 @@ public class AdminController {
         return ResultUtils.success(token);
     }
 
+    /**
+     * 获取登陆信息
+     *
+     * @param token token
+     * @return 登陆信息
+     */
     @GetMapping("/get/login")
     public BaseResponse<AdminVo> getLoginUser(@RequestHeader("access-token") String token) {
         AdminVo adminInfo = adminService.getLoginUser(token);

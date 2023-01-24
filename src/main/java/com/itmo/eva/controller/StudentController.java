@@ -1,9 +1,6 @@
 package com.itmo.eva.controller;
 
-import com.itmo.eva.common.BaseResponse;
-import com.itmo.eva.common.DeleteRequest;
-import com.itmo.eva.common.ErrorCode;
-import com.itmo.eva.common.ResultUtils;
+import com.itmo.eva.common.*;
 import com.itmo.eva.exception.BusinessException;
 import com.itmo.eva.model.dto.student.StudentAddRequest;
 import com.itmo.eva.model.dto.student.StudentUpdateRequest;
@@ -90,14 +87,15 @@ public class StudentController {
     /**
      * 根据 id 获取
      *
-     * @param id id请求体
+     * @param idRequest id请求体
      * @return 学生信息
      */
     @GetMapping("/get")
-    public BaseResponse<StudentVo> getStudentById(Long id) {
-        if (id == null) {
+    public BaseResponse<StudentVo> getStudentById(@RequestBody IdRequest idRequest) {
+        if (idRequest == null || idRequest.getId() == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "请求参数为空");
         }
+        Long id = idRequest.getId();
         StudentVo studentInfo = studentService.getStudentById(id);
 
         if (studentInfo == null) {
