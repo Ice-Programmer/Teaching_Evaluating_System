@@ -127,6 +127,18 @@
             <artifactId>poi-ooxml</artifactId>
             <version>4.0.0</version>
         </dependency>
+
+        <!--    邮箱    mail-->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>javax.mail-api</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.6.2</version>
+        </dependency>
     </dependencies>
 
     <build>

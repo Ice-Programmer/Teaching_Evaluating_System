@@ -6,6 +6,7 @@ import com.itmo.eva.model.entity.Teacher;
 import com.itmo.eva.model.enums.IdentityEnum;
 import com.itmo.eva.model.vo.TeacherVo;
 import com.itmo.eva.service.TeacherService;
+import com.itmo.eva.utils.MailUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanUtils;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,11 +33,9 @@ class EvaApplicationTests {
 
 	@Test
 	void getById() {
-		Teacher teacher = teacherService.getById(1);
-		TeacherVo teacherVo = new TeacherVo();
-		BeanUtils.copyProperties(teacher, teacherVo);
-		System.out.println(teacherVo);
-		
+		String content = "Hello world!";
+		MailUtil.sendMail("cqkjmx@163.com",content,"测试邮件");
+		System.out.println("发送成功");
 
 	}
 

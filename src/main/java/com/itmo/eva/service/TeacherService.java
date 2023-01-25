@@ -65,4 +65,17 @@ public interface TeacherService extends IService<Teacher> {
      */
     void validTeacher(Teacher teacher, boolean add);
 
+    /**
+     * 获取所有中方教师
+     *
+     * @return 中方教师
+     */
+    List<TeacherVo> getChineseTeacher();
+
+    /**
+     * 获取所有俄方教师
+     *
+     * @return 俄方教师
+     */
+    List<TeacherVo> getRussianTeacher();
 }

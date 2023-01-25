@@ -21,6 +21,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -189,8 +190,8 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student>
             XSSFSheet sheet = wb.getSheetAt(0);
 
             // 3.定义程序集合来接收文件内容
-            List<Student> studentList = new ArrayList<>();
             XSSFRow row = null;
+            List<Student> studentList = new ArrayList<>();
 
             List<StudentClass> classList = studentClassMapper.selectList(null);
             Map<String, Integer> classMap = classList.stream().collect(Collectors.toMap(StudentClass::getCid, StudentClass::getId));
@@ -199,7 +200,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student>
             for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
                 row = sheet.getRow(i);
                 String name = row.getCell(0).getStringCellValue();
-                String sid = row.getCell(1).getStringCellValue();
+                String sid = new DataFormatter().formatCellValue(row.getCell(1));
                 String sex = row.getCell(2).getStringCellValue();
                 if (!"男".equals(sex) && !"女".equals(sex)) {
                     String error = "在第" + i + "行，性别错误";
@@ -211,7 +212,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student>
                     String error = "在第" + i + "行，专业错误";
                     throw new BusinessException(ErrorCode.PARAMS_ERROR, error);
                 }
-                String cid = row.getCell(5).getStringCellValue();  // 班级号
+                String cid = new DataFormatter().formatCellValue(row.getCell(5));  // 班级号
                 int grade = Integer.parseInt(new DataFormatter().formatCellValue(row.getCell(6)));
                 if (grade <= 0 || grade > 8) {
                     String error = "在第" + i + "行，年级错误错误";
@@ -227,6 +228,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student>
                 student.setMajor(major.equals("自动化") ? 1 : 0);
                 student.setCid(classMap.get(cid));
                 student.setGrade(grade);
+                student.setPassword(DigestUtils.md5DigestAsHex(sid.getBytes(StandardCharsets.UTF_8)));
                 // 校验数据
                 this.validStudent(student, true);
 

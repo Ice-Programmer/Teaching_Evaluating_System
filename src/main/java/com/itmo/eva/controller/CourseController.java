@@ -7,9 +7,14 @@ import com.itmo.eva.model.dto.course.CourseUpdateRequest;
 import com.itmo.eva.model.vo.CourseVo;
 import com.itmo.eva.service.CourseService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -117,6 +122,48 @@ public class CourseController {
         }
 
         return ResultUtils.success(courseVoList);
+    }
+
+    /**
+     * Excel文件批量课程教师信息
+     * @param file excel
+     * @return 保存成功
+     */
+    @PostMapping("/excel/import")
+    public BaseResponse<Boolean> saveExcel(@RequestParam("file") MultipartFile file) {
+
+        Boolean isImport = courseService.excelImport(file);
+
+        if (!isImport) {
+            throw new BusinessException(ErrorCode.SYSTEM_ERROR, "保存文件失败！");
+        }
+
+        return ResultUtils.success(true);
+    }
+
+    /**
+     * 下载示例Excel
+     * @param response 请求
+     * @return 示例
+     */
+    @GetMapping("/excel/export")
+    public BaseResponse<Boolean> exportExcel(HttpServletResponse response) {
+
+        //2.建立Excel对象，封装数据
+        response.setCharacterEncoding("UTF-8");
+        //2.1创建Excel对象
+        XSSFWorkbook wb = new XSSFWorkbook();
+        //2.3创建sheet对象
+        XSSFSheet sheet = wb.createSheet("学生信息表");
+        //2.3创建表头
+        XSSFRow xssfRow = sheet.createRow(0);
+        xssfRow.createCell(0).setCellValue("课程信息");
+        xssfRow.createCell(1).setCellValue("课程英文名");
+        xssfRow.createCell(2).setCellValue("授课专业");
+        xssfRow.createCell(3).setCellValue("授课教师（请用中文逗号分割）");
+        xssfRow.createCell(4).setCellValue("年级");
+
+        return ResultUtils.success(true);
     }
 
 

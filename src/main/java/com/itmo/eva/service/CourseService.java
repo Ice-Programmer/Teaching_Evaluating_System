@@ -6,6 +6,7 @@ import com.itmo.eva.model.entity.Course;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.itmo.eva.model.entity.Course;
 import com.itmo.eva.model.vo.CourseVo;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -52,6 +53,13 @@ public interface CourseService extends IService<Course> {
      */
     List<CourseVo> listCourse();
 
+
+    /**
+     * Excel文件批量上传课程信息
+     * @param file excel文件
+     * @return 保存成功
+     */
+    Boolean excelImport(MultipartFile file);
 
     /**
      * 校验

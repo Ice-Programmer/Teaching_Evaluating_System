@@ -42,7 +42,6 @@ public class JwtUtil {
         return token;
     }
 
-
     /**
      * 解析token
      * @param token token字符串

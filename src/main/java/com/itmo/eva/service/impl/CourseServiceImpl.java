@@ -10,16 +10,25 @@ import com.itmo.eva.model.dto.course.CourseAddRequest;
 import com.itmo.eva.model.dto.course.CourseUpdateRequest;
 import com.itmo.eva.model.entity.Course;
 import com.itmo.eva.model.entity.Teacher;
+import com.itmo.eva.model.enums.GradeEnum;
 import com.itmo.eva.model.enums.MajorEnum;
 import com.itmo.eva.model.vo.CourseVo;
 import com.itmo.eva.service.CourseService;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -136,6 +145,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
 
     /**
      * 获取列表
+     *
      * @return 课程列表
      */
     @Override
@@ -157,6 +167,104 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
 
         return courseVoList;
     }
+
+    /**
+     * excel批量保存课程信息
+     *
+     * @param file excel文件
+     * @return 保存成功
+     */
+    @Override
+    public Boolean excelImport(MultipartFile file) {
+        // 1.判断文件是否为空
+        if (file.isEmpty()) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "请重新上传文件");
+        }
+
+
+
+        XSSFWorkbook wb = null;
+        try {
+            // 2.POI 获取Excel数据
+            wb = new XSSFWorkbook(file.getInputStream());
+            XSSFSheet sheet = wb.getSheetAt(0);
+
+            // 3.定义程序集合来接收文件内容
+            List<Course> courseList = new ArrayList<>();
+            XSSFRow row = null;
+
+            List<Teacher> teacherList = teacherMapper.selectList(null);
+            Map<String, Long> teacherMap = teacherList.stream().collect(Collectors.toMap(Teacher::getName, Teacher::getId));
+
+            //4.接收数据 装入集合中
+            for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
+                row = sheet.getRow(i);
+                Course course = new Course();
+                String cName = row.getCell(0).getStringCellValue();
+                String eName = row.getCell(1).getStringCellValue();
+                String major = row.getCell(2).getStringCellValue();
+                String teacher = row.getCell(3).getStringCellValue();
+                Integer grade = Integer.valueOf(new DataFormatter().formatCellValue(row.getCell(4)));
+                if (!"计算机科学与技术".equals(major) && !"自动化".equals(major)) {
+                    String error = "在第" + i + "行，专业错误";
+                    throw new BusinessException(ErrorCode.PARAMS_ERROR, error);
+                }
+                if (grade <= 0 || grade > 8) {
+                    String error = "在第" + i + "行，年级错误";
+                    throw new BusinessException(ErrorCode.PARAMS_ERROR, error);
+                }
+                // 统一用中文逗号
+                if (teacher.contains("，")) {
+                    String[] teachers = teacher.split("，");
+                    Long teacherId = null;
+                    for (String e : teachers) {
+                        Course course1 = new Course();
+                        teacherId = teacherMap.get(e);
+                        course1.setCName(cName);
+                        course1.setEName(eName);
+                        course1.setMajor(major.equals("自动化") ? 1 : 0);
+                        course1.setTid(teacherId);
+                        course1.setGrade(grade);
+                        this.validCourse(course1, true);
+                        Course oldCourse = baseMapper.getCourseByNameAndTeacher(cName, teacherId);
+                        if (oldCourse != null) {
+                            String error = "在第" + i + "行，数据已存在";
+                            throw new BusinessException(ErrorCode.PARAMS_ERROR, error);
+                        }
+                        courseList.add(course1);
+                    }
+                    continue;
+                }
+                Long teacherId = teacherMap.get(teacher);
+                course.setCName(cName);
+                course.setEName(eName);
+                course.setMajor(major.equals("自动化") ? 1 : 0);
+                course.setTid(teacherId);
+                course.setGrade(grade);
+                // 判断数据是否已经存在 【根据名称和教师id进行查询】
+                Course oldCourse = baseMapper.getCourseByNameAndTeacher(cName, teacherId);
+                if (oldCourse != null) {
+                    String error = "在第" + i + "行，数据已存在";
+                    throw new BusinessException(ErrorCode.PARAMS_ERROR, error);
+                }
+                this.validCourse(course, true);
+                courseList.add(course);
+            }
+
+            // 将列表保存到数据库中
+            boolean save = this.saveBatch(courseList);
+
+            if (!save) {
+                throw new BusinessException(ErrorCode.SYSTEM_ERROR, "保存文件失败");
+            }
+            // 保存成功
+            return true;
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     /**
      * 获取课程列表

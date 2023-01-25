@@ -168,7 +168,30 @@ public class TeacherController {
         return ResultUtils.success(true);
     }
 
+    /**
+     * 获取中方教师信息
+     * @return
+     */
+    @GetMapping("/get/china")
+    public BaseResponse<List<TeacherVo>> getChineseTeacher() {
+        List<TeacherVo> chineseTeacher = teacherService.getChineseTeacher();
+        if (chineseTeacher == null) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
+        }
+        return ResultUtils.success(chineseTeacher);
+    }
 
+    /**
+     * 获取俄方教师信息
+     */
+    @GetMapping("/get/russia")
+    public BaseResponse<List<TeacherVo>> getRussianTeacher() {
+        List<TeacherVo> russianTeacher = teacherService.getRussianTeacher();
+        if (russianTeacher == null) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
+        }
+        return ResultUtils.success(russianTeacher);
+    }
 
 
 }

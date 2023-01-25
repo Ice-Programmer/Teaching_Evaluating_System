@@ -4,6 +4,8 @@ import com.itmo.eva.model.entity.Teacher;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 /**
  * @author chenjiahan
  * @description 针对表【e_teacher(教师表)】的数据库操作Mapper
@@ -24,6 +26,13 @@ public interface TeacherMapper extends BaseMapper<Teacher> {
 
     @Select("select name from e_teacher where id = #{tid}")
     String getNameById(Long tid);
+
+    @Select("select * from e_teacher where identity = 1")
+    List<Teacher> getChineseTeacher();
+
+
+    @Select("select * from e_teacher where identity = 0")
+    List<Teacher> getRussianTeacher();
 }
 
 

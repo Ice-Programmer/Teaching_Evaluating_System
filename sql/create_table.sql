@@ -107,3 +107,61 @@ create table if not exists eva.`e_system`
     `kind` int not null comment '0为俄方，1为中方',
     `sid` int not null comment '二级指标指向一级指标'
 ) comment '评价体系表';
+
+-- 一级指标表
+create table e_mark_history
+(
+    id    int auto_increment
+        primary key,
+    tid   int           null comment '教师主键',
+    cid   int           null comment '课程主键',
+    eid   int           null comment '评价主键',
+    score int           null comment '分数',
+    sid   int           null comment '评价体系主键',
+    aid   int           null comment '学生主键',
+    state int default 0 null comment '0默认未完成，1为完成该一级测评'
+) comment '一级指标表';
+
+
+-- 总分表
+create table e_score_history
+(
+    id    int auto_increment
+        primary key,
+    tid   int            null comment '教师主键',
+    cid   int            null comment '课程主键',
+    score decimal(10, 2) null comment '总分',
+    eid   int            null comment '评价主键'
+) comment '总分表';
+
+-- 权重表
+create table e_weight
+(
+    id     int auto_increment
+        primary key,
+    lid    int           null comment '一级指标的主键',
+    weight decimal(2, 2) null comment '一级指标对应的权重'
+) comment '权重表';
+
+-- 红线表
+create table e_redline_history
+(
+    id     int auto_increment
+        primary key,
+    tid         int            null comment '教师主键',
+    gid         int            null comment '年级',
+    cid         int            null comment '课程主键',
+    score       decimal(10, 2) null comment '分数',
+    happen_time varchar(200)   null comment '发生时间'
+) comment '红线表';
+
+-- 邮件发送记录
+create table e_email_history
+(
+    id          int auto_increment
+        primary key,
+    name        varchar(200) null comment '操作人姓名',
+    operation   varchar(200) null comment '操作',
+    submit_time varchar(200) null comment '提交时间'
+) comment '邮件记录表';
+

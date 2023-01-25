@@ -24,6 +24,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -35,13 +36,13 @@ import java.util.stream.Collectors;
 
 
 /**
-* @author chenjiahan
-* @description 针对表【e_teacher(教师表)】的数据库操作Service实现
-* @createDate 2023-01-21 13:17:49
-*/
+ * @author chenjiahan
+ * @description 针对表【e_teacher(教师表)】的数据库操作Service实现
+ * @createDate 2023-01-21 13:17:49
+ */
 @Service
 public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher>
-    implements TeacherService {
+        implements TeacherService {
 
     @Resource
     private TeacherMapper teacherMapper;
@@ -54,13 +55,14 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher>
 
     /**
      * 添加教师
+     *
      * @param teacherAddRequest 教师请求体
      * @return 添加成功
      */
     @Override
     public Boolean addTeacher(TeacherAddRequest teacherAddRequest) {
         if (teacherAddRequest == null) {
-           throw new BusinessException(ErrorCode.PARAMS_ERROR, "请求参数为空");
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "请求参数为空");
         }
 
         // 判断该教师是否存在 【根据姓名和邮箱】
@@ -83,6 +85,7 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher>
 
     /**
      * 删除教师
+     *
      * @param id 删除id
      * @return 删除成功
      */
@@ -100,6 +103,7 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher>
 
     /**
      * 更新教师
+     *
      * @param teacherUpdateRequest 更新请求体
      * @return 更新成功
      */
@@ -125,6 +129,7 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher>
 
     /**
      * 根据 id 获取
+     *
      * @param id id
      * @return 教师信息
      */
@@ -148,6 +153,7 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher>
 
     /**
      * 获取教师列表
+     *
      * @return 教师列表
      */
     @Override
@@ -175,6 +181,7 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher>
 
     /**
      * Excel 批量插入
+     *
      * @param file excel
      * @return 插入成功
      */
@@ -262,9 +269,61 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher>
     }
 
     /**
+     * 获取中方教师
+     *
+     * @return 中方教师
+     */
+    @Override
+    public List<TeacherVo> getChineseTeacher() {
+        List<Teacher> teacherList = baseMapper.getChineseTeacher();
+        if (teacherList == null) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "没有数据记录");
+        }
+
+        List<Position> positionList = positionMapper.selectList(null);
+        Map<Integer, String> positionMap = positionList.stream().collect(Collectors.toMap(Position::getId, Position::getName));
+        List<Title> titleList = titleMapper.selectList(null);
+        Map<Integer, String> titleMap = titleList.stream().collect(Collectors.toMap(Title::getId, Title::getName));
+
+        List<TeacherVo> teacherVoList = teacherList.stream().map((teacher) -> {
+            TeacherVo teacherVo = new TeacherVo();
+            BeanUtils.copyProperties(teacher, teacherVo);
+            teacherVo.setPosition(positionMap.get(teacher.getPosition()));
+            teacherVo.setTitle(titleMap.get(teacher.getTitle()));
+            return teacherVo;
+        }).collect(Collectors.toList());
+
+        return teacherVoList;
+    }
+
+    @Override
+    public List<TeacherVo> getRussianTeacher() {
+        List<Teacher> teacherList = baseMapper.getRussianTeacher();
+        if (teacherList == null) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "没有数据记录");
+        }
+
+        List<Position> positionList = positionMapper.selectList(null);
+        Map<Integer, String> positionMap = positionList.stream().collect(Collectors.toMap(Position::getId, Position::getName));
+        List<Title> titleList = titleMapper.selectList(null);
+        Map<Integer, String> titleMap = titleList.stream().collect(Collectors.toMap(Title::getId, Title::getName));
+
+        List<TeacherVo> teacherVoList = teacherList.stream().map((teacher) -> {
+            TeacherVo teacherVo = new TeacherVo();
+            BeanUtils.copyProperties(teacher, teacherVo);
+            teacherVo.setPosition(positionMap.get(teacher.getPosition()));
+            teacherVo.setTitle(titleMap.get(teacher.getTitle()));
+            return teacherVo;
+        }).collect(Collectors.toList());
+
+        return teacherVoList;
+    }
+
+    /**
      * 数据校验
+     *
      * @param teacher 教师信息
-     * @param add 是否为创建校验
+     * @param add     是否为创建校验
      */
     @Override
     public void validTeacher(Teacher teacher, boolean add) {
@@ -305,6 +364,8 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher>
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "职称不符合规范");
         }
     }
+
+
 }
 
 
