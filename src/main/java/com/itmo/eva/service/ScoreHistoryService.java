@@ -2,6 +2,9 @@ package com.itmo.eva.service;
 
 import com.itmo.eva.model.entity.ScoreHistory;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.itmo.eva.model.vo.ScoreHistoryVo;
+
+import java.util.List;
 
 /**
 * @author chenjiahan
@@ -10,4 +13,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface ScoreHistoryService extends IService<ScoreHistory> {
 
+    /**
+     * 获取所有中方教师分数
+     * @return 中方分数
+     */
+    List<ScoreHistoryVo> getChineseScore();
 }

@@ -8,6 +8,7 @@ import com.itmo.eva.model.dto.evaluate.EvaluateAddRequest;
 import com.itmo.eva.model.dto.evaluate.EvaluateUpdateRequest;
 import com.itmo.eva.model.entity.Evaluate;
 import com.itmo.eva.model.vo.EvaluateVo;
+import com.itmo.eva.model.vo.StudentVo;
 import com.itmo.eva.service.EvaluateService;
 import com.itmo.eva.utils.SpecialUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -147,6 +148,16 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
             return evaluateVo;
         }).collect(Collectors.toList());
         return evaluateVoList;
+    }
+
+    /**
+     * 获取完成学生
+     * @param eid 评测id
+     * @return 完成学生列表
+     */
+    @Override
+    public List<StudentVo> listStudentDone(Integer eid) {
+        return null;
     }
 
     /**

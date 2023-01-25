@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itmo.eva.mapper.RedlineHistoryMapper">
+
+    <resultMap id="BaseResultMap" type="com.itmo.eva.model.entity.RedlineHistory">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="tid" column="tid" jdbcType="INTEGER"/>
+            <result property="gid" column="gid" jdbcType="INTEGER"/>
+            <result property="cid" column="cid" jdbcType="INTEGER"/>
+            <result property="score" column="score" jdbcType="DECIMAL"/>
+            <result property="happen_time" column="happen_time" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,tid,gid,
+        cid,score,happen_time
+    </sql>
+</mapper>

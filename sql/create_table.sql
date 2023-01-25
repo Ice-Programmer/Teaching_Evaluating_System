@@ -165,3 +165,19 @@ create table e_email_history
     submit_time varchar(200) null comment '提交时间'
 ) comment '邮件记录表';
 
+-- 红线指标
+create table e_redline
+(
+    id    int auto_increment
+        primary key,
+    score decimal(10, 2) null comment '红线指标'
+) comment '红线指标表';
+
+-- 平均分表
+create table if not exists eva.`e_average_score`
+(
+    `id` bigint not null auto_increment comment '主键' primary key,
+    `tid` bigint not null comment '教师id',
+    `sid` int not null comment '评价体系id',
+    `score` int not null comment '分数'
+) comment '平均分表';
