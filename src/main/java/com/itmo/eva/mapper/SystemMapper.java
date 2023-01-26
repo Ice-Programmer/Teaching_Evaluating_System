@@ -38,7 +38,11 @@ public interface SystemMapper extends BaseMapper<System> {
     @Select("select * from e_system where level = 1 and kind = 1")
     List<System> getChineseFirstSystem();
 
-
+    /**
+     * 根据国籍获取教师一级评价
+     * @param kind 国籍
+     * @return 一级评价
+     */
     @Select("select * from e_system where level = 1 and kind = #{kind}")
     List<System> getCountByKind(Integer kind);
 

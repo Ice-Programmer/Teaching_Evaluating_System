@@ -3,10 +3,11 @@ package com.itmo.eva.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itmo.eva.common.ErrorCode;
 import com.itmo.eva.exception.BusinessException;
-import com.itmo.eva.mapper.EvaluateMapper;
+import com.itmo.eva.mapper.*;
 import com.itmo.eva.model.dto.evaluate.EvaluateAddRequest;
 import com.itmo.eva.model.dto.evaluate.EvaluateUpdateRequest;
-import com.itmo.eva.model.entity.Evaluate;
+import com.itmo.eva.model.entity.*;
+import com.itmo.eva.model.entity.System;
 import com.itmo.eva.model.vo.EvaluateVo;
 import com.itmo.eva.model.vo.StudentVo;
 import com.itmo.eva.service.EvaluateService;
@@ -29,6 +30,18 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
 
     @Resource
     private EvaluateMapper evaluateMapper;
+
+    @Resource
+    private StudentMapper studentMapper;
+
+    @Resource
+    private CourseMapper courseMapper;
+
+    @Resource
+    private SystemMapper systemMapper;
+
+    @Resource
+    private MarkHistoryMapper markHistoryMapper;
 
     /**
      * 添加评测
@@ -56,9 +69,13 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
         Evaluate evaluate = new Evaluate();
         BeanUtils.copyProperties(evaluateAddRequest, evaluate);
 
+
         // 校验数据
         this.validEvaluate(evaluate, true);
         boolean save = this.save(evaluate);
+
+        // 发布评测给学生
+        releaseEvaluation(evaluate.getId());
 
         return save;
     }
@@ -180,6 +197,59 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
             }
         }
     }
+
+    /**
+     * 分发学生测评
+     * @param evaluateId 评测id
+     */
+    public void releaseEvaluation(Integer evaluateId) {
+        // 取出所有学生信息
+        List<Student> studentList = studentMapper.selectList(null);
+
+        for (Student student : studentList) {
+            // 取出grade和major，来查询学生的响应课程
+            Integer grade = student.getGrade();
+            Integer major = student.getMajor();
+            Long studentId = student.getId();
+
+            // 获取该学生的所有课程信息
+            List<Course> courseList = courseMapper.getCourseByMajorAndGrade(major, grade);
+            for (Course course : courseList) {
+                // 取出教师id，来查询课程的所有老师
+                Long teacherId = course.getTid();
+                Integer courseId = course.getId();
+
+                // 查询教师所有的一级指标
+                List<System> systemList = systemMapper.getCountByKind(teacherId.intValue());
+
+                for (System system : systemList) {
+                    Integer systemId = system.getId();
+                    MarkHistory markHistory = new MarkHistory();
+                    markHistory.setTid(teacherId.intValue());
+                    markHistory.setCid(courseId);
+                    markHistory.setEid(evaluateId);
+                    markHistory.setScore(0);
+                    markHistory.setSid(systemId);
+                    markHistory.setAid(studentId.intValue());
+                    markHistory.setState(0);
+                    // 插入数据库
+                    markHistoryMapper.insert(markHistory);
+                }
+
+            }
+        }
+
+
+    }
+
+    /**
+     * 在这里写一下分发逻辑 【帮助笨蛋开发者梳理逻辑】
+     *
+     * 学生 =》 课程         根据学生的年级（grade）和专业（major）来查找课程信息
+     * 课程 =》 老师         根据课程的tid来查找教师信息
+     * 老师 =》 一级指标      根据老师的国籍（identity）来确定需要的一级指标
+     *
+     */
 }
 
 
