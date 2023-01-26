@@ -161,7 +161,7 @@ public class CourseController {
         xssfRow.createCell(1).setCellValue("课程英文名");
         xssfRow.createCell(2).setCellValue("授课专业");
         xssfRow.createCell(3).setCellValue("授课教师（请用中文逗号分割）");
-        xssfRow.createCell(4).setCellValue("年级");
+        xssfRow.createCell(4).setCellValue("学期");
 
         return ResultUtils.success(true);
     }

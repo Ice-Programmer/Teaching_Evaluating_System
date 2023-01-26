@@ -164,7 +164,7 @@ public class StudentController {
         xssfRow.createCell(3).setCellValue("年龄");
         xssfRow.createCell(4).setCellValue("专业");
         xssfRow.createCell(5).setCellValue("班级号");
-        xssfRow.createCell(6).setCellValue("年级");
+        xssfRow.createCell(6).setCellValue("学期");
 
         return ResultUtils.success(true);
     }
