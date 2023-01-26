@@ -4,6 +4,8 @@ import com.itmo.eva.model.entity.Evaluate;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 /**
 * @author chenjiahan
 * @description 针对表【e_evaluate(评测表)】的数据库操作Mapper
@@ -17,6 +19,16 @@ public interface EvaluateMapper extends BaseMapper<Evaluate> {
 
     @Select("select * from e_evaluate where status = 1")
     Evaluate getEvaluateByStatus();
+
+    @Select("select status from e_evaluate where id =#{eid}")
+    Integer getStatusById(Integer eid);
+
+    /**
+     * 获取已经结束的所有评测信息
+     */
+    @Select("select * from e_evaluate where status = 0")
+    List<Evaluate> getAllEndEvaluation();
+
 }
 
 

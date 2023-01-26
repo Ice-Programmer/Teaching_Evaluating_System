@@ -95,7 +95,7 @@ public class StudentController {
      * @param idRequest id请求体
      * @return 学生信息
      */
-    @GetMapping("/get")
+    @PostMapping("/get")
     @CrossOrigin
     public BaseResponse<StudentVo> getStudentById(@RequestBody IdRequest idRequest) {
         if (idRequest == null || idRequest.getId() == null) {

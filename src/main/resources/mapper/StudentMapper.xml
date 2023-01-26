@@ -14,7 +14,7 @@
             <result property="major" column="major" jdbcType="TINYINT"/>
             <result property="cid" column="cid" jdbcType="INTEGER"/>
             <result property="grade" column="grade" jdbcType="INTEGER"/>
-            <result property="tag" column="tag" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
             <result property="addressIp" column="addressIp" jdbcType="VARCHAR"/>
             <result property="addressName" column="addressName" jdbcType="VARCHAR"/>
     </resultMap>

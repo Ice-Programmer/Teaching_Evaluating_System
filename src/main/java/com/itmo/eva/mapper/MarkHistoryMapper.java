@@ -14,8 +14,16 @@ import java.util.List;
 */
 public interface MarkHistoryMapper extends BaseMapper<MarkHistory> {
 
-    @Select("select * from e_mark_history where tid = #{tid}")
-    List<MarkHistory> getScoreByTid(Integer tid);
+    /**
+     * 根据教师id查找
+     * @param tid 教师id
+     * @return 一级评价信息
+     */
+    @Select("select * from e_mark_history where tid = #{tid} and eid = {eid} and sid = {sid}")
+    List<MarkHistory> getScoreByTidAndSidAndEid(Integer eid, Integer tid, Integer sid);
+
+    @Select("select * from e_mark_history where eid = #{eid}")
+    List<MarkHistory> getByEid(Integer eid);
 }
 
 

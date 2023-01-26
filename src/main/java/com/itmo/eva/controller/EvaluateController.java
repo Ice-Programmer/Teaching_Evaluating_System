@@ -6,7 +6,6 @@ import com.itmo.eva.model.dto.evaluate.EvaluateAddRequest;
 import com.itmo.eva.model.dto.evaluate.EvaluateUpdateRequest;
 import com.itmo.eva.model.vo.EvaluateVo;
 import com.itmo.eva.service.EvaluateService;
-import com.itmo.eva.service.EvaluateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 

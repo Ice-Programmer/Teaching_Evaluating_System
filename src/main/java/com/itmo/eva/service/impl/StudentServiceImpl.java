@@ -10,9 +10,11 @@ import com.itmo.eva.model.dto.student.StudentAddRequest;
 import com.itmo.eva.model.dto.student.StudentUpdateRequest;
 import com.itmo.eva.model.entity.*;
 import com.itmo.eva.model.enums.GenderEnum;
+import com.itmo.eva.model.enums.GradeEnum;
 import com.itmo.eva.model.enums.MajorEnum;
 import com.itmo.eva.model.vo.StudentVo;
 import com.itmo.eva.service.StudentService;
+import com.itmo.eva.utils.EnumUtils;
 import com.itmo.eva.utils.SpecialUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.DataFormatter;
@@ -28,10 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -196,6 +195,9 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student>
             List<StudentClass> classList = studentClassMapper.selectList(null);
             Map<String, Integer> classMap = classList.stream().collect(Collectors.toMap(StudentClass::getCid, StudentClass::getId));
 
+            String[] strs = {"getGrade","getValue"};
+            Map<Object,String> gradeMap = EnumUtils.EnumToMap(GradeEnum.class,strs);
+
             //4.接收数据 装入集合中
             for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
                 row = sheet.getRow(i);
@@ -213,8 +215,8 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student>
                     throw new BusinessException(ErrorCode.PARAMS_ERROR, error);
                 }
                 String cid = new DataFormatter().formatCellValue(row.getCell(5));  // 班级号
-                int grade = Integer.parseInt(new DataFormatter().formatCellValue(row.getCell(6)));
-                if (grade <= 0 || grade > 8) {
+                String grade = row.getCell(6).getStringCellValue();
+                if (!gradeMap.containsKey(grade)) {
                     String error = "在第" + i + "行，年级错误错误";
                     throw new BusinessException(ErrorCode.PARAMS_ERROR, error);
                 }
@@ -227,7 +229,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student>
                 student.setAge(age);
                 student.setMajor(major.equals("自动化") ? 1 : 0);
                 student.setCid(classMap.get(cid));
-                student.setGrade(grade);
+                student.setGrade(Integer.valueOf(gradeMap.get(grade)));
                 student.setPassword(DigestUtils.md5DigestAsHex(sid.getBytes(StandardCharsets.UTF_8)));
                 // 校验数据
                 this.validStudent(student, true);

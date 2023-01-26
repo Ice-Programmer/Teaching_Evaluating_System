@@ -52,7 +52,7 @@ public class AdminController {
      * @return 登陆信息
      */
     @GetMapping("/get/login")
-    public BaseResponse<AdminVo> getLoginUser(@RequestHeader("access-token") String token) {
+    public BaseResponse<AdminVo> getLoginUser(@RequestHeader("token") String token) {
         AdminVo adminInfo = adminService.getLoginUser(token);
         if (adminInfo == null) {
             throw new BusinessException(ErrorCode.USER_NOT_FOUND, "用户信息不存在");

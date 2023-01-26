@@ -10,7 +10,6 @@ import com.itmo.eva.model.entity.Evaluate;
 import com.itmo.eva.model.vo.EvaluateVo;
 import com.itmo.eva.model.vo.StudentVo;
 import com.itmo.eva.service.EvaluateService;
-import com.itmo.eva.utils.SpecialUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;

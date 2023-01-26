@@ -87,6 +87,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin>
 
         AdminVo adminInfo = new AdminVo();
         BeanUtils.copyProperties(admin, adminInfo);
+        adminInfo.setId(admin.getId().longValue());
         return adminInfo;
     }
 

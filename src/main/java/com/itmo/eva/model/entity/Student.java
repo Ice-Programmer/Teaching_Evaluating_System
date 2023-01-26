@@ -61,9 +61,9 @@ public class Student implements Serializable {
     private Integer grade;
 
     /**
-     * 课程标签
+     * 登陆状态
      */
-    private String tag;
+    private Integer status;
 
     /**
      * 最近登录的一次ip地址

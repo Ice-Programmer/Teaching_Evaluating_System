@@ -14,6 +14,7 @@ import com.itmo.eva.model.enums.GradeEnum;
 import com.itmo.eva.model.enums.MajorEnum;
 import com.itmo.eva.model.vo.CourseVo;
 import com.itmo.eva.service.CourseService;
+import com.itmo.eva.utils.EnumUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -196,6 +197,9 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
             List<Teacher> teacherList = teacherMapper.selectList(null);
             Map<String, Long> teacherMap = teacherList.stream().collect(Collectors.toMap(Teacher::getName, Teacher::getId));
 
+            String[] strs = {"getGrade","getValue"};
+            Map<Object,String> gradeMap = EnumUtils.EnumToMap(GradeEnum.class,strs);
+
             //4.接收数据 装入集合中
             for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
                 row = sheet.getRow(i);
@@ -204,12 +208,12 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
                 String eName = row.getCell(1).getStringCellValue();
                 String major = row.getCell(2).getStringCellValue();
                 String teacher = row.getCell(3).getStringCellValue();
-                Integer grade = Integer.valueOf(new DataFormatter().formatCellValue(row.getCell(4)));
+                String grade = row.getCell(4).getStringCellValue();
                 if (!"计算机科学与技术".equals(major) && !"自动化".equals(major)) {
                     String error = "在第" + i + "行，专业错误";
                     throw new BusinessException(ErrorCode.PARAMS_ERROR, error);
                 }
-                if (grade <= 0 || grade > 8) {
+                if (!gradeMap.containsKey(grade)) {
                     String error = "在第" + i + "行，年级错误";
                     throw new BusinessException(ErrorCode.PARAMS_ERROR, error);
                 }
@@ -224,7 +228,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
                         course1.setEName(eName);
                         course1.setMajor(major.equals("自动化") ? 1 : 0);
                         course1.setTid(teacherId);
-                        course1.setGrade(grade);
+                        course1.setGrade(Integer.valueOf(gradeMap.get(grade)));
                         this.validCourse(course1, true);
                         Course oldCourse = baseMapper.getCourseByNameAndTeacher(cName, teacherId);
                         if (oldCourse != null) {
@@ -240,7 +244,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
                 course.setEName(eName);
                 course.setMajor(major.equals("自动化") ? 1 : 0);
                 course.setTid(teacherId);
-                course.setGrade(grade);
+                course.setGrade(Integer.valueOf(gradeMap.get(grade)));
                 // 判断数据是否已经存在 【根据名称和教师id进行查询】
                 Course oldCourse = baseMapper.getCourseByNameAndTeacher(cName, teacherId);
                 if (oldCourse != null) {

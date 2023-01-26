@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.models.auth.In;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -26,10 +27,6 @@ public class ScoreHistoryVo implements Serializable {
      */
     private Integer tid;
 
-    /**
-     * 课程主键
-     */
-    private Integer cid;
 
     /**
      * 总分
@@ -42,9 +39,14 @@ public class ScoreHistoryVo implements Serializable {
     private Integer eid;
 
     /**
+     * 教师名称
+     */
+    private String teacher;
+
+    /**
      * 详细的一级指标分数
      */
-    private Map<String, Integer> detailScore;
+    private Map<Integer, Integer> detailScore;
 
     /**
      * 国籍

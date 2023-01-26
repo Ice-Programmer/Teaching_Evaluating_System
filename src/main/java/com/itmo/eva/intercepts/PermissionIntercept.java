@@ -19,7 +19,7 @@ import java.util.Map;
 public class PermissionIntercept implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String token = request.getHeader("access-token");
+        String token = request.getHeader("token");
         try {
             // 对Token进行解析
             DecodedJWT dj = JwtUtil.decodeToken(token);
