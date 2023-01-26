@@ -7,6 +7,7 @@ import com.itmo.eva.model.entity.System;
 import com.itmo.eva.model.enums.GradeEnum;
 import com.itmo.eva.model.enums.IdentityEnum;
 import com.itmo.eva.model.vo.TeacherVo;
+import com.itmo.eva.service.AdminService;
 import com.itmo.eva.service.TeacherService;
 import com.itmo.eva.utils.EnumUtils;
 import com.itmo.eva.utils.MailUtil;
@@ -43,11 +44,12 @@ class EvaApplicationTests {
 	@Resource
 	private AverageScoreMapper averageScoreMapper;
 
+	@Resource
+	private AdminService adminService;
+
 	@Test
 	void contextLoads() {
-		String[] strs = {"getGrade","getValue"};
-		Map<Object,String> map = EnumUtils.EnumToMap(GradeEnum.class,strs);
-		log.info("{}", map.get("第一学期"));
+
 	}
 
 	@Test

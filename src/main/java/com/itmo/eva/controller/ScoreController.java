@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -56,6 +57,20 @@ public class ScoreController {
         }
         return ResultUtils.success(russianScore);
     }
+
+    /**
+     * 导出中方教师排名信息
+     */
+    public BaseResponse<Boolean> getChineseExcel(@RequestBody IdRequest idRequest ,HttpServletResponse response) {
+        if (idRequest == null) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "数据为空");
+        }
+        Integer eid = idRequest.getId().intValue();
+        scoreHistoryService.exportChineseExcel(response, eid);
+
+        return ResultUtils.success(true);
+    }
+
 
 
 
