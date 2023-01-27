@@ -47,6 +47,12 @@ class EvaApplicationTests {
 	@Resource
 	private AdminService adminService;
 
+	@Resource
+	private StudentMapper studentMapper;
+
+	@Resource
+	private CourseMapper courseMapper;
+
 	@Test
 	void contextLoads() {
 
@@ -101,8 +107,47 @@ class EvaApplicationTests {
 
 	@Test
 	void remove() {
-		List<Integer> list = Arrays.asList(1, 2, 2, 4, 5, 6, 3, 3, 4);
-		List<Integer> a =  list.stream().distinct().collect(Collectors.toList());
-		log.info("{}", a);
+		List<Student> studentList = studentMapper.selectList(null);
+
+		Integer evaluateId = 1;
+
+		for (Student student : studentList) {
+			// 取出grade和major，来查询学生的响应课程
+			Integer grade = student.getGrade();
+			Integer major = student.getMajor();
+			Long studentId = student.getId();
+
+			// 获取该学生的所有课程信息
+			List<Course> courseList = courseMapper.getCourseByMajorAndGrade(major, grade);
+			for (Course course : courseList) {
+				// 取出教师id
+				Long teacherId = course.getTid();
+				Integer courseId = course.getId();
+
+				// 取出教师的国籍
+				Teacher teacher = teacherMapper.selectById(teacherId);
+				Integer identity = teacher.getIdentity();
+
+				// 查询教师的国籍，所对应的所有一级指标
+				List<System> systemList = systemMapper.getCountByKind(identity);
+
+				for (System system : systemList) {
+					Integer systemId = system.getId();
+					MarkHistory markHistory = new MarkHistory();
+					markHistory.setTid(teacherId.intValue());
+					markHistory.setCid(courseId);
+					markHistory.setEid(evaluateId);
+					markHistory.setScore(0);
+					markHistory.setSid(systemId);
+					markHistory.setAid(studentId.intValue());
+					markHistory.setState(0);
+					// 插入数据库
+					markHistoryMapper.insert(markHistory);
+				}
+
+
+
+			}
+		}
 	}
 }

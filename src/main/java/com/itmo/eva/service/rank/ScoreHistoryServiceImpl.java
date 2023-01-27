@@ -259,7 +259,7 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
             dataRow.createCell(3).setCellValue(third / 10.0);
             dataRow.createCell(4).setCellValue(fourth / 10.0);
             dataRow.createCell(5).setCellValue(fifth / 10.0);
-            dataRow.createCell(6).setCellValue((RichTextString) totalScore);
+            dataRow.createCell(6).setCellValue(totalScore.toString());
         }
         // 建立输出流，输出浏览器文件
         OutputStream os = null;
