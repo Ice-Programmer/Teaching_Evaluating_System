@@ -5,6 +5,7 @@ import com.itmo.eva.exception.BusinessException;
 import com.itmo.eva.model.dto.evaluate.EvaluateAddRequest;
 import com.itmo.eva.model.dto.evaluate.EvaluateUpdateRequest;
 import com.itmo.eva.model.vo.Evaluation.EvaluateVo;
+import com.itmo.eva.model.vo.Evaluation.StudentCompletionVo;
 import com.itmo.eva.service.EvaluateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -117,6 +118,24 @@ public class EvaluateController {
         }
 
         return ResultUtils.success(evaluateVoList);
+    }
+
+    /**
+     * 获取学生完成情况
+     */
+    @PostMapping("/list/student")
+    public BaseResponse<StudentCompletionVo> listStudentSituation(@RequestBody IdRequest idRequest) {
+        if (idRequest.getId() <= 0) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "参数为空");
+        }
+        int eid = idRequest.getId().intValue();
+        StudentCompletionVo studentCompletionVo = evaluateService.listStudentCompletion(eid);
+
+        if (studentCompletionVo == null) {
+            throw new BusinessException(ErrorCode.OPERATION_ERROR);
+        }
+
+        return ResultUtils.success(studentCompletionVo);
     }
 
 

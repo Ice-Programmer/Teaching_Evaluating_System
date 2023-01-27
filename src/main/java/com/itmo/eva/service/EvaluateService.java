@@ -56,7 +56,7 @@ public interface EvaluateService extends IService<Evaluate> {
     /**
      * 获取完成学生情况
      */
-    List<StudentCompletionVo> listStudentCompletion(Integer eid);
+    StudentCompletionVo listStudentCompletion(Integer eid);
 
 
     /**

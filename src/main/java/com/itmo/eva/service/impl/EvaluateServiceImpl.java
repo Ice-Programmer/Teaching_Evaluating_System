@@ -10,13 +10,16 @@ import com.itmo.eva.model.entity.*;
 import com.itmo.eva.model.entity.System;
 import com.itmo.eva.model.vo.Evaluation.EvaluateVo;
 import com.itmo.eva.model.vo.Evaluation.StudentCompletionVo;
+import com.itmo.eva.model.vo.Evaluation.StudentEvaVo;
 import com.itmo.eva.service.EvaluateService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -45,6 +48,9 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
 
     @Resource
     private TeacherMapper teacherMapper;
+
+    @Resource
+    private StudentClassMapper studentClassMapper;
 
     /**
      * 添加评测
@@ -176,14 +182,58 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
      * @return 完成学生列表
      */
     @Override
-    public List<StudentCompletionVo> listStudentCompletion(Integer eid) {
-        // todo 完成查询完成学生
+    public StudentCompletionVo listStudentCompletion(Integer eid) {
+        StudentCompletionVo studentCompletionVo = new StudentCompletionVo();
         // 查找学生aid是否还有状态（state = 0）的字段在mark表中
-        // 查询所有学生信息
-        List<Student> studentList = studentMapper.selectList(null);
-        // 获取该评测的所有信息
-        List<MarkHistory> markHistory = markHistoryMapper.getByEid(eid);
-        return null;
+        // 查询所有学生信息Id
+        List<Integer> studentIdList = studentMapper.getStudentId();
+
+        // 获取该评测的所有未完成学生的id
+        List<Integer> studentId = markHistoryMapper.getByEidAndState(eid);
+
+        // 判断是否存在该评测信息
+        if (studentId == null || studentId.size() == 0) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
+        }
+
+        // 对studentId去重 -> 未完成学生id
+        List<Integer> undoneStudentId = studentId.stream().distinct().collect(Collectors.toList());
+        // 取差集 ->  完成学生名单
+        List<Integer> doneStudentId = studentIdList.stream().filter(item -> !undoneStudentId.contains(item)).collect(Collectors.toList());
+
+        // 取出所有班级
+        Map<Integer, String> classList = studentClassMapper.selectList(null).stream().collect(Collectors.toMap(StudentClass::getId, StudentClass::getCid));
+
+        List<StudentEvaVo> undoneStudentList = new ArrayList<>();
+        for (Integer id : undoneStudentId) {
+            StudentEvaVo undoneStudent = new StudentEvaVo();
+            Student student = studentMapper.selectById(id);
+            String studentName = student.getName();
+            String classNumber = classList.get(student.getCid());
+            String studentNumber = student.getSid();
+            undoneStudent.setStudentId(studentNumber);
+            undoneStudent.setName(studentName);
+            undoneStudent.setStudentClass(classNumber);
+            undoneStudentList.add(undoneStudent);
+        }
+        studentCompletionVo.setStudentUndone(undoneStudentList);
+
+        // 记录完成同学
+        List<StudentEvaVo> doneStudentList = new ArrayList<>();
+        for (Integer id : doneStudentId) {
+            StudentEvaVo doneStudent = new StudentEvaVo();
+            Student student = studentMapper.selectById(id);
+            String studentName = student.getName();
+            String classNumber = classList.get(student.getCid());
+            String studentNumber = student.getSid();
+            doneStudent.setStudentId(studentNumber);
+            doneStudent.setName(studentName);
+            doneStudent.setStudentClass(classNumber);
+            doneStudentList.add(doneStudent);
+        }
+        studentCompletionVo.setStudentDone(doneStudentList);
+
+        return studentCompletionVo;
     }
 
     /**

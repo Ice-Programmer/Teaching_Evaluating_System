@@ -98,4 +98,11 @@ class EvaApplicationTests {
 
 		}
 	}
+
+	@Test
+	void remove() {
+		List<Integer> list = Arrays.asList(1, 2, 2, 4, 5, 6, 3, 3, 4);
+		List<Integer> a =  list.stream().distinct().collect(Collectors.toList());
+		log.info("{}", a);
+	}
 }

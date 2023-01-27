@@ -2,6 +2,7 @@ package com.itmo.eva.mapper;
 
 import com.itmo.eva.model.entity.MarkHistory;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -22,8 +23,16 @@ public interface MarkHistoryMapper extends BaseMapper<MarkHistory> {
     @Select("select * from e_mark_history where tid = #{tid} and eid = {eid} and sid = {sid}")
     List<MarkHistory> getScoreByTidAndSidAndEid(Integer eid, Integer tid, Integer sid);
 
+    /**
+     * 根据eid来查找
+     * @param eid 评测id
+     * @return
+     */
     @Select("select * from e_mark_history where eid = #{eid}")
     List<MarkHistory> getByEid(Integer eid);
+
+    @Select("select aid from e_mark_history where eid = #{eid} and state = 0")
+    List<Integer> getByEidAndState(Integer eid);
 }
 
 

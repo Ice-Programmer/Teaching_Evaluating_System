@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.List;
+
 /**
 * @author chenjiahan
 * @description 针对表【e_student(学生表)】的数据库操作Mapper
@@ -33,6 +35,9 @@ public interface StudentMapper extends BaseMapper<Student> {
      */
     @Delete("delete * from e_student where grade > 8")
     void deleteStudentGradeThan8();
+
+    @Select("select id from e_student")
+    List<Integer> getStudentId();
 }
 
 
