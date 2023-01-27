@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 */
 public interface AdminService extends IService<Admin> {
 
-    // todo 完成一个管理员注册密码加密的接口
 
     /**
      * 用户登陆

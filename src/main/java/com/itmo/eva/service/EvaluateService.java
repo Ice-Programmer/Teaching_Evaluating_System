@@ -4,7 +4,8 @@ import com.itmo.eva.model.dto.evaluate.EvaluateAddRequest;
 import com.itmo.eva.model.dto.evaluate.EvaluateUpdateRequest;
 import com.itmo.eva.model.entity.Evaluate;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.itmo.eva.model.vo.EvaluateVo;
+import com.itmo.eva.model.vo.Evaluation.EvaluateVo;
+import com.itmo.eva.model.vo.Evaluation.StudentCompletionVo;
 import com.itmo.eva.model.vo.StudentVo;
 
 import java.util.List;
@@ -55,7 +56,7 @@ public interface EvaluateService extends IService<Evaluate> {
     /**
      * 获取完成学生情况
      */
-    List<StudentVo> listStudentDone(Integer eid);
+    List<StudentCompletionVo> listStudentCompletion(Integer eid);
 
 
     /**

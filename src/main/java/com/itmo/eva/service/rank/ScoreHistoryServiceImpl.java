@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itmo.eva.common.ErrorCode;
 import com.itmo.eva.exception.BusinessException;
 import com.itmo.eva.mapper.*;
+import com.itmo.eva.model.dto.score.ScoreFilterRequest;
 import com.itmo.eva.model.entity.*;
 import com.itmo.eva.model.entity.System;
 import com.itmo.eva.model.vo.ScoreHistoryVo;
@@ -74,8 +75,10 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
      * @return 中方分数
      */
     @Override
-    public List<ScoreHistoryVo> getChineseScore(Integer eid) {
+    public List<ScoreHistoryVo> getChineseScore(ScoreFilterRequest scoreFilterRequest) {
 
+        // 获取当前评测eid
+        Integer eid = scoreFilterRequest.getEid();
         // 判断当前评测是否正在进行
         Integer status = evaluateMapper.getStatusById(eid);
         if (status == 1) {
@@ -110,7 +113,8 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
      * @return 俄方分数
      */
     @Override
-    public List<ScoreHistoryVo> getRussianScore(Integer eid) {
+    public List<ScoreHistoryVo> getRussianScore(ScoreFilterRequest scoreFilterRequest) {
+        Integer eid = scoreFilterRequest.getEid();
         // 获取所有的俄方老师
         List<Teacher> russianTeacher = teacherMapper.getRussianTeacher();
         List<ScoreHistoryVo> historyVoList = new ArrayList<>();
@@ -138,12 +142,12 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
      * 导出中方教师排名
      *
      * @param response 响应
-     * @param eid 评测id
+     * @param scoreFilterRequest 评测id
      */
     @Override
-    public void exportChineseExcel(HttpServletResponse response, Integer eid) {
+    public void exportChineseExcel(HttpServletResponse response, ScoreFilterRequest scoreFilterRequest) {
         // 查询所有中方教师排名
-        List<ScoreHistoryVo> chineseRank = getChineseScore(eid);
+        List<ScoreHistoryVo> chineseRank = getChineseScore(scoreFilterRequest);
         if (chineseRank.isEmpty()) {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "暂无该评测相关排名");
         }
@@ -205,12 +209,12 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
      * 导出俄方教师排名
      *
      * @param response 响应
-     * @param eid 评测id
+     * @param scoreFilterRequest 评测id
      */
     @Override
-    public void exportRussianExcel(HttpServletResponse response, Integer eid) {
+    public void exportRussianExcel(HttpServletResponse response, ScoreFilterRequest scoreFilterRequest) {
         // 查询所有中方教师排名
-        List<ScoreHistoryVo> russianScore = getRussianScore(eid);
+        List<ScoreHistoryVo> russianScore = getRussianScore(scoreFilterRequest);
         if (russianScore.isEmpty()) {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "暂无该评测相关排名");
         }

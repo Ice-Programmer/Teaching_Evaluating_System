@@ -8,12 +8,24 @@ import java.io.Serializable;
 public class EmailSendRequest implements Serializable {
 
     /**
-     * 所有的teacherId
+     * 所有的中国teacherId
      */
-    private Long[] teacherId;
+    private Long[] chineseTeacherId;
 
     /**
-     * 发送时间
+     * 发送的中国时间
      */
-    private String time;
+    private String chineseTime;
+
+    /**
+     * 所有的俄罗斯teacherId
+     */
+    private Long[] russianTeacherId;
+
+    /**
+     * 发送的俄罗斯时间
+     */
+    private String russianTime;
+
+
 }

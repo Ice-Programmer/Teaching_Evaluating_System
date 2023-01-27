@@ -14,12 +14,26 @@ import java.util.List;
 */
 public interface EvaluateMapper extends BaseMapper<Evaluate> {
 
+    /**
+     * 根据评测名称获取
+     * @param name 评测名称
+     * @return
+     */
     @Select("select * from e_evaluate where name = #{name}")
     Evaluate getEvaluateByName(String name);
 
+    /**
+     * 获取正在进行中的评测
+     * @return
+     */
     @Select("select * from e_evaluate where status = 1")
     Evaluate getEvaluateByStatus();
 
+    /**
+     * 根据id来判断评测是否在进行中
+     * @param eid
+     * @return
+     */
     @Select("select status from e_evaluate where id =#{eid}")
     Integer getStatusById(Integer eid);
 

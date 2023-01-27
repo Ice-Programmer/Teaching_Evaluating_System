@@ -8,8 +8,8 @@ import com.itmo.eva.model.dto.evaluate.EvaluateAddRequest;
 import com.itmo.eva.model.dto.evaluate.EvaluateUpdateRequest;
 import com.itmo.eva.model.entity.*;
 import com.itmo.eva.model.entity.System;
-import com.itmo.eva.model.vo.EvaluateVo;
-import com.itmo.eva.model.vo.StudentVo;
+import com.itmo.eva.model.vo.Evaluation.EvaluateVo;
+import com.itmo.eva.model.vo.Evaluation.StudentCompletionVo;
 import com.itmo.eva.service.EvaluateService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -42,6 +42,9 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
 
     @Resource
     private MarkHistoryMapper markHistoryMapper;
+
+    @Resource
+    private TeacherMapper teacherMapper;
 
     /**
      * 添加评测
@@ -93,7 +96,7 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
         if (oldEvaluate == null) {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "评测不存在");
         }
-        // todo 删除该评测下所有的一级评测和结果
+
         boolean remove = this.removeById(id);
 
         return remove;
@@ -168,11 +171,18 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
 
     /**
      * 获取完成学生
+     *
      * @param eid 评测id
      * @return 完成学生列表
      */
     @Override
-    public List<StudentVo> listStudentDone(Integer eid) {
+    public List<StudentCompletionVo> listStudentCompletion(Integer eid) {
+        // todo 完成查询完成学生
+        // 查找学生aid是否还有状态（state = 0）的字段在mark表中
+        // 查询所有学生信息
+        List<Student> studentList = studentMapper.selectList(null);
+        // 获取该评测的所有信息
+        List<MarkHistory> markHistory = markHistoryMapper.getByEid(eid);
         return null;
     }
 
@@ -203,6 +213,7 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
      * @param evaluateId 评测id
      */
     public void releaseEvaluation(Integer evaluateId) {
+        // todo 起床记得测试
         // 取出所有学生信息
         List<Student> studentList = studentMapper.selectList(null);
 
@@ -215,12 +226,16 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
             // 获取该学生的所有课程信息
             List<Course> courseList = courseMapper.getCourseByMajorAndGrade(major, grade);
             for (Course course : courseList) {
-                // 取出教师id，来查询课程的所有老师
+                // 取出教师id
                 Long teacherId = course.getTid();
                 Integer courseId = course.getId();
 
-                // 查询教师所有的一级指标
-                List<System> systemList = systemMapper.getCountByKind(teacherId.intValue());
+                // 取出教师的国籍
+                Teacher teacher = teacherMapper.selectById(teacherId);
+                Integer identity = teacher.getIdentity();
+
+                // 查询教师的国籍，所对应的所有一级指标
+                List<System> systemList = systemMapper.getCountByKind(identity);
 
                 for (System system : systemList) {
                     Integer systemId = system.getId();
@@ -235,6 +250,8 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
                     // 插入数据库
                     markHistoryMapper.insert(markHistory);
                 }
+
+
 
             }
         }

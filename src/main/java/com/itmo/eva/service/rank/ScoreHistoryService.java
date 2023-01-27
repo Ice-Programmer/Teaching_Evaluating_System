@@ -1,5 +1,6 @@
 package com.itmo.eva.service.rank;
 
+import com.itmo.eva.model.dto.score.ScoreFilterRequest;
 import com.itmo.eva.model.entity.ScoreHistory;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.itmo.eva.model.vo.ScoreHistoryVo;
@@ -18,27 +19,27 @@ public interface ScoreHistoryService extends IService<ScoreHistory> {
      * 获取所有中方教师分数
      * @return 中方分数
      */
-    List<ScoreHistoryVo> getChineseScore(Integer eid);
+    List<ScoreHistoryVo> getChineseScore(ScoreFilterRequest scoreFilterRequest);
 
     /**
      * 获取所有俄方教师分数
      * @return 俄方分数
      */
-    List<ScoreHistoryVo> getRussianScore(Integer eid);
+    List<ScoreHistoryVo> getRussianScore(ScoreFilterRequest scoreFilterRequest);
 
     /**
      * 导出中方教师排名
      *
      * @param response 响应
-     * @param eid 评测id
+     * @param scoreFilterRequest 评测id
      */
-    void exportChineseExcel(HttpServletResponse response, Integer eid);
+    void exportChineseExcel(HttpServletResponse response, ScoreFilterRequest scoreFilterRequest);
 
     /**
      * 导出俄方教师排名
      *
      * @param response 响应
-     * @param eid 评测id
+     * @param scoreFilterRequest 评测id
      */
-    void exportRussianExcel(HttpServletResponse response, Integer eid);
+    void exportRussianExcel(HttpServletResponse response, ScoreFilterRequest scoreFilterRequest);
 }
