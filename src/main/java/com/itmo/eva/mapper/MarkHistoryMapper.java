@@ -31,6 +31,11 @@ public interface MarkHistoryMapper extends BaseMapper<MarkHistory> {
     @Select("select * from e_mark_history where eid = #{eid}")
     List<MarkHistory> getByEid(Integer eid);
 
+    /**
+     * 获取本次评测还有未完成的学生名单
+     * @param eid 评测id
+     * @return 未完成学生名单
+     */
     @Select("select aid from e_mark_history where eid = #{eid} and state = 0")
     List<Integer> getByEidAndState(Integer eid);
 }

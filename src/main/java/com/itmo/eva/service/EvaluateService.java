@@ -8,6 +8,7 @@ import com.itmo.eva.model.vo.Evaluation.EvaluateVo;
 import com.itmo.eva.model.vo.Evaluation.StudentCompletionVo;
 import com.itmo.eva.model.vo.StudentVo;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -46,18 +47,20 @@ public interface EvaluateService extends IService<Evaluate> {
      * @param id id
      * @return 评测信息
      */
-    EvaluateVo getEvaluateById(Long id);
+    EvaluateVo getEvaluateById(Integer id);
 
     /**
      * 获取评测列表
      */
     List<EvaluateVo> listEvaluate();
 
+
     /**
      * 获取完成学生情况
      */
     StudentCompletionVo listStudentCompletion(Integer eid);
 
+    Boolean exportUndoneStudentExcel(Integer eid, HttpServletResponse response);
 
     /**
      * 校验

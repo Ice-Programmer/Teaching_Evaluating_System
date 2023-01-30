@@ -15,6 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.List;
 
 /**
@@ -149,19 +152,47 @@ public class CourseController {
     @GetMapping("/excel/export")
     public BaseResponse<Boolean> exportExcel(HttpServletResponse response) {
 
-        //2.建立Excel对象，封装数据
+        // 建立Excel对象，封装数据
         response.setCharacterEncoding("UTF-8");
-        //2.1创建Excel对象
+        // 创建Excel对象
         XSSFWorkbook wb = new XSSFWorkbook();
-        //2.3创建sheet对象
-        XSSFSheet sheet = wb.createSheet("学生信息表");
-        //2.3创建表头
+        // 创建sheet对象
+        XSSFSheet sheet = wb.createSheet("课程信息表");
+        // 创建表头
         XSSFRow xssfRow = sheet.createRow(0);
         xssfRow.createCell(0).setCellValue("课程信息");
         xssfRow.createCell(1).setCellValue("课程英文名");
         xssfRow.createCell(2).setCellValue("授课专业");
         xssfRow.createCell(3).setCellValue("授课教师（请用中文逗号分割）");
         xssfRow.createCell(4).setCellValue("学期");
+
+        // 建立输出流，输出浏览器文件
+        OutputStream os = null;
+
+        try {
+            String folderPath = "C:\\excel";
+            //创建上传文件目录
+            File folder = new File(folderPath);
+            //如果文件夹不存在创建对应的文件夹
+            if (!folder.exists()) {
+                folder.mkdirs();
+            }
+            //设置文件名
+            String fileName = "课程信息表" + ".xlsx";
+            String savePath = folderPath + File.separator + fileName;
+            OutputStream fileOut = new FileOutputStream(savePath);
+            wb.write(fileOut);
+            fileOut.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (os != null)
+                    os.close();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         return ResultUtils.success(true);
     }

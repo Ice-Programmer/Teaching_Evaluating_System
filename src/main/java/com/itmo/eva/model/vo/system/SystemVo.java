@@ -1,4 +1,4 @@
-package com.itmo.eva.model.vo;
+package com.itmo.eva.model.vo.system;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -21,7 +21,7 @@ public class SystemVo implements Serializable {
     /**
      * id
      */
-    private Integer id;
+    private Integer sid;
 
     /**
      * 一级评价名称
@@ -29,9 +29,14 @@ public class SystemVo implements Serializable {
     private String name;
 
     /**
+     * 一级评价英文名称
+     */
+    private String eName;
+
+    /**
      * 储存二级评价
      */
-    private List<String> children;
+    private List<SecondSystemVo> children;
 
     private static final long serialVersionUID = 1L;
 }

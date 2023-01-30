@@ -10,6 +10,7 @@
             <result property="level" column="level" jdbcType="INTEGER"/>
             <result property="kind" column="kind" jdbcType="INTEGER"/>
             <result property="sid" column="sid" jdbcType="INTEGER"/>
+            <result property="eName" column="sid" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">

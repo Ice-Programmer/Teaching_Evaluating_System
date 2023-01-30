@@ -10,11 +10,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.List;
 
 /**
@@ -125,6 +131,7 @@ public class TeacherController {
 
     /**
      * Excel文件批量上传教师信息
+     *
      * @param file excel
      * @return 保存成功
      */
@@ -142,6 +149,7 @@ public class TeacherController {
 
     /**
      * 下载示例Excel
+     *
      * @param response 请求
      * @return 示例
      */
@@ -164,12 +172,41 @@ public class TeacherController {
         xssfRow.createCell(5).setCellValue("专业");
         xssfRow.createCell(6).setCellValue("邮箱");
         xssfRow.createCell(7).setCellValue("国籍");
+        // 建立输出流，输出浏览器文件
+        OutputStream os = null;
+
+        try {
+            String folderPath = "C:\\excel";
+            //创建上传文件目录
+            File folder = new File(folderPath);
+            //如果文件夹不存在创建对应的文件夹
+            if (!folder.exists()) {
+                folder.mkdirs();
+            }
+            //设置文件名
+            String fileName = "教师信息表" + ".xlsx";
+            String savePath = folderPath + File.separator + fileName;
+            OutputStream fileOut = new FileOutputStream(savePath);
+            wb.write(fileOut);
+            fileOut.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (os != null)
+                    os.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         return ResultUtils.success(true);
     }
 
     /**
      * 获取中方教师信息
+     *
      * @return
      */
     @GetMapping("/get/china")

@@ -13,10 +13,17 @@ import com.itmo.eva.model.vo.Evaluation.StudentCompletionVo;
 import com.itmo.eva.model.vo.Evaluation.StudentEvaVo;
 import com.itmo.eva.service.EvaluateService;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -142,7 +149,7 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
      * @return 评测信息
      */
     @Override
-    public EvaluateVo getEvaluateById(Long id) {
+    public EvaluateVo getEvaluateById(Integer id) {
         if (id <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "id错误");
         }
@@ -205,6 +212,7 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
         Map<Integer, String> classList = studentClassMapper.selectList(null).stream().collect(Collectors.toMap(StudentClass::getId, StudentClass::getCid));
 
         List<StudentEvaVo> undoneStudentList = new ArrayList<>();
+        // 未完成名单
         for (Integer id : undoneStudentId) {
             StudentEvaVo undoneStudent = new StudentEvaVo();
             Student student = studentMapper.selectById(id);
@@ -237,6 +245,67 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
     }
 
     /**
+     * 导出未完成学生名单
+     * @param eid 评测id
+     * @param response 响应
+     * @return excel文件
+     */
+    @Override
+    public Boolean exportUndoneStudentExcel(Integer eid, HttpServletResponse response) {
+        // 获取未完成学生名单
+        List<StudentEvaVo> studentUndone = this.listStudentCompletion(eid).getStudentUndone();
+
+        // 建立Excel对象，封装数据
+        response.setCharacterEncoding("UTF-8");
+        // 创建Excel对象
+        XSSFWorkbook wb = new XSSFWorkbook();
+        // 创建sheet对象
+        XSSFSheet sheet = wb.createSheet("未完成评测学生表");
+        // 创建表头
+        XSSFRow xssfRow = sheet.createRow(0);
+        xssfRow.createCell(0).setCellValue("班级");
+        xssfRow.createCell(1).setCellValue("代评学生");
+        xssfRow.createCell(2).setCellValue("学号");
+
+        //3.遍历数据，封装Excel工作对象
+        for(StudentEvaVo student : studentUndone) {
+            XSSFRow dataRow = sheet.createRow(sheet.getLastRowNum() + 1);
+            dataRow.createCell(0).setCellValue(student.getStudentClass());
+            dataRow.createCell(1).setCellValue(student.getName());
+            dataRow.createCell(2).setCellValue(student.getStudentId());
+        }
+        // 建立输出流，输出浏览器文件
+        OutputStream os = null;
+
+        try {
+            String folderPath = "/Users/chenjiahan/Desktop/excel";
+            //创建上传文件目录
+            File folder = new File(folderPath);
+            //如果文件夹不存在创建对应的文件夹
+            if (!folder.exists()) {
+                folder.mkdirs();
+            }
+            //设置文件名
+            String fileName = "未完成评测学生表" + ".xlsx";
+            String savePath = folderPath + File.separator + fileName;
+            OutputStream fileOut = new FileOutputStream(savePath);
+            wb.write(fileOut);
+            fileOut.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (os != null)
+                    os.close();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * 校验
      *
      * @param evaluate 评测信息
@@ -263,7 +332,6 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
      * @param evaluateId 评测id
      */
     public void releaseEvaluation(Integer evaluateId) {
-        // todo 起床记得测试
         // 取出所有学生信息
         List<Student> studentList = studentMapper.selectList(null);
 

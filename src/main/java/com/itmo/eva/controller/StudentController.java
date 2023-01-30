@@ -15,6 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.List;
 
 /**
@@ -96,7 +99,6 @@ public class StudentController {
      * @return 学生信息
      */
     @PostMapping("/get")
-    @CrossOrigin
     public BaseResponse<StudentVo> getStudentById(@RequestBody IdRequest idRequest) {
         if (idRequest == null || idRequest.getId() == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "请求参数为空");
@@ -165,6 +167,34 @@ public class StudentController {
         xssfRow.createCell(4).setCellValue("专业");
         xssfRow.createCell(5).setCellValue("班级号");
         xssfRow.createCell(6).setCellValue("学期");
+
+        // 建立输出流，输出浏览器文件
+        OutputStream os = null;
+
+        try {
+            String folderPath = "C:\\excel";
+            //创建上传文件目录
+            File folder = new File(folderPath);
+            //如果文件夹不存在创建对应的文件夹
+            if (!folder.exists()) {
+                folder.mkdirs();
+            }
+            //设置文件名
+            String fileName = "学生信息表" + ".xlsx";
+            String savePath = folderPath + File.separator + fileName;
+            OutputStream fileOut = new FileOutputStream(savePath);
+            wb.write(fileOut);
+            fileOut.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (os != null)
+                    os.close();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         return ResultUtils.success(true);
     }

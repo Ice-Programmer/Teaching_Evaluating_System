@@ -40,6 +40,11 @@ public class System implements Serializable {
      */
     private Integer sid;
 
+    /**
+     * 一级指标英文名
+     */
+    private String eName;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

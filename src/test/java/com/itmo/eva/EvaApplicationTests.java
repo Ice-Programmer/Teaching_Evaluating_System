@@ -2,24 +2,21 @@ package com.itmo.eva;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.itmo.eva.mapper.*;
-import com.itmo.eva.model.entity.*;
 import com.itmo.eva.model.entity.System;
-import com.itmo.eva.model.enums.GradeEnum;
-import com.itmo.eva.model.enums.IdentityEnum;
-import com.itmo.eva.model.vo.TeacherVo;
+import com.itmo.eva.model.entity.*;
 import com.itmo.eva.service.AdminService;
 import com.itmo.eva.service.TeacherService;
-import com.itmo.eva.utils.EnumUtils;
 import com.itmo.eva.utils.MailUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.BeanUtils;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.cglib.core.ReflectUtils;
-import sun.reflect.misc.ReflectUtil;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 
 @SpringBootTest
@@ -60,9 +57,20 @@ class EvaApplicationTests {
 
 	@Test
 	void getById() {
-		String content = "Hello world!";
-		MailUtil.sendMail("cqkjmx@163.com", content, "测试邮件");
+		String title = "测试批量发送多封邮件";
+		String text = "zzy大sui哥";
+//		cqkjmx@163.com
+//		for (int i = 0; i < 10; i++) {
+//			MailUtil.sendMail("3220103081@zju.edu.cn", title, text);
+//		}
+	}
 
+	@Test
+	void selectByBatch() {
+		Long[] teacherId = {1L, 2L, 3L};
+
+		List<Teacher> teacherList = teacherMapper.selectBatchIds(Arrays.asList(teacherId));
+		Assertions.assertNotNull(teacherList);
 	}
 
 	@Test
@@ -105,8 +113,13 @@ class EvaApplicationTests {
 		}
 	}
 
+	/**
+	 * 自动分发测评
+	 *
+	 * 警告⚠️： 千万不要轻易运行，后果自负
+	 */
 	@Test
-	void remove() {
+	void handout() {
 		List<Student> studentList = studentMapper.selectList(null);
 
 		Integer evaluateId = 1;

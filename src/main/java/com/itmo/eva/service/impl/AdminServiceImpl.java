@@ -17,6 +17,7 @@ import net.dreamlu.mica.ip2region.core.IpInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.PatchMapping;
 
 import javax.annotation.Resource;
@@ -25,6 +26,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.*;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,13 +63,15 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin>
         if (SpecialUtil.isSpecialChar(username) || SpecialUtil.isSpecialChar(password)) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "包含特殊字符");
         }
+        password = DigestUtils.md5DigestAsHex(password.getBytes(StandardCharsets.UTF_8));
         // 查询用户
         Admin admin = adminMapper.getUserByUsernameAndPassword(username, password);
         // 用户不存在
         if (admin == null) {
             log.info("user login failed, username cannot match password!");
-            throw new BusinessException(ErrorCode.USER_NOT_FOUND, "用户不存在或密码");
+            throw new BusinessException(ErrorCode.USER_NOT_FOUND, "用户不存在或密码错误");
         }
+
         // 用户是否拥有权限
         if (admin.getRole() != 1) {
             throw new BusinessException(ErrorCode.NO_AUTH_ERROR);

@@ -31,5 +31,4 @@ public interface AdminService extends IService<Admin> {
     AdminVo getLoginUser(String token);
 
 
-
 }

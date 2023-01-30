@@ -17,8 +17,8 @@ public interface SystemMapper extends BaseMapper<System> {
     /**
      * 获取俄方二级评价
      */
-    @Select("select name from e_system where kind = 0 and level = 2 and sid = #{sid}")
-    List<String> getRussianSecondSystem(Integer sid);
+    @Select("select * from e_system where kind = 0 and level = 2 and sid = #{sid}")
+    List<System> getRussianSecondSystem(Integer sid);
 
     /**
      * 获取俄方一级评价
@@ -29,8 +29,8 @@ public interface SystemMapper extends BaseMapper<System> {
     /**
      * 获取中方二级评价
      */
-    @Select("select name from e_system where kind = 1 and level = 2 and sid = #{sid}")
-    List<String> getChineseSecondSystem(Integer sid);
+    @Select("select * from e_system where kind = 1 and level = 2 and sid = #{sid}")
+    List<System> getChineseSecondSystem(Integer sid);
 
     /**
      * 获取中方一级评价

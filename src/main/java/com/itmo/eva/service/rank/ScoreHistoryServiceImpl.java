@@ -1,4 +1,7 @@
 package com.itmo.eva.service.rank;
+
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 
@@ -50,6 +53,9 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
     @Resource
     private SystemMapper systemMapper;
 
+    @Resource
+    private RedlineMapper redlineMapper;
+
 
     /**
      * 判断是否存在分数
@@ -57,7 +63,11 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
     @PostConstruct
     public void init() {
         // 1.获取所有评测的id 【已经结束】
-        List<Integer> evaluateIds = evaluateMapper.getAllEndEvaluation().stream().map(Evaluate::getId).collect(Collectors.toList());
+        List<Evaluate> allEndEvaluationEnd = evaluateMapper.getAllEndEvaluation();
+        if (allEndEvaluationEnd == null) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "暂无相关信息");
+        }
+        List<Integer> evaluateIds = allEndEvaluationEnd.stream().map(Evaluate::getId).collect(Collectors.toList());
         for (Integer e : evaluateIds) {
             Integer isExit = averageScoreMapper.getByEid(e);
             // 判断是否为空
@@ -115,6 +125,12 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
     @Override
     public List<ScoreHistoryVo> getRussianScore(ScoreFilterRequest scoreFilterRequest) {
         Integer eid = scoreFilterRequest.getEid();
+        // 判断当前评测是否正在进行
+        Integer status = evaluateMapper.getStatusById(eid);
+        if (status == 1) {
+            throw new BusinessException(ErrorCode.OPERATION_ERROR, "评测正在进行中");
+        }
+
         // 获取所有的俄方老师
         List<Teacher> russianTeacher = teacherMapper.getRussianTeacher();
         List<ScoreHistoryVo> historyVoList = new ArrayList<>();
@@ -123,6 +139,7 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
             // 获取教师id
             Long tid = teacher.getId();
             // 在average表中找到对应的所有一级评价分数
+            List<AverageScore> scoreByTid = averageScoreMapper.getByEidAndTid(eid, tid);
             Map<Integer, Integer> detailScore = averageScoreMapper.getByEidAndTid(eid, tid).stream().collect(Collectors.toMap(AverageScore::getSid, AverageScore::getScore));
 
             Integer score = detailScore.values().stream().reduce(Integer::sum).orElse(0);
@@ -141,7 +158,7 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
     /**
      * 导出中方教师排名
      *
-     * @param response 响应
+     * @param response           响应
      * @param scoreFilterRequest 评测id
      */
     @Override
@@ -185,19 +202,26 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
         OutputStream os = null;
         // 设置Excel名字，数据类型编码
         try {
-            response.setContentType("application/octet-stream;chartset=utf8");
-            response.setHeader("Content-Disposition", "attachment;filename=" + new String("中方教师分数排名表".getBytes(), "iso-8859-1") + ".xls");
-            // 输出文件
-            os = response.getOutputStream();
-            wb.write(os);
-            os.flush();
-        } catch(Exception e) {
+            String folderPath = "C:\\excel";
+            //创建上传文件目录
+            File folder = new File(folderPath);
+            //如果文件夹不存在创建对应的文件夹
+            if (!folder.exists()) {
+                folder.mkdirs();
+            }
+            //设置文件名
+            String fileName = "中方分数排名表" + ".xlsx";
+            String savePath = folderPath + File.separator + fileName;
+            OutputStream fileOut = new FileOutputStream(savePath);
+            wb.write(fileOut);
+            fileOut.close();
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
                 if (os != null)
                     os.close();
-            } catch(Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -208,7 +232,7 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
     /**
      * 导出俄方教师排名
      *
-     * @param response 响应
+     * @param response           响应
      * @param scoreFilterRequest 评测id
      */
     @Override
@@ -265,19 +289,26 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
         OutputStream os = null;
         // 设置Excel名字，数据类型编码
         try {
-            response.setContentType("application/octet-stream;chartset=utf8");
-            response.setHeader("Content-Disposition", "attachment;filename=" + new String("俄方教师分数排名表".getBytes(), "iso-8859-1") + ".xls");
-            // 输出文件
-            os = response.getOutputStream();
-            wb.write(os);
-            os.flush();
-        } catch(Exception e) {
+            String folderPath = "C:\\excel";
+            //创建上传文件目录
+            File folder = new File(folderPath);
+            //如果文件夹不存在创建对应的文件夹
+            if (!folder.exists()) {
+                folder.mkdirs();
+            }
+            //设置文件名
+            String fileName = "俄方分数排名表" + ".xlsx";
+            String savePath = folderPath + File.separator + fileName;
+            OutputStream fileOut = new FileOutputStream(savePath);
+            wb.write(fileOut);
+            fileOut.close();
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
                 if (os != null)
                     os.close();
-            } catch(Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -285,6 +316,7 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
 
     /**
      * 计算平均分 【总分】
+     *
      * @param eid 评测的id
      */
     private void calculateAverageScore(Integer eid) {
@@ -295,6 +327,7 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
         for (Teacher teacher : teacherList) {
             Long tid = teacher.getId();     // 教师id
             Integer identity = teacher.getIdentity();   // 国籍
+
             // 获取该教师的一级评价内容
             List<System> systemList = systemMapper.getCountByKind(identity);
             for (System system : systemList) {
@@ -309,6 +342,8 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
                 OptionalDouble optionalAverage = scoreList.stream().mapToDouble(Integer::doubleValue).average();
                 if (optionalAverage != null && optionalAverage.isPresent()) {
                     double average = optionalAverage.getAsDouble();
+                    // 判断老师平均分数是否低于了红线指标
+                    isRedLine(average, eid);
                     AverageScore averageScore = new AverageScore();
                     averageScore.setTid(tid);
                     averageScore.setScore((int) average);
@@ -316,11 +351,28 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
                     averageScore.setEid(eid);
                     averageScoreMapper.insert(averageScore);
                 }
-
             }
 
         }
 
+    }
+
+    /**
+     * 判断分数是否低于红线分数
+     * @param average 某一级评价平均分
+     * @param sid 一级评价id
+     */
+    private void isRedLine(double average, Integer sid) {
+        RedlineHistory redlineHistory = new RedlineHistory();
+
+        Redline redline = redlineMapper.getBySid(sid);
+        BigDecimal score = redline.getScore();
+        score.doubleValue();
+        redlineHistory.setTid(0);
+        redlineHistory.setGid(0);
+        redlineHistory.setCid(0);
+        redlineHistory.setScore(new BigDecimal("0"));
+        redlineHistory.setHappen_time("");
     }
 }
 

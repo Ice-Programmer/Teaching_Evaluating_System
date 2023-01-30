@@ -19,6 +19,7 @@ import com.itmo.eva.model.vo.TeacherVo;
 import com.itmo.eva.service.TeacherService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -28,7 +29,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -196,6 +199,7 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher>
         try {
             // 2.POI获取Excel文件信息
             wb = new XSSFWorkbook(file.getInputStream());
+
             XSSFSheet sheet = wb.getSheetAt(0);
 
             // 3.定义程序集合来接收文件内容

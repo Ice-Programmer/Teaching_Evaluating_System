@@ -1,12 +1,11 @@
-package com.itmo.eva.service.impl;
+package com.itmo.eva.service.system;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import  com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itmo.eva.model.dto.system.SystemRussianUpdateRequest;
 import com.itmo.eva.model.entity.System;
-import com.itmo.eva.model.vo.SystemVo;
-import com.itmo.eva.service.SystemService;
+import com.itmo.eva.model.vo.system.SecondSystemVo;
+import com.itmo.eva.model.vo.system.SystemVo;
 import com.itmo.eva.mapper.SystemMapper;
-import io.swagger.models.auth.In;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -36,13 +35,21 @@ public class SystemServiceImpl extends ServiceImpl<SystemMapper, System>
         List<SystemVo> systemVoList = firstSystem.stream().map(system -> {
             SystemVo systemVo = new SystemVo();
             BeanUtils.copyProperties(system, systemVo);
+            systemVo.setSid(system.getId());
             return systemVo;
         }).collect(Collectors.toList());
 
         for (SystemVo systemVo : systemVoList) {
             // 获取二级目录信息
-            List<String> secondName = baseMapper.getRussianSecondSystem(systemVo.getId());
-            systemVo.setChildren(secondName);
+            List<System> secondSystem = baseMapper.getRussianSecondSystem(systemVo.getSid());
+            List<SecondSystemVo> secondSystemVoList = new ArrayList<>();
+            for (System system : secondSystem) {
+                SecondSystemVo secondSystemVo = new SecondSystemVo();
+                secondSystemVo.setName(system.getName());
+                secondSystemVo.setEName(system.getEName());
+                secondSystemVoList.add(secondSystemVo);
+            }
+            systemVo.setChildren(secondSystemVoList);
         }
         return systemVoList;
     }
@@ -58,13 +65,22 @@ public class SystemServiceImpl extends ServiceImpl<SystemMapper, System>
         List<SystemVo> systemVoList = firstSystem.stream().map(system -> {
             SystemVo systemVo = new SystemVo();
             BeanUtils.copyProperties(system, systemVo);
+            systemVo.setSid(system.getId());
             return systemVo;
         }).collect(Collectors.toList());
 
         for (SystemVo systemVo : systemVoList) {
             // 获取二级目录信息
-            List<String> secondName = baseMapper.getChineseSecondSystem(systemVo.getId());
-            systemVo.setChildren(secondName);
+            List<System> secondSystem = baseMapper.getChineseSecondSystem(systemVo.getSid());
+
+            List<SecondSystemVo> secondSystemVoList = new ArrayList<>();
+            for (System system : secondSystem) {
+                SecondSystemVo  secondSystemVo = new SecondSystemVo();
+                secondSystemVo.setName(system.getName());
+                secondSystemVo.setEName(system.getEName());
+                secondSystemVoList.add(secondSystemVo);
+            }
+            systemVo.setChildren(secondSystemVoList);
         }
         return systemVoList;
     }

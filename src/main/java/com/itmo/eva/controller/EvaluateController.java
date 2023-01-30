@@ -3,6 +3,7 @@ package com.itmo.eva.controller;
 import com.itmo.eva.common.*;
 import com.itmo.eva.exception.BusinessException;
 import com.itmo.eva.model.dto.evaluate.EvaluateAddRequest;
+import com.itmo.eva.model.dto.evaluate.EvaluateIdRequest;
 import com.itmo.eva.model.dto.evaluate.EvaluateUpdateRequest;
 import com.itmo.eva.model.vo.Evaluation.EvaluateVo;
 import com.itmo.eva.model.vo.Evaluation.StudentCompletionVo;
@@ -11,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -88,16 +90,16 @@ public class EvaluateController {
     /**
      * 根据 id 获取
      *
-     * @param idRequest id请求体
+     * @param evaluateIdRequest id请求体
      * @return 评测信息
      */
     @PostMapping("/get")
-    public BaseResponse<EvaluateVo> getEvaluateById(@RequestBody IdRequest idRequest) {
-        if (idRequest == null || idRequest.getId() == null) {
+    public BaseResponse<EvaluateVo> getEvaluateById(@RequestBody EvaluateIdRequest evaluateIdRequest) {
+        if (evaluateIdRequest == null || evaluateIdRequest.getEid() <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "请求参数为空");
         }
-        Long id = idRequest.getId();
-        EvaluateVo evaluateInfo = evaluateService.getEvaluateById(id);
+        Integer eid = evaluateIdRequest.getEid();
+        EvaluateVo evaluateInfo = evaluateService.getEvaluateById(eid);
 
         if (evaluateInfo == null) {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
@@ -124,11 +126,11 @@ public class EvaluateController {
      * 获取学生完成情况
      */
     @PostMapping("/list/student")
-    public BaseResponse<StudentCompletionVo> listStudentSituation(@RequestBody IdRequest idRequest) {
-        if (idRequest.getId() <= 0) {
+    public BaseResponse<StudentCompletionVo> listStudentSituation(@RequestBody EvaluateIdRequest evaluateIdRequest) {
+        if (evaluateIdRequest.getEid() <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "参数为空");
         }
-        int eid = idRequest.getId().intValue();
+        int eid = evaluateIdRequest.getEid();
         StudentCompletionVo studentCompletionVo = evaluateService.listStudentCompletion(eid);
 
         if (studentCompletionVo == null) {
@@ -136,6 +138,18 @@ public class EvaluateController {
         }
 
         return ResultUtils.success(studentCompletionVo);
+    }
+
+    @PostMapping("/export/excel/undone/student")
+    public BaseResponse<Boolean> exportUndoneStudentExcel(@RequestBody EvaluateIdRequest evaluateIdRequest, HttpServletResponse response) {
+        if (evaluateIdRequest == null || evaluateIdRequest.getEid() <= 0) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "eid有误");
+        }
+        Integer eid = evaluateIdRequest.getEid();
+        Boolean export = evaluateService.exportUndoneStudentExcel(eid, response);
+
+        return ResultUtils.success(export);
+
     }
 
 
