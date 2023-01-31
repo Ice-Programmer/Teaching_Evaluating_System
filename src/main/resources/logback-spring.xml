@@ -2,7 +2,7 @@
 <configuration  scan="true" scanPeriod="10 seconds">
     <contextName>logback-spring</contextName>
 
-    <property name="logging.path" value="/Users/chenjiahan/Desktop/log" />
+    <property name="logging.path" value="C:\log" />
 
 
     <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
@@ -130,7 +130,7 @@
     </appender>
 
     <springProfile name="dev">
-        <logger name="com.supermap.controller" level="debug"/><!-- 修改此处扫描包名 -->
+        <logger name="com.itmo.eva.controller" level="debug"/><!-- 修改此处扫描包名 -->
     </springProfile>
 
     <root level="info">
