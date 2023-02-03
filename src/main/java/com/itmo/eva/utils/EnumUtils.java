@@ -76,8 +76,7 @@ public class EnumUtils {
                     methodName = met.getName();
                     method = met;
                     break;
-                }
-            }
+                }             }
             if (method == null){
                 return result;
             }

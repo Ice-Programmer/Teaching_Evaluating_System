@@ -40,7 +40,7 @@ public class TeacherAddRequest implements Serializable {
      */
     private Integer major;
 
-    /**
+     /**
      * 邮箱
      */
     private String email;

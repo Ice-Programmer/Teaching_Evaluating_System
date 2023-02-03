@@ -6,6 +6,7 @@ import com.itmo.eva.model.dto.teacher.TeacherAddRequest;
 import com.itmo.eva.model.dto.teacher.TeacherUpdateRequest;
 import com.itmo.eva.model.vo.TeacherVo;
 import com.itmo.eva.service.TeacherService;
+import com.itmo.eva.utils.DownLoadUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -154,54 +155,9 @@ public class TeacherController {
      * @return 示例
      */
     @GetMapping("/excel/export")
-    public BaseResponse<Boolean> exportExcel(HttpServletResponse response) {
-
-        //2.建立Excel对象，封装数据
-        response.setCharacterEncoding("UTF-8");
-        //2.1创建Excel对象
-        XSSFWorkbook wb = new XSSFWorkbook();
-        //2.3创建sheet对象
-        XSSFSheet sheet = wb.createSheet("教师信息表");
-        //2.3创建表头
-        XSSFRow xssfRow = sheet.createRow(0);
-        xssfRow.createCell(0).setCellValue("教师名称");
-        xssfRow.createCell(1).setCellValue("性别");
-        xssfRow.createCell(2).setCellValue("年龄");
-        xssfRow.createCell(3).setCellValue("职位");
-        xssfRow.createCell(4).setCellValue("职称");
-        xssfRow.createCell(5).setCellValue("专业");
-        xssfRow.createCell(6).setCellValue("邮箱");
-        xssfRow.createCell(7).setCellValue("国籍");
-        // 建立输出流，输出浏览器文件
-        OutputStream os = null;
-
-        try {
-            String folderPath = "C:\\excel";
-            //创建上传文件目录
-            File folder = new File(folderPath);
-            //如果文件夹不存在创建对应的文件夹
-            if (!folder.exists()) {
-                folder.mkdirs();
-            }
-            //设置文件名
-            String fileName = "教师信息表" + ".xlsx";
-            String savePath = folderPath + File.separator + fileName;
-            OutputStream fileOut = new FileOutputStream(savePath);
-            wb.write(fileOut);
-            fileOut.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (os != null)
-                    os.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        return ResultUtils.success(true);
+    public void exportExcel(HttpServletResponse response) {
+        String path = "C:\\excel\\教师信息模版";
+        DownLoadUtil.uploadFile(response, path);
     }
 
     /**
