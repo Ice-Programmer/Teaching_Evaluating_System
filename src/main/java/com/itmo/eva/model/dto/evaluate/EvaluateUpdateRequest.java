@@ -25,11 +25,6 @@ public class EvaluateUpdateRequest implements Serializable {
     private String name;
 
     /**
-     * 创建时间
-     */
-    private String create_time;
-
-    /**
      * 开始时间
      */
     private String start_time;
@@ -38,11 +33,6 @@ public class EvaluateUpdateRequest implements Serializable {
      * 结束时间
      */
     private String e_time;
-
-    /**
-     * 发布状态（0-评测结束 1-正在评测）
-     */
-    private Integer status;
 
     private static final long serialVersionUID = 1L;
 }

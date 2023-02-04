@@ -8,11 +8,12 @@
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="tid" column="tid" jdbcType="BIGINT"/>
             <result property="sid" column="sid" jdbcType="INTEGER"/>
+            <result property="eid" column="eid" jdbcType="INTEGER"/>
             <result property="score" column="score" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,tid,sid,
+        id,tid,sid,eid,
         score
     </sql>
 </mapper>
