@@ -1,5 +1,6 @@
 package com.itmo.eva.service.impl;
 
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itmo.eva.common.ErrorCode;
 import com.itmo.eva.exception.BusinessException;
@@ -12,6 +13,9 @@ import com.itmo.eva.model.vo.Evaluation.EvaluateVo;
 import com.itmo.eva.model.vo.Evaluation.StudentCompletionVo;
 import com.itmo.eva.model.vo.Evaluation.StudentEvaVo;
 import com.itmo.eva.service.EvaluateService;
+import com.itmo.eva.utils.JwtUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -25,9 +29,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -36,6 +40,7 @@ import java.util.stream.Collectors;
 * @createDate 2023-01-23 13:14:03
 */
 @Service
+@Slf4j
 public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
     implements EvaluateService {
 
@@ -60,9 +65,31 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
     @Resource
     private StudentClassMapper studentClassMapper;
 
-    @PostConstruct
-    public void init() {
+    @Resource
+    private AdminMapper adminMapper;
 
+    /**
+     * 判断评测是否过时
+     */
+    @PostConstruct
+    public void checkEvaluate() throws ParseException {
+        log.info("校验评测中...");
+        // 获取仍在进行中的评测
+        Evaluate evaluate = evaluateMapper.getEvaluateByStatus();
+        if (ObjectUtils.isEmpty(evaluate)) {
+            return;
+        }
+        String endTime = evaluate.getE_time();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date evaluateEndTime = dateFormat.parse(endTime);
+        Date nowTime = Calendar.getInstance().getTime();
+        // 判断当前日期是否超出规定结束日期
+        if (nowTime.after(evaluateEndTime)) {
+            evaluate.setStatus(0);
+            this.updateById(evaluate);
+
+            log.info("{} 评测已经结束，当前时间：{}", evaluate.getName(), dateFormat.format(nowTime));
+        }
     }
 
     /**
@@ -90,7 +117,9 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
 
         Evaluate evaluate = new Evaluate();
         BeanUtils.copyProperties(evaluateAddRequest, evaluate);
-
+        Date createTime = Calendar.getInstance().getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+        evaluate.setCreate_time(dateFormat.format(createTime));
 
         // 校验数据
         this.validEvaluate(evaluate, true);
@@ -186,6 +215,60 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
             return evaluateVo;
         }).collect(Collectors.toList());
         return evaluateVoList;
+    }
+
+    /**
+     * 更新评测状态
+     * @param eid 评测id
+     * @param token 用户token值
+     * @return 更改成功
+     */
+    @Override
+    public Boolean updateStatus(Integer eid, String token) {
+        // 对传回来的token进行解析 -> 解析出token中对应用户的id
+        DecodedJWT decodedJWT = JwtUtil.decodeToken(token);
+        Integer id = Integer.valueOf(decodedJWT.getClaim("id").asString());
+        Admin admin = adminMapper.selectById(id);
+
+        Evaluate evaluate = this.getById(eid);
+        if (ObjectUtils.isEmpty(evaluate)) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "不存在该评测记录");
+        }
+
+        String operationRecord = admin.getUsername() + "正在对" + evaluate.getName() + "进行更改进行状态的操作";
+        log.info(operationRecord);
+
+        // 当前
+        Integer status = evaluate.getStatus();
+        // 评测为开启状态
+        if (status == 1) {
+            evaluate.setStatus(0);
+            boolean save = this.updateById(evaluate);
+
+            return save;
+        }
+
+        // 评测为关闭状态
+        Evaluate evaluateGoing = evaluateMapper.getEvaluateByStatus();
+        if (!ObjectUtils.isEmpty(evaluateGoing)) {
+            throw new BusinessException(ErrorCode.OPERATION_ERROR, "仍有正在进行中的评测");
+        }
+        String eTime = evaluate.getE_time();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            // 判断该评测是否超时
+            Date endTime = dateFormat.parse(eTime);
+            Date nowTime = Calendar.getInstance().getTime();
+            if (nowTime.after(endTime)) {
+                throw new BusinessException(ErrorCode.OPERATION_ERROR, "该评测已超时");
+            }
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        evaluate.setStatus(1);
+        boolean save = this.updateById(evaluate);
+
+        return save;
     }
 
     /**

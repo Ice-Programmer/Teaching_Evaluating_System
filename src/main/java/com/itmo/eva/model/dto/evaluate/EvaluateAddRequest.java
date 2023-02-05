@@ -21,11 +21,6 @@ public class EvaluateAddRequest implements Serializable {
     private String name;
 
     /**
-     * 创建时间
-     */
-    private String create_time;
-
-    /**
      * 开始时间
      */
     private String start_time;

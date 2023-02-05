@@ -8,7 +8,9 @@ import com.itmo.eva.model.dto.evaluate.EvaluateUpdateRequest;
 import com.itmo.eva.model.vo.Evaluation.EvaluateVo;
 import com.itmo.eva.model.vo.Evaluation.StudentCompletionVo;
 import com.itmo.eva.service.EvaluateService;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -121,6 +123,19 @@ public class EvaluateController {
 
         return ResultUtils.success(evaluateVoList);
     }
+
+    @PostMapping("/update/status")
+    public BaseResponse<Boolean> updateStatus(@RequestHeader("token") String token, @RequestBody EvaluateIdRequest evaluateIdRequest) {
+        if (ObjectUtils.isEmpty(evaluateIdRequest)) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        Integer eid = evaluateIdRequest.getEid();
+        Boolean update = evaluateService.updateStatus(eid, token);
+
+        return ResultUtils.success(update);
+    }
+
+
 
     /**
      * 获取学生完成情况

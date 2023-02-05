@@ -1,0 +1,134 @@
+2023-02-04 20:45:27.451 [main] INFO  com.itmo.eva.EvaApplicationTests - Starting EvaApplicationTests using Java 1.8.0_362 on chenjiahandeMacBook-Pro-2.local with PID 25393 (started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
+2023-02-04 20:45:27.452 [main] INFO  com.itmo.eva.EvaApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2023-02-04 20:45:28.883 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-02-04 20:45:32.470 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-02-04 20:45:32.682 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-02-04 20:45:32.788 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-02-04 20:45:32.795 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2023-02-04 20:45:46.775 [restartedMain] INFO  com.itmo.eva.EvaApplication - Starting EvaApplication using Java 1.8.0_362 on chenjiahandeMacBook-Pro-2.local with PID 25423 (/Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva/target/classes started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
+2023-02-04 20:45:46.776 [restartedMain] INFO  com.itmo.eva.EvaApplication - No active profile set, falling back to 1 default profile: "default"
+2023-02-04 20:45:46.806 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-02-04 20:45:46.806 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-02-04 20:45:47.541 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-02-04 20:45:47.545 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2023-02-04 20:45:47.546 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-02-04 20:45:47.546 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.63]
+2023-02-04 20:45:47.584 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2023-02-04 20:45:47.584 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 778 ms
+2023-02-04 20:45:48.068 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-02-04 20:45:51.998 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-02-04 20:45:52.124 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-02-04 20:45:52.389 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-02-04 20:45:52.391 [restartedMain] INFO  org.apache.catalina.core.StandardService - Stopping service [Tomcat]
+2023-02-04 20:45:52.400 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2023-02-04 20:49:11.628 [restartedMain] INFO  com.itmo.eva.EvaApplication - Starting EvaApplication using Java 1.8.0_362 on chenjiahandeMacBook-Pro-2.local with PID 25660 (/Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva/target/classes started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
+2023-02-04 20:49:11.628 [restartedMain] INFO  com.itmo.eva.EvaApplication - No active profile set, falling back to 1 default profile: "default"
+2023-02-04 20:49:11.654 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-02-04 20:49:11.654 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-02-04 20:49:12.360 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-02-04 20:49:12.364 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2023-02-04 20:49:12.365 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-02-04 20:49:12.365 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.63]
+2023-02-04 20:49:12.393 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2023-02-04 20:49:12.393 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 738 ms
+2023-02-04 20:49:12.885 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-02-04 20:49:28.427 [restartedMain] INFO  org.apache.catalina.core.StandardService - Stopping service [Tomcat]
+2023-02-04 20:49:28.435 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2023-02-04 20:51:20.904 [restartedMain] INFO  com.itmo.eva.EvaApplication - Starting EvaApplication using Java 1.8.0_362 on chenjiahandeMacBook-Pro-2.local with PID 25852 (/Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva/target/classes started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
+2023-02-04 20:51:20.905 [restartedMain] INFO  com.itmo.eva.EvaApplication - No active profile set, falling back to 1 default profile: "default"
+2023-02-04 20:51:20.932 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-02-04 20:51:20.932 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-02-04 20:51:21.598 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-02-04 20:51:21.603 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2023-02-04 20:51:21.604 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-02-04 20:51:21.604 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.63]
+2023-02-04 20:51:21.633 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2023-02-04 20:51:21.633 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 701 ms
+2023-02-04 20:51:22.124 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-02-04 20:51:58.700 [restartedMain] INFO  org.apache.catalina.core.StandardService - Stopping service [Tomcat]
+2023-02-04 20:51:58.707 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2023-02-04 20:52:44.992 [restartedMain] INFO  com.itmo.eva.EvaApplication - Starting EvaApplication using Java 1.8.0_362 on chenjiahandeMacBook-Pro-2.local with PID 25970 (/Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva/target/classes started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
+2023-02-04 20:52:44.993 [restartedMain] INFO  com.itmo.eva.EvaApplication - No active profile set, falling back to 1 default profile: "default"
+2023-02-04 20:52:45.020 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-02-04 20:52:45.020 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-02-04 20:52:45.702 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-02-04 20:52:45.706 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2023-02-04 20:52:45.707 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-02-04 20:52:45.707 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.63]
+2023-02-04 20:52:45.739 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2023-02-04 20:52:45.739 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 718 ms
+2023-02-04 20:52:46.231 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-02-04 20:52:49.718 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-02-04 20:52:50.230 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2023-02-04 20:52:50.387 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2023-02-04 20:52:50.408 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/api'
+2023-02-04 20:52:50.630 [restartedMain] INFO  com.itmo.eva.EvaApplication - Started EvaApplication in 5.849 seconds (JVM running for 6.135)
+2023-02-04 20:54:35.703 [http-nio-8080-exec-1] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-02-04 20:54:35.703 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-02-04 20:54:35.704 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2023-02-04 20:54:47.117 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-02-04 23:00:11.686 [restartedMain] INFO  com.itmo.eva.EvaApplication - Starting EvaApplication using Java 1.8.0_362 on chenjiahandeMacBook-Pro-2.local with PID 35575 (/Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva/target/classes started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
+2023-02-04 23:00:11.687 [restartedMain] INFO  com.itmo.eva.EvaApplication - No active profile set, falling back to 1 default profile: "default"
+2023-02-04 23:00:11.711 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-02-04 23:00:11.711 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-02-04 23:00:12.455 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-02-04 23:00:12.459 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2023-02-04 23:00:12.459 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-02-04 23:00:12.460 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.63]
+2023-02-04 23:00:12.489 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2023-02-04 23:00:12.489 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 778 ms
+2023-02-04 23:00:12.975 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-02-04 23:00:16.476 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-02-04 23:00:16.949 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2023-02-04 23:00:17.085 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2023-02-04 23:00:17.102 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/api'
+2023-02-04 23:00:17.309 [restartedMain] INFO  com.itmo.eva.EvaApplication - Started EvaApplication in 5.857 seconds (JVM running for 6.179)
+2023-02-04 23:00:20.424 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-02-04 23:35:42.458 [restartedMain] INFO  com.itmo.eva.EvaApplication - Starting EvaApplication using Java 1.8.0_362 on chenjiahandeMacBook-Pro-2.local with PID 37998 (/Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva/target/classes started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
+2023-02-04 23:35:42.459 [restartedMain] INFO  com.itmo.eva.EvaApplication - No active profile set, falling back to 1 default profile: "default"
+2023-02-04 23:35:42.483 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-02-04 23:35:42.484 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-02-04 23:35:43.196 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-02-04 23:35:43.200 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2023-02-04 23:35:43.200 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-02-04 23:35:43.200 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.63]
+2023-02-04 23:35:43.226 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2023-02-04 23:35:43.226 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 742 ms
+2023-02-04 23:35:43.719 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-02-04 23:35:47.250 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-02-04 23:35:47.697 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2023-02-04 23:35:47.832 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2023-02-04 23:35:47.852 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/api'
+2023-02-04 23:35:48.061 [restartedMain] INFO  com.itmo.eva.EvaApplication - Started EvaApplication in 5.82 seconds (JVM running for 6.107)
+2023-02-04 23:35:49.521 [http-nio-8080-exec-1] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-02-04 23:35:49.521 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-02-04 23:35:49.523 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2023-02-04 23:36:00.416 [http-nio-8080-exec-4] INFO  com.itmo.eva.aop.LogInterceptor - request start，id: ab029384-0cef-47d6-bb7a-c12dce836a4c, path: /api/course/list, ip: 0:0:0:0:0:0:0:1, params: []
+2023-02-04 23:36:00.597 [http-nio-8080-exec-4] INFO  com.itmo.eva.aop.LogInterceptor - request end, id: ab029384-0cef-47d6-bb7a-c12dce836a4c, cost: 197ms
+2023-02-04 23:36:08.920 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-02-04 23:48:57.070 [restartedMain] INFO  com.itmo.eva.EvaApplication - Starting EvaApplication using Java 1.8.0_362 on chenjiahandeMacBook-Pro-2.local with PID 38911 (/Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva/target/classes started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
+2023-02-04 23:48:57.071 [restartedMain] INFO  com.itmo.eva.EvaApplication - No active profile set, falling back to 1 default profile: "default"
+2023-02-04 23:48:57.098 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-02-04 23:48:57.098 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-02-04 23:48:57.782 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-02-04 23:48:57.786 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2023-02-04 23:48:57.786 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-02-04 23:48:57.786 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.63]
+2023-02-04 23:48:57.814 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2023-02-04 23:48:57.815 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 716 ms
+2023-02-04 23:48:58.301 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-02-04 23:49:02.277 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-02-04 23:49:02.733 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2023-02-04 23:49:02.868 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2023-02-04 23:49:02.878 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/api'
+2023-02-04 23:49:03.091 [restartedMain] INFO  com.itmo.eva.EvaApplication - Started EvaApplication in 6.237 seconds (JVM running for 6.676)
+2023-02-04 23:49:06.492 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-02-04 23:49:06.597 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

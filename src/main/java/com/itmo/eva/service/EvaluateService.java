@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.itmo.eva.model.vo.Evaluation.EvaluateVo;
 import com.itmo.eva.model.vo.Evaluation.StudentCompletionVo;
 import com.itmo.eva.model.vo.StudentVo;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -53,6 +54,11 @@ public interface EvaluateService extends IService<Evaluate> {
      * 获取评测列表
      */
     List<EvaluateVo> listEvaluate();
+
+    /**
+     * 更改评测状态
+     */
+    Boolean updateStatus(Integer eid, String token);
 
 
     /**

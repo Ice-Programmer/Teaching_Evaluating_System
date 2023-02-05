@@ -1,40 +1,11 @@
-2023-02-04 20:45:28.571 [main] WARN  c.b.mybatisplus.core.injector.DefaultSqlInjector - class com.itmo.eva.model.entity.Redline ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
-2023-02-04 20:45:32.682 [main] WARN  o.s.w.context.support.GenericWebApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'scoreController': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'scoreHistoryServiceImpl': Invocation of init method failed; nested exception is org.springframework.jdbc.BadSqlGrammarException: 
-### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: Unknown column 'eid' in 'where clause'
-### The error may exist in com/itmo/eva/mapper/AverageScoreMapper.java (best guess)
-### The error may involve com.itmo.eva.mapper.AverageScoreMapper.getByEid-Inline
-### The error occurred while setting parameters
-### SQL: select COUNT(*) from e_average_score where eid = ?
-### Cause: java.sql.SQLSyntaxErrorException: Unknown column 'eid' in 'where clause'
-; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: Unknown column 'eid' in 'where clause'
-2023-02-04 20:45:47.847 [restartedMain] WARN  c.b.mybatisplus.core.injector.DefaultSqlInjector - class com.itmo.eva.model.entity.Redline ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
-2023-02-04 20:45:52.123 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'scoreController': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'scoreHistoryServiceImpl': Invocation of init method failed; nested exception is org.springframework.jdbc.BadSqlGrammarException: 
-### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: Unknown column 'eid' in 'where clause'
-### The error may exist in com/itmo/eva/mapper/AverageScoreMapper.java (best guess)
-### The error may involve com.itmo.eva.mapper.AverageScoreMapper.getByEid-Inline
-### The error occurred while setting parameters
-### SQL: select COUNT(*) from e_average_score where eid = ?
-### Cause: java.sql.SQLSyntaxErrorException: Unknown column 'eid' in 'where clause'
-; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: Unknown column 'eid' in 'where clause'
-2023-02-04 20:49:12.663 [restartedMain] WARN  c.b.mybatisplus.core.injector.DefaultSqlInjector - class com.itmo.eva.model.entity.Redline ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
-2023-02-04 20:49:28.420 [restartedMain] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Default transaction isolation level detection failed (Communications link failure
-
-The last packet successfully received from the server was 5,054 milliseconds ago. The last packet sent successfully to the server was 5,054 milliseconds ago.).
-2023-02-04 20:49:28.425 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'scoreController': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'scoreHistoryServiceImpl': Invocation of init method failed; nested exception is org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: 
-### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Unsupported transaction isolation level '-1'
-### The error may exist in com/itmo/eva/mapper/EvaluateMapper.java (best guess)
-### The error may involve com.itmo.eva.mapper.EvaluateMapper.getAllEndEvaluation
-### The error occurred while executing a query
-### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Unsupported transaction isolation level '-1'
-2023-02-04 20:51:21.907 [restartedMain] WARN  c.b.mybatisplus.core.injector.DefaultSqlInjector - class com.itmo.eva.model.entity.Redline ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
-2023-02-04 20:51:58.698 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'scoreController': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'scoreHistoryServiceImpl': Invocation of init method failed; nested exception is org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: 
-### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
-
-The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
-### The error may exist in com/itmo/eva/mapper/EvaluateMapper.java (best guess)
-### The error may involve com.itmo.eva.mapper.EvaluateMapper.getAllEndEvaluation
-### The error occurred while executing a query
-### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
-
-The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
-2023-02-04 20:52:46.009 [restartedMain] WARN  c.b.mybatisplus.core.injector.DefaultSqlInjector - class com.itmo.eva.model.entity.Redline ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2023-02-05 10:53:49.871 [restartedMain] WARN  c.b.mybatisplus.core.injector.DefaultSqlInjector - class com.itmo.eva.model.entity.Redline ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2023-02-05 10:53:53.853 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'evaluateController': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'evaluateServiceImpl': Invocation of init method failed; nested exception is java.lang.NullPointerException
+2023-02-05 10:59:16.557 [restartedMain] WARN  c.b.mybatisplus.core.injector.DefaultSqlInjector - class com.itmo.eva.model.entity.Redline ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2023-02-05 11:04:22.146 [restartedMain] WARN  c.b.mybatisplus.core.injector.DefaultSqlInjector - class com.itmo.eva.model.entity.Redline ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2023-02-05 12:02:37.007 [restartedMain] WARN  c.b.mybatisplus.core.injector.DefaultSqlInjector - class com.itmo.eva.model.entity.Redline ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2023-02-05 12:03:50.880 [restartedMain] WARN  c.b.mybatisplus.core.injector.DefaultSqlInjector - class com.itmo.eva.model.entity.Redline ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2023-02-05 12:04:43.663 [http-nio-8080-exec-5] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [java.lang.NumberFormatException: For input string: "admin"]
+2023-02-05 12:05:22.141 [restartedMain] WARN  c.b.mybatisplus.core.injector.DefaultSqlInjector - class com.itmo.eva.model.entity.Redline ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2023-02-05 12:06:10.831 [http-nio-8080-exec-1] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [java.lang.NumberFormatException: For input string: "admin"]
+2023-02-05 12:06:14.959 [restartedMain] WARN  c.b.mybatisplus.core.injector.DefaultSqlInjector - class com.itmo.eva.model.entity.Redline ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2023-02-05 12:07:50.146 [http-nio-8080-exec-3] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.itmo.eva.exception.BusinessException: 仍有正在进行中的评测]
