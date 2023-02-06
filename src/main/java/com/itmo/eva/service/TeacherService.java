@@ -4,7 +4,8 @@ import com.itmo.eva.model.dto.teacher.TeacherAddRequest;
 import com.itmo.eva.model.dto.teacher.TeacherUpdateRequest;
 import com.itmo.eva.model.entity.Teacher;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.itmo.eva.model.vo.TeacherVo;
+import com.itmo.eva.model.vo.teacher.TeacherNameVo;
+import com.itmo.eva.model.vo.teacher.TeacherVo;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -70,12 +71,12 @@ public interface TeacherService extends IService<Teacher> {
      *
      * @return 中方教师
      */
-    List<TeacherVo> getChineseTeacher();
+    List<TeacherNameVo> getChineseTeacher();
 
     /**
      * 获取所有俄方教师
      *
      * @return 俄方教师
      */
-    List<TeacherVo> getRussianTeacher();
+    List<TeacherNameVo> getRussianTeacher();
 }

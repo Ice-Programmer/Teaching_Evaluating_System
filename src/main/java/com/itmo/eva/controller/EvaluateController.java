@@ -1,16 +1,21 @@
 package com.itmo.eva.controller;
 
-import com.itmo.eva.common.*;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.itmo.eva.common.BaseResponse;
+import com.itmo.eva.common.DeleteRequest;
+import com.itmo.eva.common.ErrorCode;
+import com.itmo.eva.common.ResultUtils;
 import com.itmo.eva.exception.BusinessException;
 import com.itmo.eva.model.dto.evaluate.EvaluateAddRequest;
 import com.itmo.eva.model.dto.evaluate.EvaluateIdRequest;
 import com.itmo.eva.model.dto.evaluate.EvaluateUpdateRequest;
+import com.itmo.eva.model.vo.Evaluation.EvaluateNameVo;
 import com.itmo.eva.model.vo.Evaluation.EvaluateVo;
 import com.itmo.eva.model.vo.Evaluation.StudentCompletionVo;
 import com.itmo.eva.service.EvaluateService;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -124,6 +129,12 @@ public class EvaluateController {
         return ResultUtils.success(evaluateVoList);
     }
 
+    /**
+     * 更改评测状态
+     * @param token token
+     * @param evaluateIdRequest eid
+     * @return 更改结果
+     */
     @PostMapping("/update/status")
     public BaseResponse<Boolean> updateStatus(@RequestHeader("token") String token, @RequestBody EvaluateIdRequest evaluateIdRequest) {
         if (ObjectUtils.isEmpty(evaluateIdRequest)) {
@@ -166,6 +177,16 @@ public class EvaluateController {
         return ResultUtils.success(export);
 
     }
+
+    @GetMapping("/get/name")
+    public BaseResponse<List<EvaluateNameVo>> getEvaluateName() {
+        List<EvaluateNameVo> evaluateName = evaluateService.getEvaluateName();
+        if (CollectionUtils.isEmpty(evaluateName)) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
+        }
+        return ResultUtils.success(evaluateName);
+    }
+
 
 
 }

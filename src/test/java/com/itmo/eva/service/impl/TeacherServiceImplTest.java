@@ -5,21 +5,18 @@ import com.itmo.eva.exception.BusinessException;
 import com.itmo.eva.mapper.PositionMapper;
 import com.itmo.eva.mapper.TitleMapper;
 import com.itmo.eva.model.entity.Teacher;
-import com.itmo.eva.model.vo.TeacherVo;
+import com.itmo.eva.model.vo.teacher.TeacherVo;
 import com.itmo.eva.service.TeacherService;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.util.StringUtils;
 import org.springframework.beans.BeanUtils;
 
 import javax.annotation.Resource;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class TeacherServiceImplTest {
 

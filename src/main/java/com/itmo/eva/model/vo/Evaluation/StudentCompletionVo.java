@@ -21,4 +21,7 @@ public class StudentCompletionVo implements Serializable {
      */
     private List<StudentEvaVo> studentUndone;
 
+    private static final long serialVersionUID = 1L;
+
+
 }

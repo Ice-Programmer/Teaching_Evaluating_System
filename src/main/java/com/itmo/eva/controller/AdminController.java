@@ -10,14 +10,11 @@ import com.itmo.eva.model.vo.AdminVo;
 import com.itmo.eva.service.AdminService;
 import lombok.extern.slf4j.Slf4j;
 import net.dreamlu.mica.ip2region.core.Ip2regionSearcher;
-import net.dreamlu.mica.ip2region.core.IpInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-
-import static net.dreamlu.mica.core.utils.StringPool.UNKNOWN;
 
 /**
  * 管理员接口
@@ -29,9 +26,6 @@ public class AdminController {
 
     @Resource
     private AdminService adminService;
-
-    @Resource
-    private Ip2regionSearcher ip2regionSearcher;
 
     /**
      * 用户登陆

@@ -25,4 +25,7 @@ public class StudentEvaVo implements Serializable {
      * 学号
      */
     private String studentId;
+
+    private static final long serialVersionUID = 1L;
+
 }

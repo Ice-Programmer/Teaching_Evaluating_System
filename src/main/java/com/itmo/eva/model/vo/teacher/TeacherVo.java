@@ -1,4 +1,4 @@
-package com.itmo.eva.model.vo;
+package com.itmo.eva.model.vo.teacher;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;

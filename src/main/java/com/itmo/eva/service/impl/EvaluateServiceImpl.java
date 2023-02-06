@@ -1,6 +1,7 @@
 package com.itmo.eva.service.impl;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itmo.eva.common.ErrorCode;
 import com.itmo.eva.exception.BusinessException;
@@ -9,10 +10,12 @@ import com.itmo.eva.model.dto.evaluate.EvaluateAddRequest;
 import com.itmo.eva.model.dto.evaluate.EvaluateUpdateRequest;
 import com.itmo.eva.model.entity.*;
 import com.itmo.eva.model.entity.System;
+import com.itmo.eva.model.vo.Evaluation.EvaluateNameVo;
 import com.itmo.eva.model.vo.Evaluation.EvaluateVo;
 import com.itmo.eva.model.vo.Evaluation.StudentCompletionVo;
 import com.itmo.eva.model.vo.Evaluation.StudentEvaVo;
 import com.itmo.eva.service.EvaluateService;
+import com.itmo.eva.utils.DownLoadUtil;
 import com.itmo.eva.utils.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
@@ -22,6 +25,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -367,7 +371,7 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
         OutputStream os = null;
 
         try {
-            String folderPath = "/Users/chenjiahan/Desktop/excel";
+            String folderPath = "C:\\excel";
             //创建上传文件目录
             File folder = new File(folderPath);
             //如果文件夹不存在创建对应的文件夹
@@ -392,6 +396,21 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
         }
 
         return true;
+    }
+
+    @Override
+    public List<EvaluateNameVo> getEvaluateName() {
+        List<Evaluate> evaluateList = this.baseMapper.selectList(null);
+        if (CollectionUtils.isEmpty(evaluateList)) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
+        }
+        List<EvaluateNameVo> evaluateNameVoList = evaluateList.stream().map(evaluate -> {
+            EvaluateNameVo evaluateNameVo = new EvaluateNameVo();
+            BeanUtils.copyProperties(evaluate, evaluateNameVo);
+            return evaluateNameVo;
+        }).collect(Collectors.toList());
+
+        return evaluateNameVoList;
     }
 
     /**

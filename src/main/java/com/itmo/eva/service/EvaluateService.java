@@ -1,13 +1,12 @@
 package com.itmo.eva.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.itmo.eva.model.dto.evaluate.EvaluateAddRequest;
 import com.itmo.eva.model.dto.evaluate.EvaluateUpdateRequest;
 import com.itmo.eva.model.entity.Evaluate;
-import com.baomidou.mybatisplus.extension.service.IService;
+import com.itmo.eva.model.vo.Evaluation.EvaluateNameVo;
 import com.itmo.eva.model.vo.Evaluation.EvaluateVo;
 import com.itmo.eva.model.vo.Evaluation.StudentCompletionVo;
-import com.itmo.eva.model.vo.StudentVo;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -66,7 +65,15 @@ public interface EvaluateService extends IService<Evaluate> {
      */
     StudentCompletionVo listStudentCompletion(Integer eid);
 
+    /**
+     * 导出未完成学生名单
+     * @param eid
+     * @param response
+     * @return
+     */
     Boolean exportUndoneStudentExcel(Integer eid, HttpServletResponse response);
+
+    List<EvaluateNameVo> getEvaluateName();
 
     /**
      * 校验

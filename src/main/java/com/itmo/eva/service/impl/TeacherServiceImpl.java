@@ -15,23 +15,20 @@ import com.itmo.eva.model.entity.Title;
 import com.itmo.eva.model.enums.GenderEnum;
 import com.itmo.eva.model.enums.IdentityEnum;
 import com.itmo.eva.model.enums.MajorEnum;
-import com.itmo.eva.model.vo.TeacherVo;
+import com.itmo.eva.model.vo.teacher.TeacherNameVo;
+import com.itmo.eva.model.vo.teacher.TeacherVo;
 import com.itmo.eva.service.TeacherService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.DataFormatter;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -278,49 +275,39 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher>
      * @return 中方教师
      */
     @Override
-    public List<TeacherVo> getChineseTeacher() {
+    public List<TeacherNameVo> getChineseTeacher() {
         List<Teacher> teacherList = baseMapper.getChineseTeacher();
         if (teacherList == null) {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "没有数据记录");
         }
 
-        List<Position> positionList = positionMapper.selectList(null);
-        Map<Integer, String> positionMap = positionList.stream().collect(Collectors.toMap(Position::getId, Position::getName));
-        List<Title> titleList = titleMapper.selectList(null);
-        Map<Integer, String> titleMap = titleList.stream().collect(Collectors.toMap(Title::getId, Title::getName));
-
-        List<TeacherVo> teacherVoList = teacherList.stream().map((teacher) -> {
-            TeacherVo teacherVo = new TeacherVo();
-            BeanUtils.copyProperties(teacher, teacherVo);
-            teacherVo.setPosition(positionMap.get(teacher.getPosition()));
-            teacherVo.setTitle(titleMap.get(teacher.getTitle()));
-            return teacherVo;
+        List<TeacherNameVo> teacherNameVos = teacherList.stream().map((teacher) -> {
+            TeacherNameVo teacherNameVo = new TeacherNameVo();
+            BeanUtils.copyProperties(teacher, teacherNameVo);
+            return teacherNameVo;
         }).collect(Collectors.toList());
 
-        return teacherVoList;
+        return teacherNameVos;
     }
 
+    /**
+     * 获取俄方教师信息
+     * @return
+     */
     @Override
-    public List<TeacherVo> getRussianTeacher() {
+    public List<TeacherNameVo> getRussianTeacher() {
         List<Teacher> teacherList = baseMapper.getRussianTeacher();
         if (teacherList == null) {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "没有数据记录");
         }
 
-        List<Position> positionList = positionMapper.selectList(null);
-        Map<Integer, String> positionMap = positionList.stream().collect(Collectors.toMap(Position::getId, Position::getName));
-        List<Title> titleList = titleMapper.selectList(null);
-        Map<Integer, String> titleMap = titleList.stream().collect(Collectors.toMap(Title::getId, Title::getName));
-
-        List<TeacherVo> teacherVoList = teacherList.stream().map((teacher) -> {
-            TeacherVo teacherVo = new TeacherVo();
-            BeanUtils.copyProperties(teacher, teacherVo);
-            teacherVo.setPosition(positionMap.get(teacher.getPosition()));
-            teacherVo.setTitle(titleMap.get(teacher.getTitle()));
-            return teacherVo;
+        List<TeacherNameVo> teacherNameVoList = teacherList.stream().map((teacher) -> {
+            TeacherNameVo teacherNameVo = new TeacherNameVo();
+            BeanUtils.copyProperties(teacher, teacherNameVo);
+            return teacherNameVo;
         }).collect(Collectors.toList());
 
-        return teacherVoList;
+        return teacherNameVoList;
     }
 
     /**

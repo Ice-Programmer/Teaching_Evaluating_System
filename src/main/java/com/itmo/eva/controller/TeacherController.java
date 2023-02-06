@@ -4,24 +4,16 @@ import com.itmo.eva.common.*;
 import com.itmo.eva.exception.BusinessException;
 import com.itmo.eva.model.dto.teacher.TeacherAddRequest;
 import com.itmo.eva.model.dto.teacher.TeacherUpdateRequest;
-import com.itmo.eva.model.vo.TeacherVo;
+import com.itmo.eva.model.vo.teacher.TeacherNameVo;
+import com.itmo.eva.model.vo.teacher.TeacherVo;
 import com.itmo.eva.service.TeacherService;
 import com.itmo.eva.utils.DownLoadUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URLEncoder;
 import java.util.List;
 
 /**
@@ -166,8 +158,8 @@ public class TeacherController {
      * @return
      */
     @GetMapping("/get/china")
-    public BaseResponse<List<TeacherVo>> getChineseTeacher() {
-        List<TeacherVo> chineseTeacher = teacherService.getChineseTeacher();
+    public BaseResponse<List<TeacherNameVo>> getChineseTeacher() {
+        List<TeacherNameVo> chineseTeacher = teacherService.getChineseTeacher();
         if (chineseTeacher == null) {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
         }
@@ -178,8 +170,8 @@ public class TeacherController {
      * 获取俄方教师信息
      */
     @GetMapping("/get/russia")
-    public BaseResponse<List<TeacherVo>> getRussianTeacher() {
-        List<TeacherVo> russianTeacher = teacherService.getRussianTeacher();
+    public BaseResponse<List<TeacherNameVo>> getRussianTeacher() {
+        List<TeacherNameVo> russianTeacher = teacherService.getRussianTeacher();
         if (russianTeacher == null) {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
         }
