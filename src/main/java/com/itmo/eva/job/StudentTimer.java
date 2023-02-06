@@ -1,4 +1,4 @@
-package com.itmo.eva.drop;
+package com.itmo.eva.job;
 
 import com.itmo.eva.mapper.StudentMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
+/**
+ * 自动增加学生学期
+ */
 @Component
 @Slf4j
 public class StudentTimer {

@@ -3,6 +3,7 @@ package com.itmo.eva.mapper;
 import com.itmo.eva.model.entity.MarkHistory;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import io.swagger.models.auth.In;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -38,6 +39,13 @@ public interface MarkHistoryMapper extends BaseMapper<MarkHistory> {
      */
     @Select("select aid from e_mark_history where eid = #{eid} and state = 0")
     List<Integer> getByEidAndState(Integer eid);
+
+    /**
+     * 删除与eid有关的所有记录
+     * @param eid
+     */
+    @Delete("delete from e_mark_history where eid = #{eid}")
+    void removeByEid(Integer eid);
 }
 
 

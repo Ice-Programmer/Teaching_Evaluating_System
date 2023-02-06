@@ -14,11 +14,14 @@ import com.itmo.eva.model.dto.score.ScoreFilterRequest;
 import com.itmo.eva.model.entity.*;
 import com.itmo.eva.model.entity.System;
 import com.itmo.eva.model.vo.ScoreHistoryVo;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -35,6 +38,7 @@ import java.util.stream.Collectors;
  * @createDate 2023-01-25 13:28:07
  */
 @Service
+@Slf4j
 public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, ScoreHistory>
         implements ScoreHistoryService {
 
@@ -55,29 +59,6 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
 
     @Resource
     private RedlineMapper redlineMapper;
-
-
-    /**
-     * 判断是否存在分数
-     */
-    @PostConstruct
-    public void init() {
-        // 1.获取所有评测的id 【已经结束】
-        List<Evaluate> allEndEvaluationEnd = evaluateMapper.getAllEndEvaluation();
-        if (allEndEvaluationEnd == null) {
-            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "暂无相关信息");
-        }
-        List<Integer> evaluateIds = allEndEvaluationEnd.stream().map(Evaluate::getId).collect(Collectors.toList());
-        for (Integer e : evaluateIds) {
-            Integer isExit = averageScoreMapper.getByEid(e);
-            // 判断是否为空
-            if (isExit == null) {
-                // 如果为空，计算该评测的平均分
-                calculateAverageScore(e);
-            }
-        }
-    }
-
 
     /**
      * 获取中方老师所有的分数
@@ -139,7 +120,6 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
             // 获取教师id
             Long tid = teacher.getId();
             // 在average表中找到对应的所有一级评价分数
-            List<AverageScore> scoreByTid = averageScoreMapper.getByEidAndTid(eid, tid);
             Map<Integer, Integer> detailScore = averageScoreMapper.getByEidAndTid(eid, tid).stream().collect(Collectors.toMap(AverageScore::getSid, AverageScore::getScore));
 
             Integer score = detailScore.values().stream().reduce(Integer::sum).orElse(0);
@@ -315,39 +295,45 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
     }
 
     /**
-     * 计算平均分 【总分】
-     *
-     * @param eid 评测的id
+     * 计算平均分
+     * @param eid 评测id
      */
-    private void calculateAverageScore(Integer eid) {
-        // 获取所有老师信息
+    @Override
+    public void calculateScoreAverage(Integer eid) {
+        // 1. 获取所有教师信息
         List<Teacher> teacherList = teacherMapper.selectList(null);
 
-        // 遍历所有教师，来计算每一个老师对应所有一级指标的平均分
+        // 2. 遍历所有教师，计算每个教师的一级评论分数
         for (Teacher teacher : teacherList) {
-            Long tid = teacher.getId();     // 教师id
-            Integer identity = teacher.getIdentity();   // 国籍
-
-            // 获取该教师的一级评价内容
-            List<System> systemList = systemMapper.getCountByKind(identity);
-            for (System system : systemList) {
-                Integer sid = system.getSid(); // 一级评价id
+            // 3. 获取教师国籍，来锁定教师所属的一级评论
+            Integer identity = teacher.getIdentity();
+            int teacherId = teacher.getId().intValue();
+            // 该教师下的所有一级评论
+            List<System> firstSystemList = systemMapper.getCountByKind(identity);
+            for (System firstSystem : firstSystemList) {
+                Integer systemId = firstSystem.getId();
                 LambdaQueryWrapper<MarkHistory> queryWrapper = new LambdaQueryWrapper<>();
-                queryWrapper.eq(MarkHistory::getEid, eid)   // 某一次评测
-                        .eq(MarkHistory::getTid, tid)       // 某一位老师
-                        .eq(MarkHistory::getSid, sid);      // 某一个一级指标
-                // 这位教师在这一个一级评论下的所有分数list
-                List<Integer> scoreList = markHistoryMapper.selectList(queryWrapper).stream().map(MarkHistory::getScore).collect(Collectors.toList());
-                // 该教师这一项一级指标的平均值
+                queryWrapper.eq(MarkHistory::getEid, eid)
+                        .eq(MarkHistory::getTid, teacherId)
+                        .eq(MarkHistory::getSid, systemId)
+                        .eq(MarkHistory::getState, 1);      // 保证平均分不会参杂未评价信息导致分数误差
+                // 4. 获取教师某个一级评价下的所有信息
+                List<MarkHistory> markHistoryList = markHistoryMapper.selectList(queryWrapper);
+                if (CollectionUtils.isEmpty(markHistoryList)) {
+                    log.error("在id为{}的评测中，{}教师平均分计算中，无{}这一级评价的相关分数", eid, teacher.getName(), firstSystem.getName());
+                    throw new BusinessException(ErrorCode.OPERATION_ERROR);
+                }
+                // 取出所有分数计算平均分
+                List<Integer> scoreList = markHistoryList.stream().map(MarkHistory::getScore).collect(Collectors.toList());
+                // 5. 计算平均分
                 OptionalDouble optionalAverage = scoreList.stream().mapToDouble(Integer::doubleValue).average();
+                // 将平均分储存到average_score表中
                 if (optionalAverage != null && optionalAverage.isPresent()) {
-                    double average = optionalAverage.getAsDouble();
-                    // 判断老师平均分数是否低于了红线指标
-                    isRedLine(average, eid);
+                    double average = optionalAverage.getAsDouble();     // 平均分
                     AverageScore averageScore = new AverageScore();
-                    averageScore.setTid(tid);
+                    averageScore.setTid((long) teacherId);
+                    averageScore.setSid(systemId);
                     averageScore.setScore((int) average);
-                    averageScore.setSid(sid);
                     averageScore.setEid(eid);
                     averageScoreMapper.insert(averageScore);
                 }
@@ -357,25 +343,17 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
 
     }
 
-    /**
-     * 判断分数是否低于红线分数
-     * @param average 某一级评价平均分
-     * @param sid 一级评价id
-     */
-    private void isRedLine(double average, Integer sid) {
-        RedlineHistory redlineHistory = new RedlineHistory();
 
-        Redline redline = redlineMapper.getBySid(sid);
-        BigDecimal score = redline.getScore();
-        score.doubleValue();
-        redlineHistory.setTid(0);
-        redlineHistory.setGid(0);
-        redlineHistory.setCid(0);
-        redlineHistory.setScore(new BigDecimal("0"));
-        redlineHistory.setHappen_time("");
-    }
 }
 
+
+/**
+ * 计算平均分的方法
+ * 每个老师的每一个以及指标都应当又一个平均分  =》   从mark表中取老师的所有数据
+ * 平均分计算完成后将教师的所有一级评价平均分全部存到e_average表中，用eid来标记
+ * 排名就根据每一个一级指标的平均分来得出总分传给前端
+ * 平均分计算完成后根据红线数据来进行判断教师是否超过红线指标并记录
+ */
 
 
 

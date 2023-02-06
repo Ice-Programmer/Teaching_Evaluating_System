@@ -42,4 +42,10 @@ public interface ScoreHistoryService extends IService<ScoreHistory> {
      * @param scoreFilterRequest 评测id
      */
     void exportRussianExcel(HttpServletResponse response, ScoreFilterRequest scoreFilterRequest);
+
+    /**
+     * 计算评测下的所有教师的平均分
+     * @param eid 评测id
+     */
+    void calculateScoreAverage(Integer eid);
 }

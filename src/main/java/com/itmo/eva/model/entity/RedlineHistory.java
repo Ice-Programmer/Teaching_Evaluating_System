@@ -27,16 +27,6 @@ public class RedlineHistory implements Serializable {
     private Integer tid;
 
     /**
-     * 年级
-     */
-    private Integer gid;
-
-    /**
-     * 课程主键
-     */
-    private Integer cid;
-
-    /**
      * 分数
      */
     private BigDecimal score;

@@ -73,30 +73,6 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
     private AdminMapper adminMapper;
 
     /**
-     * 判断评测是否过时
-     */
-    @PostConstruct
-    public void checkEvaluate() throws ParseException {
-        log.info("校验评测中...");
-        // 获取仍在进行中的评测
-        Evaluate evaluate = evaluateMapper.getEvaluateByStatus();
-        if (ObjectUtils.isEmpty(evaluate)) {
-            return;
-        }
-        String endTime = evaluate.getE_time();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date evaluateEndTime = dateFormat.parse(endTime);
-        Date nowTime = Calendar.getInstance().getTime();
-        // 判断当前日期是否超出规定结束日期
-        if (nowTime.after(evaluateEndTime)) {
-            evaluate.setStatus(0);
-            this.updateById(evaluate);
-
-            log.info("{} 评测已经结束，当前时间：{}", evaluate.getName(), dateFormat.format(nowTime));
-        }
-    }
-
-    /**
      * 添加评测
      *
      * @param evaluateAddRequest 评测请求体
@@ -150,6 +126,9 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
         }
 
         boolean remove = this.removeById(id);
+
+        // 删除评测下所有的记录 mark表中
+        markHistoryMapper.removeByEid(id.intValue());
 
         return remove;
     }
