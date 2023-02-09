@@ -4,6 +4,7 @@ import com.itmo.eva.model.dto.student.StudentAddRequest;
 import com.itmo.eva.model.dto.student.StudentUpdateRequest;
 import com.itmo.eva.model.entity.Student;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.itmo.eva.model.vo.ClassVo;
 import com.itmo.eva.model.vo.StudentVo;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -68,4 +69,15 @@ public interface StudentService extends IService<Student> {
      */
     void validStudent(Student student, boolean add);
 
+    /**
+     * 获取计算机所有班级
+     * @return
+     */
+    List<ClassVo> getStudentClassOfComputer();
+
+    /**
+     * 获取自动化所有班级
+     * @return
+     */
+    List<ClassVo> getStudentClassOfAutomation();
 }

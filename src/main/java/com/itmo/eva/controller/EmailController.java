@@ -23,6 +23,12 @@ public class EmailController {
     @Resource
     private EmailService emailService;
 
+    /**
+     * 发送邮件
+     * @param emailSendRequest 邮件发送信息
+     * @param token token
+     * @return
+     */
     @PostMapping("/send")
     public BaseResponse<Boolean> sendEmail(@RequestBody EmailSendRequest emailSendRequest, @RequestHeader("token") String token) {
         if (ObjectUtils.isEmpty(emailSendRequest)) {
@@ -51,7 +57,6 @@ public class EmailController {
 
         return ResultUtils.success(emailSendInfo);
     }
-
 
 
 }

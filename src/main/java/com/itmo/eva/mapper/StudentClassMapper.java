@@ -1,8 +1,11 @@
 package com.itmo.eva.mapper;
 
+import com.itmo.eva.model.entity.Student;
 import com.itmo.eva.model.entity.StudentClass;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
 * @author chenjiahan
@@ -14,6 +17,7 @@ public interface StudentClassMapper extends BaseMapper<StudentClass> {
 
     @Select("select cid from e_class where id = #{id}")
     String getClassById(Integer id);
+
 
 }
 

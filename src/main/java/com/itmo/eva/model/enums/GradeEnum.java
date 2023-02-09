@@ -38,6 +38,21 @@ public enum GradeEnum {
                 .collect(Collectors.toList());
     }
 
+    public static GradeEnum getEnumByValue(Integer value) {
+        if (value == null) {
+            return null;
+        }
+        GradeEnum[] values = GradeEnum.values();
+        for (GradeEnum teamStatusEnum : values) {
+            if (teamStatusEnum.getValue() == value) {
+                return teamStatusEnum;
+            }
+        }
+        return null;
+    }
+
+
+
 
     public int getValue() {
         return value;

@@ -1,21 +1,21 @@
 package com.itmo.eva.service.impl;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itmo.eva.common.ErrorCode;
 import com.itmo.eva.exception.BusinessException;
 import com.itmo.eva.mapper.*;
 import com.itmo.eva.model.dto.evaluate.EvaluateAddRequest;
 import com.itmo.eva.model.dto.evaluate.EvaluateUpdateRequest;
-import com.itmo.eva.model.entity.*;
 import com.itmo.eva.model.entity.System;
+import com.itmo.eva.model.entity.*;
 import com.itmo.eva.model.vo.Evaluation.EvaluateNameVo;
 import com.itmo.eva.model.vo.Evaluation.EvaluateVo;
 import com.itmo.eva.model.vo.Evaluation.StudentCompletionVo;
 import com.itmo.eva.model.vo.Evaluation.StudentEvaVo;
 import com.itmo.eva.service.EvaluateService;
-import com.itmo.eva.utils.DownLoadUtil;
+import com.itmo.eva.service.RedlineHistoryService;
+import com.itmo.eva.service.rank.ScoreHistoryService;
 import com.itmo.eva.utils.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
@@ -27,9 +27,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
@@ -71,6 +71,12 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
 
     @Resource
     private AdminMapper adminMapper;
+
+    @Resource
+    private ScoreHistoryService scoreHistoryService;
+
+    @Resource
+    private RedlineHistoryService redlineHistoryService;
 
     /**
      * 添加评测
@@ -227,6 +233,13 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
         if (status == 1) {
             evaluate.setStatus(0);
             boolean save = this.updateById(evaluate);
+            scoreHistoryService.calculateScoreAverage(evaluate.getId());
+            log.info("{} 评测平均分计算完成", evaluate.getName());
+            // 统计红线指标
+            redlineHistoryService.recordRedline(evaluate.getId());
+            Date nowTime = Calendar.getInstance().getTime();
+            log.info("{} 评测已经结束，当前时间：{}", evaluate.getName(), nowTime.getTime());
+
 
             return save;
         }
@@ -323,7 +336,7 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
      * @return excel文件
      */
     @Override
-    public Boolean exportUndoneStudentExcel(Integer eid, HttpServletResponse response) {
+    public void exportUndoneStudentExcel(Integer eid, HttpServletResponse response) {
         // 获取未完成学生名单
         List<StudentEvaVo> studentUndone = this.listStudentCompletion(eid).getStudentUndone();
 
@@ -346,40 +359,30 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
             dataRow.createCell(1).setCellValue(student.getName());
             dataRow.createCell(2).setCellValue(student.getStudentId());
         }
-        // 建立输出流，输出浏览器文件
-        OutputStream os = null;
 
         try {
-            String folderPath = "C:\\excel";
-            //创建上传文件目录
-            File folder = new File(folderPath);
-            //如果文件夹不存在创建对应的文件夹
-            if (!folder.exists()) {
-                folder.mkdirs();
-            }
-            //设置文件名
-            String fileName = "未完成评测学生表" + ".xlsx";
-            String savePath = folderPath + File.separator + fileName;
-            OutputStream fileOut = new FileOutputStream(savePath);
-            wb.write(fileOut);
-            fileOut.close();
+            //输出Excel文件
+            String filename = "未完成学生表.xlsx";
+            response.reset();
+            response.addHeader("Access-Control-Expose-Headers", "filetype");
+            response.setCharacterEncoding("UTF-8");
+            response.setHeader("Content-Disposition", "attachment; fileName=" + java.net.URLEncoder.encode(filename, "UTF-8"));
+            OutputStream output = response.getOutputStream();
+            wb.write(output);
+            output.close();
         } catch(Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (os != null)
-                    os.close();
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
         }
 
-        return true;
     }
 
+    /**
+     * 获取全部已经完成的评测id
+     * @return 已经完成的评测id
+     */
     @Override
     public List<EvaluateNameVo> getEvaluateName() {
-        List<Evaluate> evaluateList = this.baseMapper.selectList(null);
+        List<Evaluate> evaluateList = this.baseMapper.getAllEndEvaluation();
         if (CollectionUtils.isEmpty(evaluateList)) {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
         }

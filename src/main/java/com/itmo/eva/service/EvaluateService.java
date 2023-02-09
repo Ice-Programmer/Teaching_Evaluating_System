@@ -71,7 +71,7 @@ public interface EvaluateService extends IService<Evaluate> {
      * @param response
      * @return
      */
-    Boolean exportUndoneStudentExcel(Integer eid, HttpServletResponse response);
+    void exportUndoneStudentExcel(Integer eid, HttpServletResponse response);
 
     List<EvaluateNameVo> getEvaluateName();
 

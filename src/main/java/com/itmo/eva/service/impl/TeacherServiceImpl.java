@@ -18,6 +18,7 @@ import com.itmo.eva.model.enums.MajorEnum;
 import com.itmo.eva.model.vo.teacher.TeacherNameVo;
 import com.itmo.eva.model.vo.teacher.TeacherVo;
 import com.itmo.eva.service.TeacherService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -41,6 +42,7 @@ import java.util.stream.Collectors;
  * @createDate 2023-01-21 13:17:49
  */
 @Service
+@Slf4j
 public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher>
         implements TeacherService {
 
@@ -253,7 +255,8 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher>
                 Teacher oldTeacher = baseMapper.getTeacherByNameAndEmail(name, email);
                 if (oldTeacher != null) {
                     String error = "在第" + i + "行，数据已存在";
-                    throw new BusinessException(ErrorCode.DATA_REPEAT, error);
+                    log.info(error);
+                    continue;
                 }
 
                 teacherList.add(teacher);

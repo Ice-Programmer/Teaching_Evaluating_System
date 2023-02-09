@@ -53,7 +53,7 @@ public class StudentVo implements Serializable {
     /**
      * 年级
      */
-    private Integer grade;
+    private String grade;
 
     private static final long serialVersionUID = 1L;
 }

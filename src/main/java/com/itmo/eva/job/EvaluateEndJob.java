@@ -2,9 +2,7 @@ package com.itmo.eva.job;
 
 
 import com.itmo.eva.mapper.EvaluateMapper;
-import com.itmo.eva.mapper.RedlineHistoryMapper;
 import com.itmo.eva.model.entity.Evaluate;
-import com.itmo.eva.model.entity.RedlineHistory;
 import com.itmo.eva.service.RedlineHistoryService;
 import com.itmo.eva.service.rank.ScoreHistoryService;
 import lombok.extern.slf4j.Slf4j;

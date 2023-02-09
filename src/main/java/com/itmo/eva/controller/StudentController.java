@@ -4,13 +4,11 @@ import com.itmo.eva.common.*;
 import com.itmo.eva.exception.BusinessException;
 import com.itmo.eva.model.dto.student.StudentAddRequest;
 import com.itmo.eva.model.dto.student.StudentUpdateRequest;
+import com.itmo.eva.model.vo.ClassVo;
 import com.itmo.eva.model.vo.StudentVo;
 import com.itmo.eva.service.StudentService;
 import com.itmo.eva.utils.DownLoadUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -149,9 +147,21 @@ public class StudentController {
      * @return 示例
      */
     @GetMapping("/excel/export")
-    public void exportExcel(HttpServletResponse response) throws IOException {
-        String path = "C:\\excel\\学生信息模版";
+    public void exportExcel(HttpServletResponse response) {
+        String path = "C:\\excel\\学生信息模版.xlsx";
         DownLoadUtil.uploadFile(response, path);
+    }
+
+    @GetMapping("/get/class/computer")
+    public BaseResponse<List<ClassVo>> getStudentClassOfComputer() {
+        List<ClassVo> studentClass = studentService.getStudentClassOfComputer();
+        return ResultUtils.success(studentClass);
+    }
+
+    @GetMapping("/get/class/automation")
+    public BaseResponse<List<ClassVo>> getStudentClassOfAutomation() {
+        List<ClassVo> studentClass = studentService.getStudentClassOfAutomation();
+        return ResultUtils.success(studentClass);
     }
 
 

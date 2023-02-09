@@ -25,8 +25,8 @@ public class Knife4jConfig {
     public Docket defaultApi2() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(new ApiInfoBuilder()
-                        .title("project-backend")
-                        .description("project-backend")
+                        .title("教学评价系统")
+                        .description("教学评价系统（管理员端）")
                         .version("1.0")
                         .build())
                 .select()

@@ -15,6 +15,7 @@ import com.itmo.eva.model.enums.MajorEnum;
 import com.itmo.eva.model.vo.CourseVo;
 import com.itmo.eva.service.CourseService;
 import com.itmo.eva.utils.EnumUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -38,6 +39,7 @@ import java.util.stream.Collectors;
  * @createDate 2023-01-23 10:58:56
  */
 @Service
+@Slf4j
 public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
         implements CourseService {
 
@@ -249,7 +251,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
                 Course oldCourse = baseMapper.getCourseByNameAndTeacher(cName, teacherId);
                 if (oldCourse != null) {
                     String error = "在第" + i + "行，数据已存在";
-                    throw new BusinessException(ErrorCode.PARAMS_ERROR, error);
+                    log.info(error);
+                    continue;
                 }
                 this.validCourse(course, true);
                 courseList.add(course);

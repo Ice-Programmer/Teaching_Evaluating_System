@@ -38,6 +38,9 @@ public interface StudentMapper extends BaseMapper<Student> {
 
     @Select("select id from e_student")
     List<Integer> getStudentId();
+
+    @Select("select * from e_student order by sid")
+    List<Student> getOrderBySid();
 }
 
 

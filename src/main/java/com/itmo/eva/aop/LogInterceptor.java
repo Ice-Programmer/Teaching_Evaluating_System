@@ -1,16 +1,19 @@
 package com.itmo.eva.aop;
 
+import com.itmo.eva.service.AdminService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;
 
@@ -22,7 +25,13 @@ import java.util.UUID;
 @Aspect
 @Component
 @Slf4j
+@ConfigurationProperties(prefix = "calculate")
 public class LogInterceptor {
+
+    @Resource
+    private AdminService adminService;
+
+    private Integer num = 0;
 
     /**
      * 执行拦截
@@ -50,6 +59,12 @@ public class LogInterceptor {
         stopWatch.stop();
         long totalTimeMillis = stopWatch.getTotalTimeMillis();
         log.info("request end, id: {}, cost: {}ms", requestId, totalTimeMillis);
+        // 统计次数加一
+        num ++;
+        log.info("访问次数：{}", num);
+        if (num == 3000) {
+
+        }
         return result;
     }
 }

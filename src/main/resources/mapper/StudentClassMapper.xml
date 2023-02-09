@@ -7,9 +7,10 @@
     <resultMap id="BaseResultMap" type="com.itmo.eva.model.entity.StudentClass">
             <id property="id" column="id" jdbcType="INTEGER"/>
             <result property="cid" column="cid" jdbcType="VARCHAR"/>
+            <result property="major" column="major" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,cid
+        id,cid,major
     </sql>
 </mapper>

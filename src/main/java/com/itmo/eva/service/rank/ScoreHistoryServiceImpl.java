@@ -178,35 +178,20 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
             dataRow.createCell(2).setCellValue(second / 10.0);
             dataRow.createCell(3).setCellValue((RichTextString) totalScore);
         }
-        // 建立输出流，输出浏览器文件
-        OutputStream os = null;
         // 设置Excel名字，数据类型编码
         try {
-            String folderPath = "C:\\excel";
-            //创建上传文件目录
-            File folder = new File(folderPath);
-            //如果文件夹不存在创建对应的文件夹
-            if (!folder.exists()) {
-                folder.mkdirs();
-            }
-            //设置文件名
-            String fileName = "中方分数排名表" + ".xlsx";
-            String savePath = folderPath + File.separator + fileName;
-            OutputStream fileOut = new FileOutputStream(savePath);
-            wb.write(fileOut);
-            fileOut.close();
+            //输出Excel文件
+            String filename = "教师分数排名表.xlsx";
+            response.reset();
+            response.addHeader("Access-Control-Expose-Headers", "filetype");
+            response.setCharacterEncoding("UTF-8");
+            response.setHeader("Content-Disposition", "attachment; fileName=" + java.net.URLEncoder.encode(filename, "UTF-8"));
+            OutputStream output = response.getOutputStream();
+            wb.write(output);
+            output.close();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (os != null)
-                    os.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
-
-
     }
 
     /**

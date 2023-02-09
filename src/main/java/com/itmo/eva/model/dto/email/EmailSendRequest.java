@@ -8,6 +8,11 @@ import java.io.Serializable;
 public class EmailSendRequest implements Serializable {
 
     /**
+     * 评测id
+     */
+    private Integer eid;
+
+    /**
      * 所有的中国teacherId
      */
     private Long[] chineseTeacherId;

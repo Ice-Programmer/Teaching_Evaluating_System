@@ -1,6 +1,5 @@
 package com.itmo.eva.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itmo.eva.common.BaseResponse;
 import com.itmo.eva.common.DeleteRequest;
 import com.itmo.eva.common.ErrorCode;
@@ -9,6 +8,7 @@ import com.itmo.eva.exception.BusinessException;
 import com.itmo.eva.model.dto.evaluate.EvaluateAddRequest;
 import com.itmo.eva.model.dto.evaluate.EvaluateIdRequest;
 import com.itmo.eva.model.dto.evaluate.EvaluateUpdateRequest;
+import com.itmo.eva.model.entity.Evaluate;
 import com.itmo.eva.model.vo.Evaluation.EvaluateNameVo;
 import com.itmo.eva.model.vo.Evaluation.EvaluateVo;
 import com.itmo.eva.model.vo.Evaluation.StudentCompletionVo;
@@ -167,15 +167,12 @@ public class EvaluateController {
     }
 
     @PostMapping("/export/excel/undone/student")
-    public BaseResponse<Boolean> exportUndoneStudentExcel(@RequestBody EvaluateIdRequest evaluateIdRequest, HttpServletResponse response) {
+    public void exportUndoneStudentExcel(@RequestBody EvaluateIdRequest evaluateIdRequest, HttpServletResponse response) {
         if (evaluateIdRequest == null || evaluateIdRequest.getEid() <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "eid有误");
         }
         Integer eid = evaluateIdRequest.getEid();
-        Boolean export = evaluateService.exportUndoneStudentExcel(eid, response);
-
-        return ResultUtils.success(export);
-
+        evaluateService.exportUndoneStudentExcel(eid, response);
     }
 
     @GetMapping("/get/name")

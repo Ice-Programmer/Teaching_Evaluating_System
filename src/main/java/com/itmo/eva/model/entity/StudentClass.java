@@ -25,6 +25,11 @@ public class StudentClass implements Serializable {
      */
     private String cid;
 
+    /**
+     * 专业
+     */
+    private Integer major;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

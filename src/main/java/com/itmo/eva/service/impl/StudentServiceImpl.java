@@ -1,5 +1,6 @@
 package com.itmo.eva.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itmo.eva.common.ErrorCode;
@@ -12,10 +13,12 @@ import com.itmo.eva.model.entity.*;
 import com.itmo.eva.model.enums.GenderEnum;
 import com.itmo.eva.model.enums.GradeEnum;
 import com.itmo.eva.model.enums.MajorEnum;
+import com.itmo.eva.model.vo.ClassVo;
 import com.itmo.eva.model.vo.StudentVo;
 import com.itmo.eva.service.StudentService;
 import com.itmo.eva.utils.EnumUtils;
 import com.itmo.eva.utils.SpecialUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -24,6 +27,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -39,6 +43,7 @@ import java.util.stream.Collectors;
  * @createDate 2023-01-22 10:14:33
  */
 @Service
+@Slf4j
 public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student>
         implements StudentService {
 
@@ -59,7 +64,6 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student>
         if (studentAddRequest == null || ObjectUtils.isNull(studentAddRequest.getSid())) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "请求参数为空");
         }
-
         // 判断学生是否存在 【根据学号】
         String sid = studentAddRequest.getSid();
         Student oldStudent = studentMapper.getStudentBySid(sid);
@@ -146,6 +150,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student>
         }
         StudentVo studentInfo = new StudentVo();
         BeanUtils.copyProperties(student, studentInfo);
+        studentInfo.setGrade(GradeEnum.getEnumByValue(student.getGrade()).getGrade());
         // 班级赋值
         studentInfo.setCid(studentClassMapper.getClassById(student.getCid()));
 
@@ -157,11 +162,10 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student>
      */
     @Override
     public List<StudentVo> listStudent() {
-        List<Student> studentList = this.list();
+        List<Student> studentList = this.baseMapper.getOrderBySid();
         if (studentList == null) {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "没有数据记录");
         }
-
         List<StudentClass> classList = studentClassMapper.selectList(null);
         Map<Integer, String> classMap = classList.stream().collect(Collectors.toMap(StudentClass::getId, StudentClass::getCid));
 
@@ -169,6 +173,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student>
             StudentVo studentVo = new StudentVo();
             BeanUtils.copyProperties(student, studentVo);
             studentVo.setCid(classMap.get(student.getCid()));
+            studentVo.setGrade(GradeEnum.getEnumByValue(student.getGrade()).getGrade());
             return studentVo;
         }).collect(Collectors.toList());
 
@@ -237,9 +242,9 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student>
                 Student oldStudent = baseMapper.getStudentBySid(sid);
                 if (oldStudent != null) {
                     String error = "在第" + i + "行，数据已存在";
-                    throw new BusinessException(ErrorCode.DATA_REPEAT, error);
+                    log.info(error);
+                    continue;
                 }
-
                 studentList.add(student);
             }
 
@@ -279,7 +284,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student>
                 throw new BusinessException(ErrorCode.PARAMS_ERROR, "数据含空");
             }
         }
-        if (SpecialUtil.isSpecialChar(sid)) {
+        if (SpecialUtil.isSpecialChar(sid) || sid.length() != 8) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "学号不符合要求");
         }
         if (sex != null && !GenderEnum.getValues().contains(sex)) {
@@ -295,6 +300,39 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student>
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "班级不符合要求");
         }
     }
+
+    @Override
+    public List<ClassVo> getStudentClassOfComputer() {
+        LambdaQueryWrapper<StudentClass> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(StudentClass::getMajor, 0);
+        List<StudentClass> studentClassList = studentClassMapper.selectList(queryWrapper);
+        if (CollectionUtils.isEmpty(studentClassList)) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "暂无班级信息");
+        }
+        List<ClassVo> classVoList = studentClassList.stream().map(studentClass -> {
+            ClassVo classVo = new ClassVo();
+            BeanUtils.copyProperties(studentClass, classVo);
+            return classVo;
+        }).collect(Collectors.toList());
+        return classVoList;
+    }
+
+    @Override
+    public List<ClassVo> getStudentClassOfAutomation() {
+        LambdaQueryWrapper<StudentClass> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(StudentClass::getMajor, 1);
+        List<StudentClass> studentClassList = studentClassMapper.selectList(queryWrapper);
+        if (CollectionUtils.isEmpty(studentClassList)) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "暂无班级信息");
+        }
+        List<ClassVo> classVoList = studentClassList.stream().map(studentClass -> {
+            ClassVo classVo = new ClassVo();
+            BeanUtils.copyProperties(studentClass, classVo);
+            return classVo;
+        }).collect(Collectors.toList());
+        return classVoList;
+    }
+
 }
 
 

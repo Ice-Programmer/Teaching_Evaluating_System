@@ -148,7 +148,7 @@ public class TeacherController {
      */
     @GetMapping("/excel/export")
     public void exportExcel(HttpServletResponse response) {
-        String path = "C:\\excel\\教师信息模版";
+        String path = "C:\\excel\\教师信息模版.xlsx";
         DownLoadUtil.uploadFile(response, path);
     }
 

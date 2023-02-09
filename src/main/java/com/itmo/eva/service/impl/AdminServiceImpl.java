@@ -125,6 +125,37 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin>
      * @return 用户登陆地址和ip
      */
     public Boolean getIpAddr(HttpServletRequest request, Integer id) {
+        // 获取ip地址
+        String ip = this.getIp(request);
+
+        // 根据ip地址获取到address
+        IpInfo ipInfo = ip2regionSearcher.memorySearch(ip);
+        String address = UNKNOWN;
+        assert ipInfo != null;
+        if(ipInfo != null){
+            address = ipInfo.getAddress();
+        }
+
+        // 获取当前用户登陆的信息
+        Admin adminInfo = this.getById(id);
+
+        // 设置ip地址
+        adminInfo.setAddressIp(ip);
+        adminInfo.setAddressName(address);
+
+        boolean update = this.updateById(adminInfo);
+
+        return update;
+    }
+
+    /**
+     * 获取用户登陆ip
+     *
+     * @param request 请求
+     * @return 用户登陆地址和ip
+     */
+    @Override
+    public String getIp(HttpServletRequest request) {
         String ip = request.getHeader("x-forwarded-for");
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getHeader("Proxy-Client-IP");
@@ -159,26 +190,8 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin>
             }
         }
 
-        // 根据ip地址获取到address
-        IpInfo ipInfo = ip2regionSearcher.memorySearch(ip);
-        String address = UNKNOWN;
-        assert ipInfo != null;
-        if(ipInfo != null){
-            address = ipInfo.getAddress();
-        }
-
-        // 获取当前用户登陆的信息
-        Admin adminInfo = this.getById(id);
-
-        // 设置ip地址
-        adminInfo.setAddressIp(ip);
-        adminInfo.setAddressName(address);
-
-        boolean update = this.updateById(adminInfo);
-
-        return update;
+        return ip;
     }
-
 
 }
 

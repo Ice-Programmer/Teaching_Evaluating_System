@@ -27,6 +27,6 @@ public class StudentTimer {
 
         // 删除学期数大于8的学生
         studentMapper.deleteStudentGradeThan8();
-        log.info("自动删除已不再学校学生");
+        log.info("自动删除已不在学校学生");
     }
 }
