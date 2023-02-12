@@ -2,7 +2,6 @@ package com.itmo.eva.mapper;
 
 import com.itmo.eva.model.entity.EmailHistory;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Insert;
 
 /**
 * @author chenjiahan

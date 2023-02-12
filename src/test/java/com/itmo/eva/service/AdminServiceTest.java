@@ -1,19 +1,28 @@
 package com.itmo.eva.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.itmo.eva.mapper.EmailHistoryMapper;
+import com.itmo.eva.model.entity.EmailHistory;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.mail.Message;
+import javax.annotation.Resource;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 @SpringBootTest
 class AdminServiceTest {
+
+    @Resource
+    private EmailHistoryMapper emailHistoryMapper;
 
     // 发件人的 邮箱 和 密码（替换为自己的邮箱和密码）
     // PS: 某些邮箱服务器为了增加邮箱本身密码的安全性，给 SMTP 客户端设置了独立密码（有的邮箱称为“授权码”）,
@@ -88,6 +97,17 @@ class AdminServiceTest {
         message.saveChanges();
 
         return message;
+    }
+
+    @Test
+    void JsonTest() {
+        EmailHistory emailHistory = emailHistoryMapper.selectById(32);
+        Gson gson = new Gson();
+        String recipient = emailHistory.getRecipient();
+        Long[] teacherIds = gson.fromJson(recipient, new TypeToken<Long[]>(){}.getType());
+        for (Long id : teacherIds) {
+            System.out.println(id);
+        }
     }
 
 }

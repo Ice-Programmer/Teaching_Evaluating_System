@@ -153,8 +153,34 @@ public class CourseController {
      */
     @GetMapping("/excel/export")
     public void exportExcel(HttpServletResponse response) {
-        String path = "C:\\excel\\课程信息模版.xlsx";
-        DownLoadUtil.uploadFile(response, path);
+        // 建立Excel对象，封装数据
+        response.setCharacterEncoding("UTF-8");
+        // 创建Excel对象
+        XSSFWorkbook wb = new XSSFWorkbook();
+        // 创建sheet对象
+        XSSFSheet sheet = wb.createSheet("课程信息模版");
+        // 创建表头
+        XSSFRow xssfRow = sheet.createRow(0);
+        xssfRow.createCell(0).setCellValue("课程名称");
+        xssfRow.createCell(1).setCellValue("课程英文名");
+        xssfRow.createCell(2).setCellValue("授课专业");
+        xssfRow.createCell(3).setCellValue("授课教师");
+        xssfRow.createCell(4).setCellValue("年级");
+
+        try {
+            //输出Excel文件
+            String filename = "课程信息模版.xlsx";
+            response.reset();
+            response.addHeader("Access-Control-Expose-Headers", "filetype");
+            response.setCharacterEncoding("UTF-8");
+            response.setHeader("Content-Disposition", "attachment; fileName=" + java.net.URLEncoder.encode(filename, "UTF-8"));
+            OutputStream output = response.getOutputStream();
+            wb.write(output);
+            output.close();
+        } catch(Exception e) {
+            throw new BusinessException(ErrorCode.OPERATION_ERROR, "模版下载失败");
+        }
+
     }
 
 

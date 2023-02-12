@@ -33,7 +33,12 @@ public class EmailHistoryVo implements Serializable {
     /**
      * 提交时间
      */
-    private String submit_time;
+    private String operationTime;
+
+    /**
+     * 发送状态
+     */
+    private String state;
 
     private static final long serialVersionUID = 1L;
 }

@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.text.ParseException;
@@ -41,6 +42,7 @@ public class EvaluateEndJob {
 
     // 每天凌晨3点进行判断
     @Scheduled(cron = "0 3 0 * * *")
+    @Transactional(rollbackFor = Exception.class)
     public void checkEvaluate() {
         log.info("校验评测中...");
         // 获取仍在进行中的评测

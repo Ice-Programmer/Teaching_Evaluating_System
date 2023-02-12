@@ -25,6 +25,9 @@ public interface CourseMapper extends BaseMapper<Course> {
 
     @Select("select * from e_course where major = #{major} and grade = #{grade}")
     List<Course> getCourseByMajorAndGrade(Integer major, Integer grade);
+
+    @Select("select * from e_course order by grade")
+    List<Course> getOrderBySid();
 }
 
 

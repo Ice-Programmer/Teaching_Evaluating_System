@@ -35,6 +35,21 @@ public class EmailHistory implements Serializable {
      */
     private String submit_time;
 
+    /**
+     * 发送状态
+     */
+    private Integer state;
+
+    /**
+     * 收件人
+     */
+    private String recipient;
+
+    /**
+     * 操作时间
+     */
+    private String operationTime;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

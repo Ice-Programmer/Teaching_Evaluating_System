@@ -1,6 +1,7 @@
 package com.itmo.eva.service.impl;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itmo.eva.common.ErrorCode;
 import com.itmo.eva.exception.BusinessException;
@@ -278,7 +279,16 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
         StudentCompletionVo studentCompletionVo = new StudentCompletionVo();
         // 查找学生aid是否还有状态（state = 0）的字段在mark表中
         // 查询所有学生信息Id
-        List<Integer> studentIdList = studentMapper.getStudentId();
+        LambdaQueryWrapper<MarkHistory> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(MarkHistory::getEid, eid);
+        queryWrapper.select(MarkHistory::getAid);
+        // 获取本次评测中所有的学生id
+        List<MarkHistory> markHistories = markHistoryMapper.selectList(queryWrapper);
+        // 将id提取出来成列表
+        if (CollectionUtils.isEmpty(markHistories)) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "暂无本次评测信息");
+        }
+        List<Integer> studentIdList = markHistories.stream().map(MarkHistory::getAid).distinct().collect(Collectors.toList());
 
         // 获取该评测的所有未完成学生的id
         List<Integer> studentId = markHistoryMapper.getByEidAndState(eid);

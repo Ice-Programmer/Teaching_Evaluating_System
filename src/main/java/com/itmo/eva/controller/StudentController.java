@@ -4,7 +4,7 @@ import com.itmo.eva.common.*;
 import com.itmo.eva.exception.BusinessException;
 import com.itmo.eva.model.dto.student.StudentAddRequest;
 import com.itmo.eva.model.dto.student.StudentUpdateRequest;
-import com.itmo.eva.model.vo.ClassVo;
+import com.itmo.eva.model.vo.classes.ClassVo;
 import com.itmo.eva.model.vo.StudentVo;
 import com.itmo.eva.service.StudentService;
 import com.itmo.eva.utils.DownLoadUtil;
@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
 import java.util.List;
 
 /**
@@ -152,15 +151,9 @@ public class StudentController {
         DownLoadUtil.uploadFile(response, path);
     }
 
-    @GetMapping("/get/class/computer")
-    public BaseResponse<List<ClassVo>> getStudentClassOfComputer() {
-        List<ClassVo> studentClass = studentService.getStudentClassOfComputer();
-        return ResultUtils.success(studentClass);
-    }
-
-    @GetMapping("/get/class/automation")
-    public BaseResponse<List<ClassVo>> getStudentClassOfAutomation() {
-        List<ClassVo> studentClass = studentService.getStudentClassOfAutomation();
+    @GetMapping("/get/class")
+    public BaseResponse<ClassVo> getStudentClassOfComputer() {
+        ClassVo studentClass = studentService.getStudentClass();
         return ResultUtils.success(studentClass);
     }
 

@@ -13,8 +13,10 @@ import com.itmo.eva.model.entity.*;
 import com.itmo.eva.model.enums.GenderEnum;
 import com.itmo.eva.model.enums.GradeEnum;
 import com.itmo.eva.model.enums.MajorEnum;
-import com.itmo.eva.model.vo.ClassVo;
+import com.itmo.eva.model.vo.classes.AutomationClass;
+import com.itmo.eva.model.vo.classes.ClassVo;
 import com.itmo.eva.model.vo.StudentVo;
+import com.itmo.eva.model.vo.classes.ComputerClass;
 import com.itmo.eva.service.StudentService;
 import com.itmo.eva.utils.EnumUtils;
 import com.itmo.eva.utils.SpecialUtil;
@@ -26,7 +28,6 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -180,6 +181,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student>
         return studentVoList;
     }
 
+
     @Override
     public Boolean excelImport(MultipartFile file) {
         // 1.判断文件是否为空
@@ -302,36 +304,38 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student>
     }
 
     @Override
-    public List<ClassVo> getStudentClassOfComputer() {
+    public ClassVo getStudentClass() {
         LambdaQueryWrapper<StudentClass> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(StudentClass::getMajor, 0);
-        List<StudentClass> studentClassList = studentClassMapper.selectList(queryWrapper);
-        if (CollectionUtils.isEmpty(studentClassList)) {
-            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "暂无班级信息");
+        // 获取计算机专业班级
+        List<StudentClass> computerClassList = studentClassMapper.selectList(queryWrapper);
+        if (CollectionUtils.isEmpty(computerClassList)) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "暂无计算机专业相关班级");
         }
-        List<ClassVo> classVoList = studentClassList.stream().map(studentClass -> {
-            ClassVo classVo = new ClassVo();
-            BeanUtils.copyProperties(studentClass, classVo);
-            return classVo;
+        List<ComputerClass> computerClasses = computerClassList.stream().map(computer -> {
+            ComputerClass computerClass = new ComputerClass();
+            BeanUtils.copyProperties(computer, computerClass);
+            return computerClass;
         }).collect(Collectors.toList());
-        return classVoList;
+        queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(StudentClass::getMajor, 1);
+        // 获取自动化专业
+        List<StudentClass> automationClassList = studentClassMapper.selectList(queryWrapper);
+        if (CollectionUtils.isEmpty(automationClassList)) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "暂无自动化相关专业");
+        }
+        List<AutomationClass> automationClasses = automationClassList.stream().map(automation -> {
+            AutomationClass automationClass = new AutomationClass();
+            BeanUtils.copyProperties(automation, automationClass);
+            return automationClass;
+        }).collect(Collectors.toList());
+        ClassVo classVo = new ClassVo();
+        classVo.setComputerClass(computerClasses);
+        classVo.setAutomationClass(automationClasses);
+        return classVo;
     }
 
-    @Override
-    public List<ClassVo> getStudentClassOfAutomation() {
-        LambdaQueryWrapper<StudentClass> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(StudentClass::getMajor, 1);
-        List<StudentClass> studentClassList = studentClassMapper.selectList(queryWrapper);
-        if (CollectionUtils.isEmpty(studentClassList)) {
-            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "暂无班级信息");
-        }
-        List<ClassVo> classVoList = studentClassList.stream().map(studentClass -> {
-            ClassVo classVo = new ClassVo();
-            BeanUtils.copyProperties(studentClass, classVo);
-            return classVo;
-        }).collect(Collectors.toList());
-        return classVoList;
-    }
+
 
 }
 

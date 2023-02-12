@@ -39,9 +39,14 @@ public class CourseVo implements Serializable {
     private String teacher;
 
     /**
+     * 教师id
+     */
+    private Long tid;
+
+    /**
      * 年级
      */
-    private Integer grade;
+    private String grade;
 
     private static final long serialVersionUID = 1L;
 }

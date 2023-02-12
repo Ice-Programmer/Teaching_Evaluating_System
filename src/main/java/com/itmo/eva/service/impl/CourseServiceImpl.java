@@ -1,6 +1,8 @@
 package com.itmo.eva.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itmo.eva.common.ErrorCode;
 import com.itmo.eva.exception.BusinessException;
@@ -16,21 +18,21 @@ import com.itmo.eva.model.vo.CourseVo;
 import com.itmo.eva.service.CourseService;
 import com.itmo.eva.utils.EnumUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.BeanUtils;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -56,25 +58,28 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
      * @return 添加成功
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean addCourse(CourseAddRequest courseAddRequest) {
         if (courseAddRequest == null || ObjectUtils.isNull(courseAddRequest.getTid())) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "请求参数为空");
         }
         // 判断课程是否存在 【根据教师和名称】
         String cName = courseAddRequest.getCName();
-        Long tid = courseAddRequest.getTid();
-        Course oldCourse = courseMapper.getCourseByNameAndTeacher(cName, tid);
-        if (oldCourse != null) {
-            throw new BusinessException(ErrorCode.DATA_REPEAT, "课程信息已存在");
+        List<Long> teacherIdList = courseAddRequest.getTid();
+        for (Long tid : teacherIdList) {
+            Course oldCourse = courseMapper.getCourseByNameAndTeacher(cName, tid);
+            if (oldCourse != null) {
+                throw new BusinessException(ErrorCode.DATA_REPEAT, "课程信息已存在");
+            }
+            Course course = new Course();
+
+            BeanUtils.copyProperties(courseAddRequest, course);
+            course.setTid(tid);
+            // 校验数据
+            this.validCourse(course, true);
+            this.save(course);
         }
-        Course course = new Course();
-
-        BeanUtils.copyProperties(courseAddRequest, course);
-        // 校验数据
-        this.validCourse(course, true);
-        boolean save = this.save(course);
-
-        return save;
+        return true;
     }
 
     /**
@@ -106,20 +111,40 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
         if (courseUpdateRequest == null || courseUpdateRequest.getId() <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
-        // 判断是否存在
-        Integer id = courseUpdateRequest.getId();
-        Course oldCourse = this.getById(id);
-        if (oldCourse == null) {
-            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "课程信息不存在");
+        List<Long> teacherIdList = courseUpdateRequest.getTid();
+
+        if (CollectionUtils.isEmpty(teacherIdList)) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
-        Course course = new Course();
-        BeanUtils.copyProperties(courseUpdateRequest, course);
-        // 参数校验
-        this.validCourse(course, false);
+        Integer id = courseUpdateRequest.getId();
+        // 只有一个tid，更改当前用户
+        if (teacherIdList.size() == 1) {
+            Course oldCourse = this.getById(id);
+            if (oldCourse == null) {
+                throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "修改课程不存在");
+            }
+            Long tid = teacherIdList.get(0);
+            Course course = new Course();
+            BeanUtils.copyProperties(courseUpdateRequest, course);
+            // 判断该课程下是否已经有该教师
+            LambdaQueryWrapper<Course> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(Course::getCName, course.getCName());
+            List<Course> courseList = this.list(queryWrapper);
+            List<Long> tidList = courseList.stream().map(Course::getTid).collect(Collectors.toList());
+            if (tidList.contains(tid)) {
+                throw new BusinessException(ErrorCode.OPERATION_ERROR, "该课程下已经有该教师");
+            }
+            course.setTid(tid);
+            this.validCourse(course, false);
+            return this.updateById(course);
+        }
 
-        boolean update = this.updateById(course);
-
-        return update;
+        // 新增教师信息【剔除第一个tid】
+        CourseAddRequest courseAddRequest = new CourseAddRequest();
+        BeanUtils.copyProperties(courseUpdateRequest, courseAddRequest);
+        teacherIdList.remove(0);
+        courseAddRequest.setTid(teacherIdList);
+        return this.addCourse(courseAddRequest);
     }
 
     /**
@@ -141,6 +166,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
         CourseVo courseInfo = new CourseVo();
         // 获取教师名称
         BeanUtils.copyProperties(course, courseInfo);
+        courseInfo.setGrade(GradeEnum.getEnumByValue(course.getGrade()).getGrade());
         courseInfo.setTeacher(teacherMapper.getNameById(course.getTid()));
 
         return courseInfo;
@@ -153,7 +179,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
      */
     @Override
     public List<CourseVo> listCourse() {
-        List<Course> courseList = this.list();
+        List<Course> courseList = this.baseMapper.getOrderBySid();
         if (courseList == null) {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "没有数据记录");
         }
@@ -165,6 +191,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
             CourseVo courseVo = new CourseVo();
             BeanUtils.copyProperties(course, courseVo);
             courseVo.setTeacher(teacherMap.get(course.getTid()));
+            courseVo.setGrade(GradeEnum.getEnumByValue(course.getGrade()).getGrade());
             return courseVo;
         }).collect(Collectors.toList());
 
@@ -185,7 +212,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
         }
 
 
-
         XSSFWorkbook wb = null;
         try {
             // 2.POI 获取Excel数据
@@ -199,8 +225,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
             List<Teacher> teacherList = teacherMapper.selectList(null);
             Map<String, Long> teacherMap = teacherList.stream().collect(Collectors.toMap(Teacher::getName, Teacher::getId));
 
-            String[] strs = {"getGrade","getValue"};
-            Map<Object,String> gradeMap = EnumUtils.EnumToMap(GradeEnum.class,strs);
+            String[] strs = {"getGrade", "getValue"};
+            Map<Object, String> gradeMap = EnumUtils.EnumToMap(GradeEnum.class, strs);
 
             //4.接收数据 装入集合中
             for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {

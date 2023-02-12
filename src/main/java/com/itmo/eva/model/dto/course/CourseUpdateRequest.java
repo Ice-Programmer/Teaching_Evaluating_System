@@ -3,6 +3,7 @@ package com.itmo.eva.model.dto.course;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 课程表
@@ -34,7 +35,7 @@ public class CourseUpdateRequest implements Serializable {
     /**
      * 教师id
      */
-    private Long tid;
+    private List<Long> tid;
 
     /**
      * 年级
