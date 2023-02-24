@@ -202,8 +202,8 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student>
             List<StudentClass> classList = studentClassMapper.selectList(null);
             Map<String, Integer> classMap = classList.stream().collect(Collectors.toMap(StudentClass::getCid, StudentClass::getId));
 
-            String[] strs = {"getGrade","getValue"};
-            Map<Object,String> gradeMap = EnumUtils.EnumToMap(GradeEnum.class,strs);
+            String[] strs = {"getGrade", "getValue"};
+            Map<Object, String> gradeMap = EnumUtils.EnumToMap(GradeEnum.class, strs);
 
             //4.接收数据 装入集合中
             for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
@@ -334,7 +334,6 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student>
         classVo.setAutomationClass(automationClasses);
         return classVo;
     }
-
 
 
 }

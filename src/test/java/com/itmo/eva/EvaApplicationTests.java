@@ -122,7 +122,7 @@ class EvaApplicationTests {
 	void handout() {
 		List<Student> studentList = studentMapper.selectList(null);
 
-		Integer evaluateId = 22;
+		Integer evaluateId = 24;
 
 		for (Student student : studentList) {
 			// 取出grade和major，来查询学生的响应课程

@@ -10,7 +10,6 @@ import com.itmo.eva.mapper.TeacherMapper;
 import com.itmo.eva.model.dto.email.EmailSendRequest;
 import com.itmo.eva.model.entity.Admin;
 import com.itmo.eva.model.entity.EmailHistory;
-import com.itmo.eva.model.entity.Teacher;
 import com.itmo.eva.model.enums.EmailStateEnum;
 import com.itmo.eva.model.vo.EmailHistoryVo;
 import com.itmo.eva.utils.JwtUtil;

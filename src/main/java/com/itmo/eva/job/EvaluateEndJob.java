@@ -39,7 +39,6 @@ public class EvaluateEndJob {
      *  2. 判断评测时间是否过期
      *  3. 评测结束后对分数进行计算统合
      */
-
     // 每天凌晨3点进行判断
     @Scheduled(cron = "0 3 0 * * *")
     @Transactional(rollbackFor = Exception.class)

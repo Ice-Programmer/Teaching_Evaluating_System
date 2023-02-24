@@ -26,13 +26,11 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -78,6 +76,9 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
 
     @Resource
     private RedlineHistoryService redlineHistoryService;
+
+    @Resource
+    private TableMapper tableMapper;
 
     /**
      * 添加评测
@@ -125,6 +126,7 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
      * @return 删除成功
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean deleteEvaluate(Long id) {
         // 判断是否存在
         Evaluate oldEvaluate = this.getById(id);
@@ -132,10 +134,15 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "评测不存在");
         }
 
+        // 删除该评测
         boolean remove = this.removeById(id);
 
         // 删除评测下所有的记录 mark表中
         markHistoryMapper.removeByEid(id.intValue());
+
+        // 删除二级评价表
+        String tableName = "e_second_score_" + id;
+        tableMapper.removeTable(tableName);
 
         return remove;
     }
