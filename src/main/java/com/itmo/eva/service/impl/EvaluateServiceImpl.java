@@ -16,7 +16,7 @@ import com.itmo.eva.model.vo.Evaluation.StudentCompletionVo;
 import com.itmo.eva.model.vo.Evaluation.StudentEvaVo;
 import com.itmo.eva.service.EvaluateService;
 import com.itmo.eva.service.RedlineHistoryService;
-import com.itmo.eva.service.rank.ScoreHistoryService;
+import com.itmo.eva.service.ScoreHistoryService;
 import com.itmo.eva.utils.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;

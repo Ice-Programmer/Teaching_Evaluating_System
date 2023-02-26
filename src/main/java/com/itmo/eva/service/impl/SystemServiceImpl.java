@@ -1,4 +1,4 @@
-package com.itmo.eva.service.system;
+package com.itmo.eva.service.impl;
 
 import  com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itmo.eva.model.dto.system.SystemRussianUpdateRequest;
@@ -6,6 +6,7 @@ import com.itmo.eva.model.entity.System;
 import com.itmo.eva.model.vo.system.SecondSystemVo;
 import com.itmo.eva.model.vo.system.SystemVo;
 import com.itmo.eva.mapper.SystemMapper;
+import com.itmo.eva.service.SystemService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 

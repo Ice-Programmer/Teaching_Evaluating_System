@@ -1,4 +1,4 @@
-package com.itmo.eva.service.rank;
+package com.itmo.eva.service;
 
 import com.itmo.eva.model.dto.score.ScoreFilterRequest;
 import com.itmo.eva.model.entity.ScoreHistory;

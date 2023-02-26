@@ -1,4 +1,4 @@
-package com.itmo.eva.service.rank;
+package com.itmo.eva.service.impl;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -14,8 +14,8 @@ import com.itmo.eva.model.dto.score.ScoreFilterRequest;
 import com.itmo.eva.model.entity.*;
 import com.itmo.eva.model.entity.System;
 import com.itmo.eva.model.vo.ScoreHistoryVo;
+import com.itmo.eva.service.ScoreHistoryService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -23,7 +23,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;

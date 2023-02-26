@@ -62,9 +62,6 @@ public class LogInterceptor {
         // 统计次数加一
         num ++;
         log.info("访问次数：{}", num);
-        if (num == 3000) {
-
-        }
         return result;
     }
 }

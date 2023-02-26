@@ -6,7 +6,7 @@ import com.itmo.eva.common.ResultUtils;
 import com.itmo.eva.exception.BusinessException;
 import com.itmo.eva.model.dto.email.EmailSendRequest;
 import com.itmo.eva.model.vo.EmailHistoryVo;
-import com.itmo.eva.service.email.EmailService;
+import com.itmo.eva.service.EmailService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.util.CollectionUtils;

@@ -3,7 +3,7 @@ package com.itmo.eva.controller;
 import com.itmo.eva.common.ErrorCode;
 import com.itmo.eva.exception.BusinessException;
 import com.itmo.eva.model.vo.system.SystemVo;
-import com.itmo.eva.service.system.SystemService;
+import com.itmo.eva.service.SystemService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

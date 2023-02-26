@@ -1,4 +1,4 @@
-package com.itmo.eva.service.email;
+package com.itmo.eva.service;
 
 import com.itmo.eva.model.dto.email.EmailSendRequest;
 import com.itmo.eva.model.vo.EmailHistoryVo;

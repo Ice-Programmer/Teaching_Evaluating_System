@@ -2,12 +2,11 @@ package com.itmo.eva.controller;
 
 import com.itmo.eva.common.BaseResponse;
 import com.itmo.eva.common.ErrorCode;
-import com.itmo.eva.common.IdRequest;
 import com.itmo.eva.common.ResultUtils;
 import com.itmo.eva.exception.BusinessException;
 import com.itmo.eva.model.dto.score.ScoreFilterRequest;
 import com.itmo.eva.model.vo.ScoreHistoryVo;
-import com.itmo.eva.service.rank.ScoreHistoryService;
+import com.itmo.eva.service.ScoreHistoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

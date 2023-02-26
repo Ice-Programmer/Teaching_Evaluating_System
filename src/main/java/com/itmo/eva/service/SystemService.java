@@ -1,4 +1,4 @@
-package com.itmo.eva.service.system;
+package com.itmo.eva.service;
 
 import com.itmo.eva.model.dto.system.SystemRussianUpdateRequest;
 import com.itmo.eva.model.entity.System;

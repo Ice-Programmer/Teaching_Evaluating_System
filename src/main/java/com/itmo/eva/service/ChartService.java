@@ -1,4 +1,4 @@
-package com.itmo.eva.service.charts;
+package com.itmo.eva.service;
 
 import com.itmo.eva.model.vo.chart.ChartsVo;
 

@@ -1,10 +1,11 @@
-package com.itmo.eva.service.charts;
+package com.itmo.eva.service.impl;
 
 import com.itmo.eva.mapper.*;
 import com.itmo.eva.model.entity.*;
 import com.itmo.eva.model.entity.System;
 import com.itmo.eva.model.vo.chart.ChartsVo;
 import com.itmo.eva.model.vo.chart.ScoreVo;
+import com.itmo.eva.service.ChartService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -12,7 +13,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class ChartServiceImpl implements ChartService{
+public class ChartServiceImpl implements ChartService {
 
     @Resource
     private TeacherMapper teacherMapper;

@@ -1,4 +1,4 @@
-package com.itmo.eva.service.email;
+package com.itmo.eva.service.impl;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.google.gson.Gson;
@@ -12,6 +12,7 @@ import com.itmo.eva.model.entity.Admin;
 import com.itmo.eva.model.entity.EmailHistory;
 import com.itmo.eva.model.enums.EmailStateEnum;
 import com.itmo.eva.model.vo.EmailHistoryVo;
+import com.itmo.eva.service.EmailService;
 import com.itmo.eva.utils.JwtUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -19,14 +20,13 @@ import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class EmailServiceImpl implements EmailService{
+public class EmailServiceImpl implements EmailService {
 
     @Resource
     private TeacherMapper teacherMapper;

@@ -4,7 +4,7 @@ package com.itmo.eva.job;
 import com.itmo.eva.mapper.EvaluateMapper;
 import com.itmo.eva.model.entity.Evaluate;
 import com.itmo.eva.service.RedlineHistoryService;
-import com.itmo.eva.service.rank.ScoreHistoryService;
+import com.itmo.eva.service.ScoreHistoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.scheduling.annotation.Scheduled;
