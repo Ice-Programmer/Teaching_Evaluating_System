@@ -5,6 +5,7 @@
 <mapper namespace="com.itmo.eva.mapper.TableMapper">
 
     <delete id="removeTable" parameterType="java.lang.String">
-        DROP TABLE IF EXISTS ${tableName}
+        DROP TABLE IF EXISTS ${tableName};
     </delete>
+
 </mapper>

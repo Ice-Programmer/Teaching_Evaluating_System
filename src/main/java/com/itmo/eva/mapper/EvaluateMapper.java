@@ -34,7 +34,7 @@ public interface EvaluateMapper extends BaseMapper<Evaluate> {
      * @param eid
      * @return
      */
-    @Select("select status from e_evaluate where id =#{eid}")
+    @Select("select status from e_evaluate where id = #{eid}")
     Integer getStatusById(Integer eid);
 
     /**
@@ -42,6 +42,13 @@ public interface EvaluateMapper extends BaseMapper<Evaluate> {
      */
     @Select("select * from e_evaluate where status = 0")
     List<Evaluate> getAllEndEvaluation();
+
+    /**
+     * 获取最近一次已结束的评测id
+     * @return
+     */
+    @Select("select max(id) from e_evaluate")
+    Integer getCurrentEvaluateId();
 
 }
 

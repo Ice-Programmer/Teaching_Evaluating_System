@@ -3,15 +3,17 @@ package com.itmo.eva.model.dto.teacher;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.List;
 
+/**
+ * 查询教师国籍参数
+ */
 @Data
-public class TeacherEmailRequest implements Serializable {
+public class TeacherIdentityQueryRequest implements Serializable {
 
     /**
-     * 要发送老师的所有id
+     * 国籍
      */
-    private Long teacherId;
+    private Integer identity;
 
     private static final long serialVersionUID = 1L;
 

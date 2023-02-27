@@ -1,11 +1,22 @@
 package com.itmo.eva.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.itmo.eva.common.ErrorCode;
+import com.itmo.eva.exception.BusinessException;
 import com.itmo.eva.mapper.*;
-import com.itmo.eva.model.entity.*;
-import com.itmo.eva.model.entity.System;
-import com.itmo.eva.model.vo.chart.ChartsVo;
+import com.itmo.eva.model.entity.AverageScore;
+import com.itmo.eva.model.entity.RedlineHistory;
+import com.itmo.eva.model.entity.ScoreHistory;
+import com.itmo.eva.model.entity.Teacher;
+import com.itmo.eva.model.vo.chart.BasicChartsVo;
+import com.itmo.eva.model.vo.chart.DetailChartVo;
 import com.itmo.eva.model.vo.chart.ScoreVo;
+import com.itmo.eva.model.vo.chart.TeacherRankChartVo;
+import com.itmo.eva.model.vo.teacher.TeacherGenderVo;
+import com.itmo.eva.model.vo.teacher.TeacherNameVo;
+import com.itmo.eva.model.vo.teacher.TeacherTitleVo;
 import com.itmo.eva.service.ChartService;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -19,108 +30,211 @@ public class ChartServiceImpl implements ChartService {
     private TeacherMapper teacherMapper;
 
     @Resource
-    private TitleMapper titleMapper;
-
-    @Resource
     private RedlineHistoryMapper redlineHistoryMapper;
 
     @Resource
     private AverageScoreMapper averageScoreMapper;
 
     @Resource
+    private ScoreHistoryMapper scoreHistoryMapper;
+
+    @Resource
+    private EvaluateMapper evaluateMapper;
+
+    @Resource
     private SystemMapper systemMapper;
 
-//    private Map<String, Objects> map;
-//
-//    @PostConstruct
-//    public void init() {
-//
-//    }
+    /**
+     * 获取教师基本信息
+     *
+     * @return 教师性别职位信息
+     */
+    @Override
+    public BasicChartsVo getStaticInfo() {
+        BasicChartsVo chartsVo = new BasicChartsVo();
+        // 1. 俄方教师基本情况
+        List<Teacher> russianTeacher = teacherMapper.getRussianTeacher();
+
+        // 俄方教师性别情况
+        TeacherGenderVo russianGenderChart = getTeacherGenderNum(russianTeacher);
+        chartsVo.setRussianTeacherGenderChart(russianGenderChart);
+
+        // 俄方教师职位情况
+        TeacherTitleVo teacherTitleChart = getTeacherTitleNum(russianTeacher);
+        chartsVo.setRussianTeacherTitleChart(teacherTitleChart);
+
+        //2. 中方教师基本情况
+        List<Teacher> chineseTeacher = teacherMapper.getChineseTeacher();
+
+        // 中方教师性别情况
+        TeacherGenderVo chineseGenderChart = getTeacherGenderNum(chineseTeacher);
+        chartsVo.setChineseTeacherGenderChart(chineseGenderChart);
+
+        // 中方教师职位情况
+        TeacherTitleVo chineseTitleChart = getTeacherTitleNum(chineseTeacher);
+        chartsVo.setChineseTeacherTitleChart(chineseTitleChart);
+
+        return chartsVo;
+    }
 
     /**
-     * 获取俄方人员信息
+     * 获取教师指标雷达图
+     *
+     * @param tid 教师id
+     * @return 教师一级指标分数
+     */
+    @Override
+    public List<DetailChartVo> getDetailChartList(Long tid) {
+        List<DetailChartVo> detailChartVoList = new ArrayList<>();
+
+        LambdaQueryWrapper<AverageScore> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(AverageScore::getTid, tid);
+        // 获取制定教师信息
+        List<AverageScore> teacherScoreList = averageScoreMapper.selectList(queryWrapper);
+        if (CollectionUtils.isEmpty(teacherScoreList)) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
+        }
+        // 根据教师一级指标将教师进行分组
+        Map<Integer, List<AverageScore>> systemScoreMap = teacherScoreList.stream().collect(Collectors.groupingBy(AverageScore::getSid));
+        for (Integer sid : systemScoreMap.keySet()) {
+            DetailChartVo chineseDetailChart = new DetailChartVo();
+
+            List<AverageScore> averageScores = systemScoreMap.get(sid);
+            // 取出该教师在所有一级指标分数
+            List<Integer> totalScore = averageScores.stream().map(AverageScore::getScore).collect(Collectors.toList());
+            // 计算出平均分
+            OptionalDouble optionalAverage = totalScore.stream().mapToDouble(Integer::doubleValue).average();
+            if (optionalAverage != null && optionalAverage.isPresent()) {
+                String systemName = systemMapper.getChineseNameById(sid);
+                chineseDetailChart.setSid(sid);
+                chineseDetailChart.setSystemName(systemName);
+                chineseDetailChart.setSystemScore(optionalAverage.getAsDouble());
+            }
+            detailChartVoList.add(chineseDetailChart);
+
+        }
+
+        return detailChartVoList;
+    }
+
+    /**
+     * 获取前十名教师信息
+     *
+     * @param identity 国籍
      * @return
      */
     @Override
-    public ChartsVo getStaticInfo() {
+    public List<TeacherRankChartVo> getTeacherRankChart(Integer identity) {
+        // 获取最近一次评测id
+        Integer eid = evaluateMapper.getCurrentEvaluateId();
+        LambdaQueryWrapper<ScoreHistory> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(ScoreHistory::getIdentity, identity);
+        queryWrapper.eq(ScoreHistory::getEid, eid);
+        queryWrapper.orderByDesc(ScoreHistory::getScore).last("limit 10");
 
-        /**************************俄方人数信息**********************************/
-        ChartsVo chartsInfo = new ChartsVo();
-        List<Teacher> russianTeacher = teacherMapper.getRussianTeacher();
-        // 获取性别信息
-        long maleCount = russianTeacher.stream().filter(teacher -> teacher.getSex() == 1).count();
-        long femaleCount = russianTeacher.stream().filter(teacher -> teacher.getSex() == 0).count();
-        List<Title> titleList = titleMapper.selectList(null);
+        // 获取前十名的教师信息
+        List<ScoreHistory> teacherScoreList = scoreHistoryMapper.selectList(queryWrapper);
+        List<TeacherRankChartVo> teacherRankChartVoList = teacherScoreList.stream().map(teacher -> {
+            Integer teacherId = teacher.getTid();
+            String teacherName = teacherMapper.getNameById(teacherId.longValue());
+            TeacherRankChartVo teacherRankChartVo = new TeacherRankChartVo();
+            teacherRankChartVo.setTeacherName(teacherName);
+            teacherRankChartVo.setScore(teacher.getScore().doubleValue());
 
-        Map<String, Long> russianMap = new HashMap<>();
-        // 获取职称信息
-        for (Title title : titleList) {
-            long count = russianTeacher.stream().filter(teacher -> Objects.equals(teacher.getTitle(), title.getId())).count();
-            russianMap.put(title.getName(), count);
-        }
-        russianMap.put("男", maleCount);
-        russianMap.put("女", femaleCount);
-        // 俄方基本情况
-        chartsInfo.setRussianPeopleChart(russianMap);
-        /**************************中方人数信息**********************************/
-        List<Teacher> chineseTeacher = teacherMapper.getChineseTeacher();
-        maleCount = chineseTeacher.stream().filter(teacher -> teacher.getSex() == 1).count();
-        femaleCount = chineseTeacher.stream().filter(teacher -> teacher.getSex() == 0).count();
+            // 获取该教师一级评级细则分数 => 从average中取分数
+            LambdaQueryWrapper<AverageScore> averageLambdaQueryWrapper = new LambdaQueryWrapper<>();
+            averageLambdaQueryWrapper.eq(AverageScore::getTid, teacherId);
+            averageLambdaQueryWrapper.eq(AverageScore::getEid, eid);
+            // 取出数据
+            List<AverageScore> teacherSystemScoreList = averageScoreMapper.selectList(averageLambdaQueryWrapper);
 
-        Map<String, Long> chineseMap = new HashMap<>();
-        // 获取职称信息
-        for (Title title : titleList) {
-            long count = chineseTeacher.stream().filter(teacher -> Objects.equals(teacher.getTitle(), title.getId())).count();
-            chineseMap.put(title.getName(), count);
-        }
-        chineseMap.put("男", maleCount);
-        chineseMap.put("女", femaleCount);
-        // 中方基本情况
-        chartsInfo.setChinesePeopleChart(chineseMap);
-        /**************************红线信息**********************************/
-        Map<Long, String> teacherMap = teacherMapper.selectList(null).stream()
-                .collect(Collectors.toMap(Teacher::getId, Teacher::getName));
+            List<ScoreVo> systemScoreList = teacherSystemScoreList.stream().map(score -> {
+                ScoreVo systemScore = new ScoreVo();
+                Integer sid = score.getSid();
+                String systemName = systemMapper.getChineseNameById(sid);
+                systemScore.setSystem(systemName);
+                systemScore.setScore(score.getScore().doubleValue());
+                return systemScore;
+            }).collect(Collectors.toList());
+            teacherRankChartVo.setSystemScoreList(systemScoreList);
 
-        List<RedlineHistory> redlineHistoryList = redlineHistoryMapper.selectList(null);
-        List<String> redLineTeacherName = redlineHistoryList.stream().map(redlineHistory -> {
-            String name = teacherMap.get(redlineHistory.getTid().longValue());
-            return name;
+            return teacherRankChartVo;
         }).collect(Collectors.toList());
-        chartsInfo.setRedLine(redLineTeacherName);
-        /**************************中方教师指标**********************************/
-        // 获取所有一级评价
-        Map<Integer, String> systemMap = systemMapper.selectList(null).stream().collect(Collectors.toMap(System::getId, System::getName));
-        Map<String, List<ScoreVo>> chineseScoreMap = new HashMap<>();
-        for (Teacher teacher : chineseTeacher) {
-            // 获取该老师所有的评测信息
-            List<AverageScore> scoreList = averageScoreMapper.getScoreByTid(teacher.getId());
-            List<ScoreVo> scoreVoList = new ArrayList<>();
-            for (AverageScore score : scoreList) {
-                ScoreVo scoreVo = new ScoreVo();
-                scoreVo.setSystem(systemMap.get(score.getSid()));
-                scoreVo.setScore(score.getScore() / 10.0);
-                scoreVoList.add(scoreVo);
-            }
-            chineseScoreMap.put(teacher.getName(), scoreVoList);
-        }
-        chartsInfo.setChinaScore(chineseScoreMap);
-        /**************************俄方教师指标**********************************/
-        Map<String, List<ScoreVo>> russianScoreMap = new HashMap<>();
-        for (Teacher teacher : russianTeacher) {
-            // 获取该老师所有的评测信息
-            List<AverageScore> scoreList = averageScoreMapper.getScoreByTid(teacher.getId());
-            List<ScoreVo> scoreVoList = new ArrayList<>();
-            for (AverageScore score : scoreList) {
-                ScoreVo scoreVo = new ScoreVo();
-                scoreVo.setSystem(systemMap.get(score.getSid()));
-                scoreVo.setScore(score.getScore() / 10.0);
-                scoreVoList.add(scoreVo);
-            }
-            russianScoreMap.put(teacher.getName(), scoreVoList);
-        }
-        chartsInfo.setRussianScore(russianScoreMap);
-        return chartsInfo;
+
+        return teacherRankChartVoList;
     }
+
+    @Override
+    public List<ScoreVo> getTeacherDetailScoreChart(Integer eid, Integer tid) {
+        LambdaQueryWrapper<AverageScore> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(AverageScore::getEid, eid);
+        queryWrapper.eq(AverageScore::getTid, tid);
+        List<AverageScore> teacherScoreList = averageScoreMapper.selectList(queryWrapper);
+        if (teacherScoreList == null) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
+        }
+        List<ScoreVo> teacherDetailChart = teacherScoreList.stream().map(teacher -> {
+            ScoreVo scoreVo = new ScoreVo();
+            Integer sid = teacher.getSid();
+            String systemName = systemMapper.getChineseNameById(sid);
+            scoreVo.setScore(teacher.getScore().doubleValue());
+            scoreVo.setSystem(systemName);
+            return scoreVo;
+        }).collect(Collectors.toList());
+
+        return teacherDetailChart;
+    }
+
+    @Override
+    public List<TeacherNameVo> getRedlineTeacher() {
+        List<RedlineHistory> redlineHistoryList = redlineHistoryMapper.selectList(null);
+        if (CollectionUtils.isEmpty(redlineHistoryList)) {
+            return Collections.emptyList();
+        }
+        List<TeacherNameVo> teacherNameVoList = redlineHistoryList.stream().map(redlineHistory -> {
+            TeacherNameVo teacherNameVo = new TeacherNameVo();
+            Integer tid = redlineHistory.getTid();
+            String teacherName = teacherMapper.getNameById(tid.longValue());
+            teacherNameVo.setName(teacherName);
+            teacherNameVo.setId(tid.longValue());
+            return teacherNameVo;
+        }).collect(Collectors.toList());
+        return teacherNameVoList;
+    }
+
+    /**
+     * 获取教师性别统计
+     *
+     * @param teacherList 教师列表
+     * @return 性别统计
+     */
+    private TeacherGenderVo getTeacherGenderNum(List<Teacher> teacherList) {
+        TeacherGenderVo teacherGenderVo = new TeacherGenderVo();
+        long maleNum = teacherList.stream().filter(teacher -> teacher.getSex() == 1).count();
+        long femaleNum = teacherList.stream().filter(teacher -> teacher.getSex() == 0).count();
+        teacherGenderVo.setMaleNum(maleNum);
+        teacherGenderVo.setFemaleNum(femaleNum);
+
+        return teacherGenderVo;
+    }
+
+    /**
+     * 获取教师职位统计
+     *
+     * @param teacherList 教师列表
+     * @return 职位统计
+     */
+    private TeacherTitleVo getTeacherTitleNum(List<Teacher> teacherList) {
+        TeacherTitleVo teacherTitleChart = new TeacherTitleVo();
+        long professorNum = teacherList.stream().filter(teacher -> teacher.getTitle() == 1).count();
+        long associateProfessorNum = teacherList.stream().filter(teacher -> teacher.getTitle() == 2).count();
+        long lecturerNum = teacherList.stream().filter(teacher -> teacher.getTitle() == 3).count();
+        teacherTitleChart.setProfessorNum(professorNum);
+        teacherTitleChart.setAssociateProfessorNum(associateProfessorNum);
+        teacherTitleChart.setLecturerNum(lecturerNum);
+        return teacherTitleChart;
+    }
+
 
 
 }

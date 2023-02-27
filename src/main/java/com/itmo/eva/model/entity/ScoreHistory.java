@@ -37,9 +37,14 @@ public class ScoreHistory implements Serializable {
     private BigDecimal score;
 
     /**
-     * 评价主键
+     * 评测id
      */
     private Integer eid;
+
+    /**
+     * 国籍
+     */
+    private Integer identity;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

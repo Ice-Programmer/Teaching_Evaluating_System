@@ -46,6 +46,14 @@ public interface SystemMapper extends BaseMapper<System> {
     @Select("select * from e_system where level = 1 and kind = #{kind}")
     List<System> getCountByKind(Integer kind);
 
+    /**
+     * 根据id获取指标名称
+     * @param id 一级指标id
+     * @return 中文名称
+     */
+    @Select("select name from e_system where id = #{id}")
+    String getChineseNameById(Integer id);
+
 }
 
 

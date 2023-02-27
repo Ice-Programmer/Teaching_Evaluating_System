@@ -280,6 +280,7 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
 
     /**
      * 计算平均分
+     *
      * @param eid 评测id
      */
     @Override
