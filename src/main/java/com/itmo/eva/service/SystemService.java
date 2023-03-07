@@ -1,6 +1,8 @@
 package com.itmo.eva.service;
 
-import com.itmo.eva.model.dto.system.SystemRussianUpdateRequest;
+import com.itmo.eva.model.dto.system.SystemAddRequest;
+import com.itmo.eva.model.dto.system.SystemDeleteRequest;
+import com.itmo.eva.model.dto.system.SystemUpdateRequest;
 import com.itmo.eva.model.entity.System;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.itmo.eva.model.vo.system.SystemVo;
@@ -25,17 +27,23 @@ public interface SystemService extends IService<System> {
     List<SystemVo> getChineseSystem();
 
     /**
-     * 更新俄方评价体系
-     * @param systemRussianUpdateRequest
+     * 增加教学评价体系
+     * @param systemAddRequest
      * @return
      */
-    Boolean updateRussianSystem(SystemRussianUpdateRequest systemRussianUpdateRequest);
+    Boolean addSystem(SystemAddRequest systemAddRequest);
 
     /**
-     * 更新中方评价体系
-     * @param systemRussianUpdateRequest
+     * 更新教学评价体系
+     * @param systemUpdateRequest
      * @return
      */
-    Boolean updateChineseSystem(SystemRussianUpdateRequest systemRussianUpdateRequest);
+    Boolean updateSystem(SystemUpdateRequest systemUpdateRequest);
 
+    /**
+     * 删除教学评价系统
+     * @param systemDeleteRequest
+     * @return
+     */
+    Boolean deleteSystem(SystemDeleteRequest systemDeleteRequest);
 }

@@ -1,6 +1,5 @@
 package com.itmo.eva.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.itmo.eva.mapper.EmailHistoryMapper;
@@ -14,8 +13,6 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 import java.util.Properties;
 
 @SpringBootTest
@@ -109,5 +106,6 @@ class AdminServiceTest {
             System.out.println(id);
         }
     }
+
 
 }

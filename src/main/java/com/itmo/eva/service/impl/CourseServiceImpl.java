@@ -184,6 +184,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
         List<Teacher> teacherList = teacherMapper.selectList(null);
         Map<Long, String> teacherMap = teacherList.stream().collect(Collectors.toMap(Teacher::getId, Teacher::getName));
 
+        Map<String, List<Course>> courseByNameOrder = courseList.stream().collect(Collectors.groupingBy(Course::getCName));
         List<CourseVo> courseVoList = courseList.stream().map((course) -> {
             CourseVo courseVo = new CourseVo();
             BeanUtils.copyProperties(course, courseVo);
@@ -191,6 +192,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
             courseVo.setGrade(GradeEnum.getEnumByValue(course.getGrade()).getGrade());
             return courseVo;
         }).collect(Collectors.toList());
+        // todo 将课程名称相同的排列在一起
 
         return courseVoList;
     }
@@ -295,6 +297,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
         }
     }
 
+    // todo 可以通过选择课程的方式批量到处课程信息
 
     /**
      * 获取课程列表
