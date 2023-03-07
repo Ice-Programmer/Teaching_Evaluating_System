@@ -65,6 +65,8 @@ public class EvaluateEndJob {
                 // 统计红线指标
                 redlineHistoryService.recordRedline(evaluateGoing.getId());
                 log.info("{} 评测已经结束，当前时间：{}", evaluateGoing.getName(), dateFormat.format(nowTime));
+                // 将教师一级指标平均分折合成总分存入总分表中
+                scoreHistoryService.saveTotalScore(evaluateGoing.getId());
             }
         } catch (ParseException e) {
             log.info("转换评测结束时间出错", e);

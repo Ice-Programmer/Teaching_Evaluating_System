@@ -4,8 +4,8 @@ import com.itmo.eva.model.dto.course.CourseAddRequest;
 import com.itmo.eva.model.dto.course.CourseUpdateRequest;
 import com.itmo.eva.model.entity.Course;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.itmo.eva.model.entity.Course;
-import com.itmo.eva.model.vo.CourseVo;
+import com.itmo.eva.model.vo.course.CourseListVo;
+import com.itmo.eva.model.vo.course.CourseVo;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;

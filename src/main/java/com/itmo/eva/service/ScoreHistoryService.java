@@ -48,4 +48,10 @@ public interface ScoreHistoryService extends IService<ScoreHistory> {
      * @param eid 评测id
      */
     void calculateScoreAverage(Integer eid);
+
+    /**
+     * 平均分保存到总分表中
+     * @param id
+     */
+    void saveTotalScore(Integer eid);
 }

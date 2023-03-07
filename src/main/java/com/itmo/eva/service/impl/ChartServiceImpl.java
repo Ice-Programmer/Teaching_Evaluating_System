@@ -57,22 +57,37 @@ public class ChartServiceImpl implements ChartService {
 
         // 俄方教师性别情况
         TeacherGenderVo russianGenderChart = getTeacherGenderNum(russianTeacher);
-        chartsVo.setRussianTeacherGenderChart(russianGenderChart);
+//        chartsVo.setRussianTeacherGenderChart(russianGenderChart);
+        Map<String, Long> RussianTeacherGenderMap = new HashMap<>();
+        RussianTeacherGenderMap.put("男", russianGenderChart.getMaleNum());
+        RussianTeacherGenderMap.put("女", russianGenderChart.getFemaleNum());
+        chartsVo.setRussianTeacherGenderChart(RussianTeacherGenderMap);
 
         // 俄方教师职位情况
         TeacherTitleVo teacherTitleChart = getTeacherTitleNum(russianTeacher);
-        chartsVo.setRussianTeacherTitleChart(teacherTitleChart);
+        Map<String, Long> RussianTeacherTitleMap = new HashMap<>();
+        RussianTeacherTitleMap.put("教授", teacherTitleChart.getProfessorNum());
+        RussianTeacherTitleMap.put("副教授", teacherTitleChart.getAssociateProfessorNum());
+        RussianTeacherTitleMap.put("讲师", teacherTitleChart.getLecturerNum());
+        chartsVo.setRussianTeacherTitleChart(RussianTeacherTitleMap);
 
         //2. 中方教师基本情况
         List<Teacher> chineseTeacher = teacherMapper.getChineseTeacher();
 
         // 中方教师性别情况
         TeacherGenderVo chineseGenderChart = getTeacherGenderNum(chineseTeacher);
-        chartsVo.setChineseTeacherGenderChart(chineseGenderChart);
+        Map<String, Long> ChineseTeacherGenderMap = new HashMap<>();
+        ChineseTeacherGenderMap.put("男", chineseGenderChart.getMaleNum());
+        ChineseTeacherGenderMap.put("女", chineseGenderChart.getFemaleNum());
+        chartsVo.setChineseTeacherGenderChart(ChineseTeacherGenderMap);
 
         // 中方教师职位情况
         TeacherTitleVo chineseTitleChart = getTeacherTitleNum(chineseTeacher);
-        chartsVo.setChineseTeacherTitleChart(chineseTitleChart);
+        Map<String, Long> ChineseTeacherTitleMap = new HashMap<>();
+        ChineseTeacherTitleMap.put("教授", chineseTitleChart.getProfessorNum());
+        ChineseTeacherTitleMap.put("副教授", chineseTitleChart.getAssociateProfessorNum());
+        ChineseTeacherTitleMap.put("讲师", chineseTitleChart.getLecturerNum());
+        chartsVo.setChineseTeacherTitleChart(ChineseTeacherTitleMap);
 
         return chartsVo;
     }

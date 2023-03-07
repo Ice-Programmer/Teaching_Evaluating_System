@@ -1,4 +1,4 @@
-package com.itmo.eva.model.vo;
+package com.itmo.eva.model.vo.course;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -15,7 +15,6 @@ public class CourseVo implements Serializable {
     /**
      * 主键
      */
-    @TableId(type = IdType.AUTO)
     private Integer id;
 
     /**

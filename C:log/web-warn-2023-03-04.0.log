@@ -1,0 +1,2 @@
+2023-03-04 08:07:40.025 [restartedMain] WARN  c.b.mybatisplus.core.injector.DefaultSqlInjector - class com.itmo.eva.model.entity.Redline ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2023-03-04 08:38:19.114 [restartedMain] WARN  c.b.mybatisplus.core.injector.DefaultSqlInjector - class com.itmo.eva.model.entity.Redline ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.

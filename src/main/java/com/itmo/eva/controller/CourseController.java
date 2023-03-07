@@ -4,9 +4,9 @@ import com.itmo.eva.common.*;
 import com.itmo.eva.exception.BusinessException;
 import com.itmo.eva.model.dto.course.CourseAddRequest;
 import com.itmo.eva.model.dto.course.CourseUpdateRequest;
-import com.itmo.eva.model.vo.CourseVo;
+import com.itmo.eva.model.vo.course.CourseListVo;
+import com.itmo.eva.model.vo.course.CourseVo;
 import com.itmo.eva.service.CourseService;
-import com.itmo.eva.utils.DownLoadUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -16,10 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.net.URLEncoder;
 import java.util.List;
 
 /**
@@ -125,7 +122,6 @@ public class CourseController {
         if (courseVoList == null) {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
         }
-
         return ResultUtils.success(courseVoList);
     }
 

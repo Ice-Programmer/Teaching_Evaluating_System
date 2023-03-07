@@ -2,7 +2,6 @@ package com.itmo.eva.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itmo.eva.common.ErrorCode;
 import com.itmo.eva.exception.BusinessException;
@@ -14,18 +13,16 @@ import com.itmo.eva.model.entity.Course;
 import com.itmo.eva.model.entity.Teacher;
 import com.itmo.eva.model.enums.GradeEnum;
 import com.itmo.eva.model.enums.MajorEnum;
-import com.itmo.eva.model.vo.CourseVo;
+import com.itmo.eva.model.vo.course.CourseVo;
 import com.itmo.eva.service.CourseService;
 import com.itmo.eva.utils.EnumUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.BeanUtils;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -116,7 +113,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
         if (CollectionUtils.isEmpty(teacherIdList)) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
-        Integer id = courseUpdateRequest.getId();
+        Long id = courseUpdateRequest.getId();
         // 只有一个tid，更改当前用户
         if (teacherIdList.size() == 1) {
             Course oldCourse = this.getById(id);
@@ -333,7 +330,3 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
 
     }
 }
-
-
-
-

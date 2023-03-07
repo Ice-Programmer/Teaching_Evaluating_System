@@ -47,7 +47,7 @@ public interface EvaluateMapper extends BaseMapper<Evaluate> {
      * 获取最近一次已结束的评测id
      * @return
      */
-    @Select("select max(id) from e_evaluate")
+    @Select("select max(id) from e_evaluate where status = 0")
     Integer getCurrentEvaluateId();
 
 }

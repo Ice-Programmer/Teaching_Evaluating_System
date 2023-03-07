@@ -1,4 +1,4 @@
-package com.itmo.eva.model.dto.course;
+package com.itmo.eva.model.vo.course;
 
 import lombok.Data;
 
@@ -6,16 +6,15 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 课程表
- * @TableName e_course
+ * 课程列表展示
  */
 @Data
-public class CourseUpdateRequest implements Serializable {
+public class CourseListVo implements Serializable {
 
     /**
-     * id主键
+     * 课程id
      */
-    private Long id;
+    private Integer id;
 
     /**
      * 课程中文名
@@ -23,7 +22,7 @@ public class CourseUpdateRequest implements Serializable {
     private String cName;
 
     /**
-     * 课程中文名
+     * 课程英文名
      */
     private String eName;
 
@@ -33,14 +32,15 @@ public class CourseUpdateRequest implements Serializable {
     private Integer major;
 
     /**
-     * 教师id
-     */
-    private List<Long> tid;
-
-    /**
      * 年级
      */
-    private Integer grade;
+    private String grade;
+
+    /**
+     * 教师信息
+     */
+    private List<CourseTeacherVo> teacherList;
 
     private static final long serialVersionUID = 1L;
+
 }

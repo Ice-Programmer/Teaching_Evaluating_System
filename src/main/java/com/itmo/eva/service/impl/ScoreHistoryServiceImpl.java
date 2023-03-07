@@ -328,6 +328,32 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
 
     }
 
+    @Override
+    public void saveTotalScore(Integer eid) {
+        LambdaQueryWrapper<MarkHistory> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(MarkHistory::getEid, eid);
+        List<MarkHistory> teacherAverageScoreList = markHistoryMapper.selectList(queryWrapper);
+        if (teacherAverageScoreList == null) {
+            throw new BusinessException(ErrorCode.OPERATION_ERROR);
+        }
+        Map<Integer, List<MarkHistory>> teacherScoreMap = teacherAverageScoreList.stream().collect(Collectors.groupingBy(MarkHistory::getTid));
+        for (Integer tid : teacherScoreMap.keySet()) {
+            // 该教师所有一级评价的分数
+            List<MarkHistory> teacherScoreList = teacherScoreMap.get(tid);
+            teacherScoreList.stream().collect(Collectors.groupingBy(MarkHistory::getCid));
+            Integer totalScore = teacherScoreList.stream().map(MarkHistory::getScore)
+                    .reduce(Integer::sum).orElse(0);
+            ScoreHistory scoreHistory = new ScoreHistory();
+            scoreHistory.setTid(tid);
+            scoreHistory.setCid(0);
+            scoreHistory.setScore(new BigDecimal("0"));
+            scoreHistory.setEid(0);
+            scoreHistory.setIdentity(0);
+
+
+        }
+    }
+
 
 }
 

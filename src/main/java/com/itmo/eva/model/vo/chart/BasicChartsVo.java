@@ -7,6 +7,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 @Data
 public class BasicChartsVo implements Serializable {
@@ -16,27 +17,22 @@ public class BasicChartsVo implements Serializable {
     /**
      * 俄方教师性别统计
      */
-    private TeacherGenderVo RussianTeacherGenderChart;
+    private Map<String, Long> RussianTeacherGenderChart;
 
     /**
      * 俄方教师职位统计
      */
-    private TeacherTitleVo RussianTeacherTitleChart;
+    private Map<String, Long> RussianTeacherTitleChart;
 
     /**
      * 中方教师性别统计
      */
-    private TeacherGenderVo ChineseTeacherGenderChart;
+    private Map<String, Long> ChineseTeacherGenderChart;
 
     /**
      * 中方教师职位统计
      */
-    private TeacherTitleVo ChineseTeacherTitleChart;
-
-    /**
-     * 俄方分数前十排名
-     */
-    private List<TeacherScoreVo> RussianTeacherScoreChart;
+    private Map<String, Long> ChineseTeacherTitleChart;
 
 
 }

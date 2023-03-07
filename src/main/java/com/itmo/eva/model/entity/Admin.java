@@ -16,7 +16,7 @@ import java.io.Serializable;
 @Data
 public class Admin implements Serializable {
     /**
-     * 用户名
+     * id
      */
     @TableId(type = IdType.AUTO)
     private Integer id;
