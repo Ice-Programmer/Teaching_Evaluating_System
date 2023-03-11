@@ -4,6 +4,9 @@ import com.itmo.eva.model.dto.score.ScoreFilterRequest;
 import com.itmo.eva.model.entity.ScoreHistory;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.itmo.eva.model.vo.ScoreHistoryVo;
+import com.itmo.eva.model.vo.score.TeacherAllScoreVo;
+import com.itmo.eva.model.vo.score.TeacherSecondScoreVo;
+import com.itmo.eva.model.vo.score.TeacherSystemScoreVo;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -26,6 +29,7 @@ public interface ScoreHistoryService extends IService<ScoreHistory> {
      * @return 俄方分数
      */
     List<ScoreHistoryVo> getRussianScore(ScoreFilterRequest scoreFilterRequest);
+
 
     /**
      * 导出中方教师排名
@@ -51,7 +55,26 @@ public interface ScoreHistoryService extends IService<ScoreHistory> {
 
     /**
      * 平均分保存到总分表中
-     * @param id
+     * @param eid
      */
     void saveTotalScore(Integer eid);
+
+    /**
+     * 获取所有排名
+     * @param scoreFilterRequest
+     * @return
+     */
+    List<TeacherAllScoreVo> getTeacherTotalRank(ScoreFilterRequest scoreFilterRequest);
+
+    /**
+     * 获取一级评价下的排名
+     * @param scoreFilterRequest
+     * @return
+     */
+    List<TeacherSystemScoreVo> getTeacherFirstRank(ScoreFilterRequest scoreFilterRequest);
+
+    /**
+     *
+     */
+    List<TeacherSecondScoreVo> getTeacherSecondScore(ScoreFilterRequest scoreFilterRequest);
 }

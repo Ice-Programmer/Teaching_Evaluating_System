@@ -54,7 +54,7 @@ public class SystemServiceImpl extends ServiceImpl<SystemMapper, System>
                 SecondSystemVo secondSystemVo = new SecondSystemVo();
                 secondSystemVo.setName(system.getName());
                 secondSystemVo.setEName(system.getEName());
-                secondSystemVo.setSecondId(system.getId());
+                secondSystemVo.setSid(system.getId());
                 secondSystemVoList.add(secondSystemVo);
             }
             systemVo.setChildren(secondSystemVoList);
@@ -86,7 +86,7 @@ public class SystemServiceImpl extends ServiceImpl<SystemMapper, System>
                 SecondSystemVo  secondSystemVo = new SecondSystemVo();
                 secondSystemVo.setName(system.getName());
                 secondSystemVo.setEName(system.getEName());
-                secondSystemVo.setSecondId(system.getId());
+                secondSystemVo.setSid(system.getId());
                 secondSystemVoList.add(secondSystemVo);
             }
             systemVo.setChildren(secondSystemVoList);
@@ -166,6 +166,9 @@ public class SystemServiceImpl extends ServiceImpl<SystemMapper, System>
         systemLambdaQueryWrapper.eq(System::getSid, id);
         // 找出对应的所有二级评价信息
         List<System> systemList = this.list(systemLambdaQueryWrapper);
+        if (systemList.size() == 0) {
+            return this.removeById(oldSystem);
+        }
         List<Integer> systemIdList = systemList.stream().map(System::getId).collect(Collectors.toList());
         boolean delete = this.removeBatchByIds(systemIdList);
         if (!delete) {

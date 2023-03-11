@@ -10,10 +10,11 @@
             <result property="sid" column="sid" jdbcType="INTEGER"/>
             <result property="eid" column="eid" jdbcType="INTEGER"/>
             <result property="score" column="score" jdbcType="INTEGER"/>
+            <result property="cid" column="cid" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,tid,sid,eid,
-        score
+        score,cid
     </sql>
 </mapper>

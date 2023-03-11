@@ -27,16 +27,10 @@ public class ScoreHistoryVo implements Serializable {
      */
     private Integer tid;
 
-
     /**
      * 总分
      */
     private BigDecimal score;
-
-    /**
-     * 评价主键
-     */
-    private Integer eid;
 
     /**
      * 教师名称

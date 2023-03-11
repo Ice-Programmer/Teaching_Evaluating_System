@@ -54,6 +54,14 @@ public interface SystemMapper extends BaseMapper<System> {
     @Select("select name from e_system where id = #{id}")
     String getChineseNameById(Integer id);
 
+    /**
+     * 获取一级评价所有二级评价
+     * @param sid 一级评价id
+     * @return
+     */
+    @Select("select * from e_system where sid = #{sid}")
+    List<System> getSecondSystemBySid(Integer sid);
+
 }
 
 

@@ -30,9 +30,11 @@ public interface TeacherMapper extends BaseMapper<Teacher> {
     @Select("select * from e_teacher where identity = 1")
     List<Teacher> getChineseTeacher();
 
-
     @Select("select * from e_teacher where identity = 0")
     List<Teacher> getRussianTeacher();
+
+    @Select("select id from e_teacher where identity = #{identity}")
+    List<Integer> getTeacherIdsByIdentity(Integer identity);
 }
 
 

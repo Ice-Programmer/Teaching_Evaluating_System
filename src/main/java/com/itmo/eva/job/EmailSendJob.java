@@ -31,6 +31,10 @@ public class EmailSendJob {
     @Resource
     private TeacherMapper teacherMapper;
 
+    /**
+     * 每10分钟进行判断邮件发送
+     * @throws ParseException
+     */
     @Scheduled(cron = "0 */10 * * * ?")
     public void sendEmail() throws ParseException {
         log.info("邮件检测...");

@@ -8,4 +8,10 @@
         DROP TABLE IF EXISTS ${tableName};
     </delete>
 
+    <select id="getSecond" resultType="java.lang.Integer">
+        select score from ${tableName}
+        where secondId = #{secondId} and tid = #{teacherId}
+    </select>
+
+
 </mapper>

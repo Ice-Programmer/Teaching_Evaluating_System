@@ -40,6 +40,11 @@ public class AverageScore implements Serializable {
      */
     private Integer eid;
 
+    /**
+     * 课程id
+     */
+    private Integer cid;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

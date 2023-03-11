@@ -10,7 +10,10 @@ import java.io.Serializable;
 @Data
 public class SecondSystemVo implements Serializable {
 
-    private Integer secondId;
+    /**
+     * 二级指标id
+     */
+    private Integer sid;
 
     /**
      * 二级指标中文名称

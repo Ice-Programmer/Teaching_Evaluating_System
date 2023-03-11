@@ -6,14 +6,21 @@ import java.io.OutputStream;
 import java.math.BigDecimal;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itmo.eva.common.ErrorCode;
 import com.itmo.eva.exception.BusinessException;
 import com.itmo.eva.mapper.*;
 import com.itmo.eva.model.dto.score.ScoreFilterRequest;
+import com.itmo.eva.model.dto.system.SecondSystemQueryRequest;
 import com.itmo.eva.model.entity.*;
 import com.itmo.eva.model.entity.System;
 import com.itmo.eva.model.vo.ScoreHistoryVo;
+import com.itmo.eva.model.vo.score.TeacherAllScoreVo;
+import com.itmo.eva.model.vo.score.TeacherSecondScoreVo;
+import com.itmo.eva.model.vo.score.TeacherSystemScoreVo;
+import com.itmo.eva.model.vo.system.FirstSystemScoreVo;
+import com.itmo.eva.model.vo.system.SecondSystemScoreVo;
 import com.itmo.eva.service.ScoreHistoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.RichTextString;
@@ -25,10 +32,7 @@ import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.OptionalDouble;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -57,7 +61,7 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
     private SystemMapper systemMapper;
 
     @Resource
-    private RedlineMapper redlineMapper;
+    private TableMapper tableMapper;
 
     /**
      * 获取中方老师所有的分数
@@ -89,7 +93,6 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
             scoreHistoryVo.setTid(tid.intValue());
             scoreHistoryVo.setTeacher(teacher.getName());
             scoreHistoryVo.setScore(new BigDecimal(score / 10.0));
-            scoreHistoryVo.setEid(eid);
             scoreHistoryVo.setIdentity(teacher.getIdentity());
             historyVoList.add(scoreHistoryVo);
         }
@@ -125,7 +128,6 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
             scoreHistoryVo.setDetailScore(detailScore);
             scoreHistoryVo.setTid(tid.intValue());
             scoreHistoryVo.setScore(new BigDecimal(score / 10.0));
-            scoreHistoryVo.setEid(eid);
             scoreHistoryVo.setTeacher(teacher.getName());
             scoreHistoryVo.setIdentity(teacher.getIdentity());
             historyVoList.add(scoreHistoryVo);
@@ -133,6 +135,152 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
 
         return historyVoList;
     }
+
+
+    /**
+     * 获取教师总分数
+     *
+     * @param identity
+     * @return
+     */
+    private List<TeacherAllScoreVo> getTeacherRank(Integer identity) {
+        List<TeacherAllScoreVo> teacherAllScoreVoList = new ArrayList<>();
+        // 获取教师id
+        List<Integer> teacherIdList = teacherMapper.getTeacherIdsByIdentity(identity);
+        // 获取一级评价指标
+        List<System> systemList = systemMapper.getCountByKind(identity);
+        LambdaQueryWrapper<AverageScore> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.in(AverageScore::getTid, teacherIdList);
+        List<AverageScore> allTeacherScoreList = averageScoreMapper.selectList(queryWrapper);
+        // 教师id -> 教师分数细则
+        Map<Long, List<AverageScore>> teacherScoreMap = allTeacherScoreList.stream().collect(Collectors.groupingBy(AverageScore::getTid));
+        for (Long teacherId : teacherScoreMap.keySet()) {
+            List<AverageScore> teacherScoreList = teacherScoreMap.get(teacherId);
+            List<FirstSystemScoreVo> firstSystemScoreVoList = new ArrayList<>();
+            for (System system : systemList) {
+                Integer sid = system.getId();
+                // 获取教师在一级评价下的所有分数
+                List<Integer> teacherAllSystemScoreList = teacherScoreList.stream().filter(teacher -> Objects.equals(teacher.getSid(), sid)).map(AverageScore::getScore).collect(Collectors.toList());
+                // 计算教师该一级评价
+                double averageScore = teacherAllSystemScoreList.stream().mapToDouble(Integer::doubleValue).average().orElse(0);
+                FirstSystemScoreVo firstSystemScoreVo = new FirstSystemScoreVo();
+                firstSystemScoreVo.setName(system.getName());
+                firstSystemScoreVo.setSid(sid);
+                firstSystemScoreVo.setScore(averageScore);
+                firstSystemScoreVoList.add(firstSystemScoreVo);
+            }
+            String teacherName = teacherMapper.getNameById(teacherId);
+            TeacherAllScoreVo teacherAllScoreVo = new TeacherAllScoreVo();
+            teacherAllScoreVo.setName(teacherName);
+            teacherAllScoreVo.setScoreList(firstSystemScoreVoList);
+            // 计算总分
+            double totalScore = firstSystemScoreVoList.stream().mapToDouble(FirstSystemScoreVo::getScore).sum();
+            teacherAllScoreVo.setTotalScore(totalScore);
+            teacherAllScoreVoList.add(teacherAllScoreVo);
+        }
+
+        return teacherAllScoreVoList;
+    }
+
+    /**
+     * 获取教师具体分数(各项二级指标分数）
+     *
+     * @return
+     */
+    public List<TeacherSystemScoreVo> getTeacherFirstRank(ScoreFilterRequest scoreFilterRequest) {
+        Integer eid = scoreFilterRequest.getEid();
+        Integer sid = scoreFilterRequest.getSid();
+        Integer identity = scoreFilterRequest.getIdentity();
+
+        List<TeacherSystemScoreVo> teacherSystemScoreVoList = new ArrayList<>();
+        // 获取教师id
+        List<Integer> teacherIdList = teacherMapper.getTeacherIdsByIdentity(identity);
+        // 获取该一级评价下所有的二级评价指标
+        List<System> secondSystemList = systemMapper.getSecondSystemBySid(sid);
+        // 获取教师表中一级指标数据
+        LambdaQueryWrapper<AverageScore> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(AverageScore::getEid, eid)
+                .eq(AverageScore::getSid, sid)
+                .in(AverageScore::getTid, teacherIdList);
+        // 获取所有教师一级评价所有分数
+        List<AverageScore> teacherFirstScoreList = averageScoreMapper.selectList(queryWrapper);
+        // 获取教师中所有二级指标分数
+        Map<Long, List<AverageScore>> teacherFirstScoreMap = teacherFirstScoreList.stream().collect(Collectors.groupingBy(AverageScore::getTid));
+        for (Long teacherId : teacherFirstScoreMap.keySet()) {
+            TeacherSystemScoreVo teacherSystemScoreVo = new TeacherSystemScoreVo();
+            List<SecondSystemScoreVo> secondSystemScoreList = new ArrayList<>();
+
+            // 计算所有二级指标平均分数
+            for (System system : secondSystemList) {
+                SecondSystemScoreVo secondSystemScore = new SecondSystemScoreVo();
+
+                Integer secondId = system.getId();
+                SecondSystemQueryRequest secondSystemQueryRequest = new SecondSystemQueryRequest();
+                secondSystemQueryRequest.setSecondId(secondId);
+                secondSystemQueryRequest.setTeacherId(teacherId.intValue());
+                secondSystemQueryRequest.setTableName("e_second_score_" + eid);
+                // 查找教师二级指标分数
+                List<Integer> secondScoreList = tableMapper.getSecond(secondSystemQueryRequest);
+                double averageScore = secondScoreList.stream().mapToDouble(Integer::doubleValue).average().orElse(0);
+                secondSystemScore.setName(system.getName());
+                secondSystemScore.setSid(secondId);
+                secondSystemScore.setScore(averageScore);
+
+                secondSystemScoreList.add(secondSystemScore);
+            }
+
+            // 获取该教师下本次评测所有一级评价分数吧
+            List<Integer> teacherFirstScore = teacherFirstScoreMap.get(teacherId).stream().map(AverageScore::getScore).collect(Collectors.toList());
+            double averageScore = teacherFirstScore.stream().mapToDouble(Integer::doubleValue).average().orElse(0);
+
+            String teacherName = teacherMapper.getNameById(teacherId);
+            teacherSystemScoreVo.setName(teacherName);
+            teacherSystemScoreVo.setScoreList(secondSystemScoreList);
+            teacherSystemScoreVo.setTotalScore(averageScore);
+            teacherSystemScoreVoList.add(teacherSystemScoreVo);
+        }
+
+
+        return teacherSystemScoreVoList;
+
+    }
+
+    /**
+     * 获取教师二级指标
+     *
+     * @return
+     */
+    @Override
+    public List<TeacherSecondScoreVo> getTeacherSecondScore(ScoreFilterRequest scoreFilterRequest) {
+        Integer eid = scoreFilterRequest.getEid();
+        Integer secondId = scoreFilterRequest.getSecondId();
+        Integer identity = scoreFilterRequest.getIdentity();
+
+
+        List<TeacherSecondScoreVo> teacherSecondScoreVoList = new ArrayList<>();
+        String tableName = "e_second_score_" + eid;
+        String systemName = systemMapper.getChineseNameById(secondId);
+        // 获取教师id
+        List<Integer> teacherIdList = teacherMapper.getTeacherIdsByIdentity(identity);
+        for (Integer teacherId : teacherIdList) {
+            TeacherSecondScoreVo teacherSecondScoreVo = new TeacherSecondScoreVo();
+            SecondSystemQueryRequest secondSystemQueryRequest = new SecondSystemQueryRequest();
+            secondSystemQueryRequest.setSecondId(secondId);
+            secondSystemQueryRequest.setTeacherId(teacherId);
+            secondSystemQueryRequest.setTableName(tableName);
+            // 获取该教师所有二级评测分数
+            List<Integer> secondScore = tableMapper.getSecond(secondSystemQueryRequest);
+            double averageScore = secondScore.stream().mapToDouble(Integer::doubleValue).average().orElse(0);
+            String teacherName = teacherMapper.getNameById(teacherId.longValue());
+            teacherSecondScoreVo.setName(teacherName);
+            teacherSecondScoreVo.setSystemName(systemName);
+            teacherSecondScoreVo.setScore(averageScore);
+
+            teacherSecondScoreVoList.add(teacherSecondScoreVo);
+        }
+        return teacherSecondScoreVoList;
+    }
+
 
     /**
      * 导出中方教师排名
@@ -278,6 +426,7 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
         }
     }
 
+
     /**
      * 计算平均分
      *
@@ -354,6 +503,30 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
         }
     }
 
+    @Override
+    public List<TeacherAllScoreVo> getTeacherTotalRank(ScoreFilterRequest scoreFilterRequest) {
+        Integer mode = this.isMode(scoreFilterRequest);
+        if (mode != 1) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        return this.getTeacherRank(scoreFilterRequest.getIdentity());
+    }
+
+
+    private Integer isMode(ScoreFilterRequest scoreFilterRequest) {
+        List<Integer> identityList = Arrays.asList(1, 0);
+        Integer eid = scoreFilterRequest.getEid();
+        Integer sid = scoreFilterRequest.getSid();
+        Integer secondId = scoreFilterRequest.getSecondId();
+        Integer identity = scoreFilterRequest.getIdentity();
+        if (ObjectUtils.isNull(eid, sid, secondId) && identityList.contains(identity)) {
+            return 1;
+        }
+        if (ObjectUtils.isNull(secondId) && identityList.contains(identity)) {
+            return 2;
+        }
+        return 3;
+    }
 
 }
 
