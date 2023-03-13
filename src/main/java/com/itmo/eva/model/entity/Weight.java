@@ -5,40 +5,31 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import lombok.Data;
 
 /**
- * 平均分表
- * @TableName e_average_score
+ * 权重表
+ * @TableName e_weight
  */
-@TableName(value ="e_average_score")
+@TableName(value ="e_weight")
 @Data
-public class AverageScore implements Serializable {
+public class Weight implements Serializable {
     /**
-     * 主键
+     * 
      */
     @TableId(type = IdType.AUTO)
-    private Long id;
+    private Integer id;
 
     /**
-     * 教师id
+     * 一级指标的主键
      */
-    private Long tid;
+    private Integer lid;
 
     /**
-     * 评价体系id
+     * 一级指标对应的权重
      */
-    private Integer sid;
-
-    /**
-     * 分数
-     */
-    private Integer score;
-
-    /**
-     * 评价主键
-     */
-    private Integer eid;
+    private BigDecimal weight;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

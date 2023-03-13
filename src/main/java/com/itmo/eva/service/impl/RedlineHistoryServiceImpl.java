@@ -22,14 +22,14 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
-* @author chenjiahan
-* @description 针对表【e_redline_history(红线表)】的数据库操作Service实现
-* @createDate 2023-02-06 19:41:33
-*/
+ * @author chenjiahan
+ * @description 针对表【e_redline_history(红线表)】的数据库操作Service实现
+ * @createDate 2023-02-06 19:41:33
+ */
 @Service
 @Slf4j
 public class RedlineHistoryServiceImpl extends ServiceImpl<RedlineHistoryMapper, RedlineHistory>
-    implements RedlineHistoryService{
+        implements RedlineHistoryService {
 
     @Resource
     private AverageScoreMapper averageScoreMapper;
@@ -42,6 +42,7 @@ public class RedlineHistoryServiceImpl extends ServiceImpl<RedlineHistoryMapper,
 
     /**
      * 统计教师红线记录
+     *
      * @param eid 评测id
      */
     @Override

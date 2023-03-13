@@ -59,13 +59,13 @@ public class EvaluateEndJob {
                 // 超出日期将评测的状态关闭
                 evaluateGoing.setStatus(0);
                 evaluateMapper.updateById(evaluateGoing);
-                // 计算该评测下所有教师的平均分
+                // 计算该评测下所有教师的平均分(mark_history表 -> average_score表)
                 scoreHistoryService.calculateScoreAverage(evaluateGoing.getId());
                 log.info("{} 评测平均分计算完成", evaluateGoing.getName());
                 // 统计红线指标
                 redlineHistoryService.recordRedline(evaluateGoing.getId());
                 log.info("{} 评测已经结束，当前时间：{}", evaluateGoing.getName(), dateFormat.format(nowTime));
-                // 将教师一级指标平均分折合成总分存入总分表中
+                // 将教师一级指标平均分折合成总分存入总分表中(mark_history表 -> score_history表)
                 scoreHistoryService.saveTotalScore(evaluateGoing.getId());
             }
         } catch (ParseException e) {

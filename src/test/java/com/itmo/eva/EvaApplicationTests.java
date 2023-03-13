@@ -5,6 +5,7 @@ import com.itmo.eva.mapper.*;
 import com.itmo.eva.model.entity.System;
 import com.itmo.eva.model.entity.*;
 import com.itmo.eva.service.AdminService;
+import com.itmo.eva.service.ScoreHistoryService;
 import com.itmo.eva.service.TeacherService;
 import com.itmo.eva.utils.MailUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -49,6 +50,12 @@ class EvaApplicationTests {
 
 	@Resource
 	private CourseMapper courseMapper;
+
+	@Resource
+	private WeightMapper weightMapper;
+
+	@Resource
+	private ScoreHistoryService scoreHistoryService;
 
 	@Test
 	void contextLoads() {
@@ -162,5 +169,21 @@ class EvaApplicationTests {
 
 			}
 		}
+	}
+
+	@Test
+	void getWeight() {
+		Double weightBySid = weightMapper.getWeightBySid(1);
+		log.info("权重为：{}", weightBySid);
+//		LambdaQueryWrapper<Weight> queryWrapper = new LambdaQueryWrapper<>();
+//		queryWrapper.eq(Weight::getLid, 1);
+//		Weight weight = weightMapper.selectOne(queryWrapper);
+//		log.info("权重为：{}", weight.getWeight());
+
+	}
+
+	@Test
+	void getTotalScore() {
+		scoreHistoryService.saveTotalScore(25);
 	}
 }

@@ -28,6 +28,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
@@ -62,6 +63,9 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
 
     @Resource
     private TableMapper tableMapper;
+
+    @Resource
+    private WeightMapper weightMapper;
 
     /**
      * 获取中方老师所有的分数
@@ -139,6 +143,7 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
 
     /**
      * 获取教师总分数
+     * 从average_score表中取数据
      *
      * @param identity
      * @return
@@ -184,6 +189,7 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
 
     /**
      * 获取教师具体分数(各项二级指标分数）
+     * 从average_score表和second_score中取数据
      *
      * @return
      */
@@ -247,6 +253,7 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
 
     /**
      * 获取教师二级指标
+     * 从average_score表和second_score中取数据
      *
      * @return
      */
@@ -429,10 +436,12 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
 
     /**
      * 计算平均分
+     * mark_history表 => score_history表
      *
      * @param eid 评测id
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void calculateScoreAverage(Integer eid) {
         // 1. 获取所有教师信息
         List<Teacher> teacherList = teacherMapper.selectList(null);
@@ -451,13 +460,13 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
                         .eq(MarkHistory::getTid, teacherId)
                         .eq(MarkHistory::getSid, systemId)
                         .eq(MarkHistory::getState, 1);      // 保证平均分不会参杂未评价信息导致分数误差
-                // 4. 获取教师某个一级评价下的所有信息
+                // 4. 获取教师某个一级评价下的所有数据
                 List<MarkHistory> markHistoryList = markHistoryMapper.selectList(queryWrapper);
                 if (CollectionUtils.isEmpty(markHistoryList)) {
                     log.error("在id为{}的评测中，{}教师平均分计算中，无{}这一级评价的相关分数", eid, teacher.getName(), firstSystem.getName());
                     throw new BusinessException(ErrorCode.OPERATION_ERROR);
                 }
-                // 取出所有分数计算平均分
+                // 取出所有分数
                 List<Integer> scoreList = markHistoryList.stream().map(MarkHistory::getScore).collect(Collectors.toList());
                 // 5. 计算平均分
                 OptionalDouble optionalAverage = scoreList.stream().mapToDouble(Integer::doubleValue).average();
@@ -472,35 +481,65 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
                     averageScoreMapper.insert(averageScore);
                 }
             }
-
         }
-
     }
 
+    /**
+     * 保存数据到总分表中
+     * e_mark_history => e_score_history表中
+     *
+     * @param eid
+     */
     @Override
     public void saveTotalScore(Integer eid) {
+        // 取出所有的权重
+        List<Weight> weightList = weightMapper.selectList(null);
+        Map<Integer, BigDecimal> weightMap = weightList.stream().collect(Collectors.toMap(Weight::getLid, Weight::getWeight));
         LambdaQueryWrapper<MarkHistory> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(MarkHistory::getEid, eid);
-        List<MarkHistory> teacherAverageScoreList = markHistoryMapper.selectList(queryWrapper);
-        if (teacherAverageScoreList == null) {
-            throw new BusinessException(ErrorCode.OPERATION_ERROR);
+        queryWrapper.eq(MarkHistory::getEid, eid)
+                .eq(MarkHistory::getState, 1);
+        // 取出所有教师数据
+        List<MarkHistory> markScoreList = markHistoryMapper.selectList(queryWrapper);
+        // 根据班级分类总数据
+        Map<Integer, List<MarkHistory>> markScoreByCourseMap = markScoreList.stream().collect(Collectors.groupingBy(MarkHistory::getCid));
+        for (Integer courseId : markScoreByCourseMap.keySet()) {
+            List<MarkHistory> courseAllScoreList = markScoreByCourseMap.get(courseId);
+            // 根据教师分类课程数据
+            Map<Integer, List<MarkHistory>> CourseScoreByTeacherMap = courseAllScoreList.stream().collect(Collectors.groupingBy(MarkHistory::getTid));
+            for (Integer teacherId : CourseScoreByTeacherMap.keySet()) {
+                Teacher teacher = teacherMapper.selectById(teacherId);
+                // 获取教师该课程下所有的课程一级评价分数
+                List<MarkHistory> courseScoreList = CourseScoreByTeacherMap.get(teacherId);
+                // 获取教师国籍
+                Integer identity = teacher.getIdentity();
+                // 教师的一级指标
+                List<System> firstSystem = systemMapper.getCountByKind(identity);
+                // 根据权重计算一级评价合计总分
+                double totalScore = 0;
+                for (System system : firstSystem) {
+                    Integer sid = system.getId();
+                    List<Integer> systemScoreList = courseScoreList.stream()
+                            .filter(courseScore -> Objects.equals(courseScore.getSid(), sid))
+                            .map(MarkHistory::getScore)
+                            .collect(Collectors.toList());
+                    // 计算出一级评价平均分
+                    double score = systemScoreList.stream().mapToDouble(Integer::doubleValue).average().orElse(0);
+                    // 一级评价对应的权重
+                    double weight = weightMap.get(sid).doubleValue();
+                    // 将所有一级评价分数计算入总分
+                    totalScore += weight * score;
+                }
+                ScoreHistory scoreHistory = new ScoreHistory();
+                scoreHistory.setTid(teacherId);
+                scoreHistory.setCid(courseId);
+                scoreHistory.setScore(new BigDecimal(totalScore));
+                scoreHistory.setEid(eid);
+                scoreHistory.setIdentity(identity);
+                // 将数据插入表中
+                this.save(scoreHistory);
+            }
         }
-        Map<Integer, List<MarkHistory>> teacherScoreMap = teacherAverageScoreList.stream().collect(Collectors.groupingBy(MarkHistory::getTid));
-        for (Integer tid : teacherScoreMap.keySet()) {
-            // 该教师所有一级评价的分数
-            List<MarkHistory> teacherScoreList = teacherScoreMap.get(tid);
-            teacherScoreList.stream().collect(Collectors.groupingBy(MarkHistory::getCid));
-            Integer totalScore = teacherScoreList.stream().map(MarkHistory::getScore)
-                    .reduce(Integer::sum).orElse(0);
-            ScoreHistory scoreHistory = new ScoreHistory();
-            scoreHistory.setTid(tid);
-            scoreHistory.setCid(0);
-            scoreHistory.setScore(new BigDecimal("0"));
-            scoreHistory.setEid(0);
-            scoreHistory.setIdentity(0);
 
-
-        }
     }
 
     @Override
