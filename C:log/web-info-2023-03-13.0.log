@@ -1,0 +1,70 @@
+2023-03-13 10:10:29.047 [main] INFO  com.itmo.eva.EvaApplicationTests - Starting EvaApplicationTests using Java 1.8.0_362 on chenjiahandeMacBook-Pro-2.local with PID 18148 (started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
+2023-03-13 10:10:29.049 [main] INFO  com.itmo.eva.EvaApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2023-03-13 10:10:31.772 [main] INFO  com.itmo.eva.EvaApplicationTests - Started EvaApplicationTests in 3.15 seconds (JVM running for 3.702)
+2023-03-13 10:10:31.937 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-03-13 10:10:32.683 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-03-13 10:10:32.863 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-03-13 10:10:33.188 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-03-13 10:11:28.247 [main] INFO  com.itmo.eva.EvaApplicationTests - Starting EvaApplicationTests using Java 1.8.0_362 on chenjiahandeMacBook-Pro-2.local with PID 18345 (started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
+2023-03-13 10:11:28.248 [main] INFO  com.itmo.eva.EvaApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2023-03-13 10:11:30.855 [main] INFO  com.itmo.eva.EvaApplicationTests - Started EvaApplicationTests in 2.839 seconds (JVM running for 3.373)
+2023-03-13 10:11:30.988 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-03-13 10:11:31.706 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-03-13 10:11:31.850 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-03-13 10:11:32.165 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-03-13 10:13:36.677 [main] INFO  com.itmo.eva.EvaApplicationTests - Starting EvaApplicationTests using Java 1.8.0_362 on chenjiahandeMacBook-Pro-2.local with PID 18757 (started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
+2023-03-13 10:13:36.678 [main] INFO  com.itmo.eva.EvaApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2023-03-13 10:13:39.346 [main] INFO  com.itmo.eva.EvaApplicationTests - Started EvaApplicationTests in 3.031 seconds (JVM running for 3.569)
+2023-03-13 10:13:39.518 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-03-13 10:13:40.176 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-03-13 10:13:40.270 [main] INFO  com.itmo.eva.EvaApplicationTests - 权重为：0.80
+2023-03-13 10:13:40.283 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-03-13 10:13:40.635 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-03-13 10:14:34.154 [main] INFO  com.itmo.eva.EvaApplicationTests - Starting EvaApplicationTests using Java 1.8.0_362 on chenjiahandeMacBook-Pro-2.local with PID 18946 (started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
+2023-03-13 10:14:34.155 [main] INFO  com.itmo.eva.EvaApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2023-03-13 10:14:36.755 [main] INFO  com.itmo.eva.EvaApplicationTests - Started EvaApplicationTests in 2.842 seconds (JVM running for 3.383)
+2023-03-13 10:14:36.891 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-03-13 10:14:37.555 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-03-13 10:14:37.656 [main] INFO  com.itmo.eva.EvaApplicationTests - 权重为：0.80
+2023-03-13 10:14:37.670 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-03-13 10:14:37.998 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-03-13 10:15:15.982 [main] INFO  com.itmo.eva.EvaApplicationTests - Starting EvaApplicationTests using Java 1.8.0_362 on chenjiahandeMacBook-Pro-2.local with PID 19073 (started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
+2023-03-13 10:15:15.984 [main] INFO  com.itmo.eva.EvaApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2023-03-13 10:15:18.816 [main] INFO  com.itmo.eva.EvaApplicationTests - Started EvaApplicationTests in 3.101 seconds (JVM running for 3.715)
+2023-03-13 10:15:18.957 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-03-13 10:15:19.588 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-03-13 10:15:19.712 [main] INFO  com.itmo.eva.EvaApplicationTests - 权重为：0.8
+2023-03-13 10:15:19.724 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-03-13 10:15:20.012 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-03-13 10:41:50.810 [main] INFO  com.itmo.eva.EvaApplicationTests - Starting EvaApplicationTests using Java 1.8.0_362 on chenjiahandeMacBook-Pro-2.local with PID 24045 (started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
+2023-03-13 10:41:50.811 [main] INFO  com.itmo.eva.EvaApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2023-03-13 10:41:53.381 [main] INFO  com.itmo.eva.EvaApplicationTests - Started EvaApplicationTests in 2.947 seconds (JVM running for 3.487)
+2023-03-13 10:41:53.547 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-03-13 10:41:54.206 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-03-13 10:41:58.719 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-03-13 10:41:59.110 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-03-13 10:44:14.643 [main] INFO  com.itmo.eva.EvaApplicationTests - Starting EvaApplicationTests using Java 1.8.0_362 on chenjiahandeMacBook-Pro-2.local with PID 24500 (started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
+2023-03-13 10:44:14.644 [main] INFO  com.itmo.eva.EvaApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2023-03-13 10:44:17.284 [main] INFO  com.itmo.eva.EvaApplicationTests - Started EvaApplicationTests in 2.899 seconds (JVM running for 3.434)
+2023-03-13 10:44:17.441 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-03-13 10:44:18.210 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-03-13 10:44:19.025 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-03-13 10:44:19.223 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-03-13 20:48:25.485 [restartedMain] INFO  com.itmo.eva.EvaApplication - Starting EvaApplication using Java 1.8.0_362 on chenjiaandeMBP2 with PID 84839 (/Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva/target/classes started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
+2023-03-13 20:48:25.486 [restartedMain] INFO  com.itmo.eva.EvaApplication - No active profile set, falling back to 1 default profile: "default"
+2023-03-13 20:48:25.513 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-03-13 20:48:25.513 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-03-13 20:48:26.333 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-03-13 20:48:26.338 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-13 20:48:26.338 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-03-13 20:48:26.338 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.63]
+2023-03-13 20:48:26.380 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2023-03-13 20:48:26.380 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 866 ms
+2023-03-13 20:48:27.447 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2023-03-13 20:48:27.460 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2023-03-13 20:48:27.461 [restartedMain] INFO  org.apache.catalina.core.StandardService - Stopping service [Tomcat]
+2023-03-13 20:48:27.463 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2023-03-13 20:48:27.463 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Destroying ProtocolHandler ["http-nio-8080"]
+2023-03-13 20:48:27.468 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.

@@ -1,52 +1,285 @@
-2023-03-13 10:10:29.047 [main] INFO  com.itmo.eva.EvaApplicationTests - Starting EvaApplicationTests using Java 1.8.0_362 on chenjiahandeMacBook-Pro-2.local with PID 18148 (started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
-2023-03-13 10:10:29.049 [main] INFO  com.itmo.eva.EvaApplicationTests - No active profile set, falling back to 1 default profile: "default"
-2023-03-13 10:10:31.772 [main] INFO  com.itmo.eva.EvaApplicationTests - Started EvaApplicationTests in 3.15 seconds (JVM running for 3.702)
-2023-03-13 10:10:31.937 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-03-13 10:10:32.683 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-03-13 10:10:32.863 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-03-13 10:10:33.188 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2023-03-13 10:11:28.247 [main] INFO  com.itmo.eva.EvaApplicationTests - Starting EvaApplicationTests using Java 1.8.0_362 on chenjiahandeMacBook-Pro-2.local with PID 18345 (started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
-2023-03-13 10:11:28.248 [main] INFO  com.itmo.eva.EvaApplicationTests - No active profile set, falling back to 1 default profile: "default"
-2023-03-13 10:11:30.855 [main] INFO  com.itmo.eva.EvaApplicationTests - Started EvaApplicationTests in 2.839 seconds (JVM running for 3.373)
-2023-03-13 10:11:30.988 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-03-13 10:11:31.706 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-03-13 10:11:31.850 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-03-13 10:11:32.165 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2023-03-13 10:13:36.677 [main] INFO  com.itmo.eva.EvaApplicationTests - Starting EvaApplicationTests using Java 1.8.0_362 on chenjiahandeMacBook-Pro-2.local with PID 18757 (started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
-2023-03-13 10:13:36.678 [main] INFO  com.itmo.eva.EvaApplicationTests - No active profile set, falling back to 1 default profile: "default"
-2023-03-13 10:13:39.346 [main] INFO  com.itmo.eva.EvaApplicationTests - Started EvaApplicationTests in 3.031 seconds (JVM running for 3.569)
-2023-03-13 10:13:39.518 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-03-13 10:13:40.176 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-03-13 10:13:40.270 [main] INFO  com.itmo.eva.EvaApplicationTests - 权重为：0.80
-2023-03-13 10:13:40.283 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-03-13 10:13:40.635 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2023-03-13 10:14:34.154 [main] INFO  com.itmo.eva.EvaApplicationTests - Starting EvaApplicationTests using Java 1.8.0_362 on chenjiahandeMacBook-Pro-2.local with PID 18946 (started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
-2023-03-13 10:14:34.155 [main] INFO  com.itmo.eva.EvaApplicationTests - No active profile set, falling back to 1 default profile: "default"
-2023-03-13 10:14:36.755 [main] INFO  com.itmo.eva.EvaApplicationTests - Started EvaApplicationTests in 2.842 seconds (JVM running for 3.383)
-2023-03-13 10:14:36.891 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-03-13 10:14:37.555 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-03-13 10:14:37.656 [main] INFO  com.itmo.eva.EvaApplicationTests - 权重为：0.80
-2023-03-13 10:14:37.670 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-03-13 10:14:37.998 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2023-03-13 10:15:15.982 [main] INFO  com.itmo.eva.EvaApplicationTests - Starting EvaApplicationTests using Java 1.8.0_362 on chenjiahandeMacBook-Pro-2.local with PID 19073 (started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
-2023-03-13 10:15:15.984 [main] INFO  com.itmo.eva.EvaApplicationTests - No active profile set, falling back to 1 default profile: "default"
-2023-03-13 10:15:18.816 [main] INFO  com.itmo.eva.EvaApplicationTests - Started EvaApplicationTests in 3.101 seconds (JVM running for 3.715)
-2023-03-13 10:15:18.957 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-03-13 10:15:19.588 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-03-13 10:15:19.712 [main] INFO  com.itmo.eva.EvaApplicationTests - 权重为：0.8
-2023-03-13 10:15:19.724 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-03-13 10:15:20.012 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2023-03-13 10:41:50.810 [main] INFO  com.itmo.eva.EvaApplicationTests - Starting EvaApplicationTests using Java 1.8.0_362 on chenjiahandeMacBook-Pro-2.local with PID 24045 (started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
-2023-03-13 10:41:50.811 [main] INFO  com.itmo.eva.EvaApplicationTests - No active profile set, falling back to 1 default profile: "default"
-2023-03-13 10:41:53.381 [main] INFO  com.itmo.eva.EvaApplicationTests - Started EvaApplicationTests in 2.947 seconds (JVM running for 3.487)
-2023-03-13 10:41:53.547 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-03-13 10:41:54.206 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-03-13 10:41:58.719 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-03-13 10:41:59.110 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2023-03-13 10:44:14.643 [main] INFO  com.itmo.eva.EvaApplicationTests - Starting EvaApplicationTests using Java 1.8.0_362 on chenjiahandeMacBook-Pro-2.local with PID 24500 (started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
-2023-03-13 10:44:14.644 [main] INFO  com.itmo.eva.EvaApplicationTests - No active profile set, falling back to 1 default profile: "default"
-2023-03-13 10:44:17.284 [main] INFO  com.itmo.eva.EvaApplicationTests - Started EvaApplicationTests in 2.899 seconds (JVM running for 3.434)
-2023-03-13 10:44:17.441 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-03-13 10:44:18.210 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-03-13 10:44:19.025 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-03-13 10:44:19.223 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-03-14 13:41:51.814 [restartedMain] INFO  com.itmo.eva.EvaApplication - Starting EvaApplication using Java 1.8.0_362 on chenjiahandeMacBook-Pro-2.local with PID 32646 (/Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva/target/classes started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
+2023-03-14 13:41:51.821 [restartedMain] INFO  com.itmo.eva.EvaApplication - No active profile set, falling back to 1 default profile: "default"
+2023-03-14 13:41:51.880 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-03-14 13:41:51.880 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-03-14 13:41:53.093 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-03-14 13:41:53.100 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-14 13:41:53.100 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-03-14 13:41:53.101 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.63]
+2023-03-14 13:41:53.148 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2023-03-14 13:41:53.148 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1267 ms
+2023-03-14 13:41:54.090 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2023-03-14 13:41:54.242 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2023-03-14 13:41:54.255 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/api'
+2023-03-14 13:41:54.509 [restartedMain] INFO  com.itmo.eva.EvaApplication - Started EvaApplication in 2.978 seconds (JVM running for 3.683)
+2023-03-14 13:42:05.619 [http-nio-8080-exec-1] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-14 13:42:05.619 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-03-14 13:42:05.620 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2023-03-14 13:42:05.657 [http-nio-8080-exec-1] INFO  com.itmo.eva.aop.LogInterceptor - request start，id: d8039b73-99fc-46e4-8cc3-1805d98c4790, path: /api/score/get/rank/teacher/first, ip: 0:0:0:0:0:0:0:1, params: [ScoreFilterRequest(eid=25, sid=3, secondId=null, identity=0)]
+2023-03-14 13:42:05.671 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-03-14 13:42:06.452 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-03-14 13:42:07.238 [http-nio-8080-exec-1] INFO  com.itmo.eva.aop.LogInterceptor - request end, id: d8039b73-99fc-46e4-8cc3-1805d98c4790, cost: 1583ms
+2023-03-14 13:42:07.238 [http-nio-8080-exec-1] INFO  com.itmo.eva.aop.LogInterceptor - 访问次数：1
+2023-03-14 13:46:43.018 [http-nio-8080-exec-4] INFO  com.itmo.eva.aop.LogInterceptor - request start，id: 0fab3589-b5e6-4dd7-ab6c-0a7aef3d5328, path: /api/score/get/rank/teacher/second, ip: 0:0:0:0:0:0:0:1, params: [ScoreFilterRequest(eid=25, sid=null, secondId=9, identity=1)]
+2023-03-14 13:46:45.400 [http-nio-8080-exec-4] INFO  com.itmo.eva.aop.LogInterceptor - request end, id: 0fab3589-b5e6-4dd7-ab6c-0a7aef3d5328, cost: 2382ms
+2023-03-14 13:46:45.402 [http-nio-8080-exec-4] INFO  com.itmo.eva.aop.LogInterceptor - 访问次数：2
+2023-03-14 14:51:38.383 [scheduling-1] INFO  com.itmo.eva.job.EmailSendJob - 邮件检测...
+2023-03-14 15:32:57.011 [scheduling-1] INFO  com.itmo.eva.job.EmailSendJob - 邮件检测...
+2023-03-14 16:16:16.031 [http-nio-8080-exec-8] INFO  com.itmo.eva.aop.LogInterceptor - request start，id: bdc2de89-d7b1-42b9-a7bc-796ca1d7f0db, path: /api/score/get/rank/teacher/second, ip: 0:0:0:0:0:0:0:1, params: [ScoreFilterRequest(eid=25, sid=null, secondId=9, identity=0)]
+2023-03-14 16:16:35.136 [restartedMain] INFO  com.itmo.eva.EvaApplication - Starting EvaApplication using Java 1.8.0_362 on chenjiaandeMBP2 with PID 35526 (/Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva/target/classes started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
+2023-03-14 16:16:35.137 [restartedMain] INFO  com.itmo.eva.EvaApplication - No active profile set, falling back to 1 default profile: "default"
+2023-03-14 16:16:35.164 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-03-14 16:16:35.165 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-03-14 16:16:35.987 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-03-14 16:16:35.991 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-14 16:16:35.991 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-03-14 16:16:35.991 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.63]
+2023-03-14 16:16:36.021 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2023-03-14 16:16:36.022 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 857 ms
+2023-03-14 16:16:37.096 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2023-03-14 16:16:37.254 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2023-03-14 16:16:37.267 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/api'
+2023-03-14 16:16:37.530 [restartedMain] INFO  com.itmo.eva.EvaApplication - Started EvaApplication in 2.717 seconds (JVM running for 3.235)
+2023-03-14 16:16:49.184 [http-nio-8080-exec-1] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-14 16:16:49.184 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-03-14 16:16:49.186 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2023-03-14 16:16:49.227 [http-nio-8080-exec-1] INFO  com.itmo.eva.aop.LogInterceptor - request start，id: 5c8d3aa4-44b0-43b2-8e77-80cfab664a2b, path: /api/score/get/rank/teacher/second, ip: 0:0:0:0:0:0:0:1, params: [ScoreFilterRequest(eid=25, sid=null, secondId=9, identity=0)]
+2023-03-14 16:16:49.240 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-03-14 16:16:49.537 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-03-14 16:18:13.685 [http-nio-8080-exec-5] INFO  com.itmo.eva.aop.LogInterceptor - request start，id: 1884c73f-4f7e-4afd-a828-3ff94703a145, path: /api/score/get/rank/teacher/second, ip: 0:0:0:0:0:0:0:1, params: [ScoreFilterRequest(eid=27, sid=null, secondId=9, identity=0)]
+2023-03-14 16:18:29.509 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-03-14 16:40:17.839 [restartedMain] INFO  com.itmo.eva.EvaApplication - Starting EvaApplication using Java 1.8.0_362 on chenjiaandeMBP2 with PID 40851 (/Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva/target/classes started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
+2023-03-14 16:40:17.839 [restartedMain] INFO  com.itmo.eva.EvaApplication - No active profile set, falling back to 1 default profile: "default"
+2023-03-14 16:40:17.870 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-03-14 16:40:17.870 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-03-14 16:40:18.672 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-03-14 16:40:18.676 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-14 16:40:18.677 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-03-14 16:40:18.677 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.63]
+2023-03-14 16:40:18.716 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2023-03-14 16:40:18.716 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 846 ms
+2023-03-14 16:40:19.615 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2023-03-14 16:40:19.771 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2023-03-14 16:40:19.784 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/api'
+2023-03-14 16:40:20.040 [restartedMain] INFO  com.itmo.eva.EvaApplication - Started EvaApplication in 2.491 seconds (JVM running for 2.827)
+2023-03-14 16:40:22.639 [http-nio-8080-exec-2] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-14 16:40:22.639 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-03-14 16:40:22.641 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2023-03-14 16:40:22.685 [http-nio-8080-exec-2] INFO  com.itmo.eva.aop.LogInterceptor - request start，id: 7c3a50ef-491a-48dc-ab99-a887577d6b5a, path: /api/evaluate/update/status, ip: 0:0:0:0:0:0:0:1, params: [eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEiLCJleHAiOjE2NzgxNjI3ODMsImlhdCI6MTY3ODE2MTU4MywidXNlcm5hbWUiOiJhZG1pbiJ9.0MO8Nv16i0lMKUWCt5QtW0aZQl_7abRy28U_vaL2rbs, EvaluateIdRequest(eid=27)]
+2023-03-14 16:40:22.692 [http-nio-8080-exec-2] INFO  com.itmo.eva.utils.JwtUtil - 解析令牌中...
+2023-03-14 16:40:28.761 [http-nio-8080-exec-3] INFO  com.itmo.eva.aop.LogInterceptor - request start，id: e426687f-e290-4abc-8b95-7aa6d7790430, path: /api/admin/login, ip: 0:0:0:0:0:0:0:1, params: [AdminLoginRequest(username=admin, password=12345), org.apache.catalina.connector.RequestFacade@787c941]
+2023-03-14 16:40:28.786 [http-nio-8080-exec-3] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-03-14 16:40:29.066 [http-nio-8080-exec-3] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-03-14 16:40:29.258 [http-nio-8080-exec-3] INFO  com.itmo.eva.utils.JwtUtil - 生成令牌中...
+2023-03-14 16:40:29.263 [http-nio-8080-exec-3] INFO  com.itmo.eva.aop.LogInterceptor - request end, id: e426687f-e290-4abc-8b95-7aa6d7790430, cost: 502ms
+2023-03-14 16:40:29.264 [http-nio-8080-exec-3] INFO  com.itmo.eva.aop.LogInterceptor - 访问次数：1
+2023-03-14 16:40:31.438 [http-nio-8080-exec-4] INFO  com.itmo.eva.aop.LogInterceptor - request start，id: 69c36293-e274-4020-8573-b1853f7ea81c, path: /api/evaluate/update/status, ip: 0:0:0:0:0:0:0:1, params: [eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEiLCJleHAiOjE2Nzg3ODQ0MjksImlhdCI6MTY3ODc4MzIyOSwidXNlcm5hbWUiOiJhZG1pbiJ9.mpoFeWkkwL6o0vuJV4RL2KCSBed2Nk2xKxfDqseDOzI, EvaluateIdRequest(eid=27)]
+2023-03-14 16:40:31.439 [http-nio-8080-exec-4] INFO  com.itmo.eva.utils.JwtUtil - 解析令牌中...
+2023-03-14 16:40:35.334 [http-nio-8080-exec-5] INFO  com.itmo.eva.aop.LogInterceptor - request start，id: 7656022f-388c-489b-9c42-e241f1dadde1, path: /api/evaluate/update/status, ip: 0:0:0:0:0:0:0:1, params: [eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEiLCJleHAiOjE2Nzg3ODQ0MjksImlhdCI6MTY3ODc4MzIyOSwidXNlcm5hbWUiOiJhZG1pbiJ9.mpoFeWkkwL6o0vuJV4RL2KCSBed2Nk2xKxfDqseDOzI, EvaluateIdRequest(eid=28)]
+2023-03-14 16:40:35.335 [http-nio-8080-exec-5] INFO  com.itmo.eva.utils.JwtUtil - 解析令牌中...
+2023-03-14 16:40:35.393 [http-nio-8080-exec-5] INFO  com.itmo.eva.service.impl.EvaluateServiceImpl - admin正在对2022-2023第一学期测评进行更改进行状态的操作
+2023-03-14 16:40:35.441 [http-nio-8080-exec-5] INFO  com.itmo.eva.aop.LogInterceptor - request end, id: 7656022f-388c-489b-9c42-e241f1dadde1, cost: 107ms
+2023-03-14 16:40:35.441 [http-nio-8080-exec-5] INFO  com.itmo.eva.aop.LogInterceptor - 访问次数：2
+2023-03-14 16:40:37.508 [http-nio-8080-exec-6] INFO  com.itmo.eva.aop.LogInterceptor - request start，id: 81177d1a-0c6d-4872-a1af-64b4901bb9d8, path: /api/evaluate/update/status, ip: 0:0:0:0:0:0:0:1, params: [eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEiLCJleHAiOjE2Nzg3ODQ0MjksImlhdCI6MTY3ODc4MzIyOSwidXNlcm5hbWUiOiJhZG1pbiJ9.mpoFeWkkwL6o0vuJV4RL2KCSBed2Nk2xKxfDqseDOzI, EvaluateIdRequest(eid=28)]
+2023-03-14 16:40:37.509 [http-nio-8080-exec-6] INFO  com.itmo.eva.utils.JwtUtil - 解析令牌中...
+2023-03-14 16:40:37.555 [http-nio-8080-exec-6] INFO  com.itmo.eva.service.impl.EvaluateServiceImpl - admin正在对2022-2023第一学期测评进行更改进行状态的操作
+2023-03-14 16:42:21.166 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-03-14 17:49:13.944 [main] INFO  com.itmo.eva.EvaApplicationTests - Starting EvaApplicationTests using Java 1.8.0_362 on chenjiaandeMBP2 with PID 51294 (started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
+2023-03-14 17:49:13.945 [main] INFO  com.itmo.eva.EvaApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2023-03-14 17:49:16.567 [main] INFO  com.itmo.eva.EvaApplicationTests - Started EvaApplicationTests in 2.865 seconds (JVM running for 3.398)
+2023-03-14 17:49:16.698 [main] INFO  com.itmo.eva.EvaApplicationTests - 校验评测中...
+2023-03-14 17:49:16.709 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-03-14 17:49:17.112 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-03-14 17:49:18.561 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-03-14 17:49:18.678 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-03-14 17:50:55.320 [main] INFO  com.itmo.eva.EvaApplicationTests - Starting EvaApplicationTests using Java 1.8.0_362 on chenjiaandeMBP2 with PID 51661 (started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
+2023-03-14 17:50:55.321 [main] INFO  com.itmo.eva.EvaApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2023-03-14 17:50:57.877 [main] INFO  com.itmo.eva.EvaApplicationTests - Started EvaApplicationTests in 2.8 seconds (JVM running for 3.399)
+2023-03-14 17:50:57.999 [main] INFO  com.itmo.eva.EvaApplicationTests - 校验评测中...
+2023-03-14 17:50:58.011 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-03-14 17:50:58.395 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-03-14 17:51:01.681 [main] INFO  com.itmo.eva.EvaApplicationTests - 2022-2023第一学期测评 评测平均分计算完成
+2023-03-14 17:51:02.548 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-03-14 17:51:02.683 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-03-14 17:52:29.019 [main] INFO  com.itmo.eva.EvaApplicationTests - Starting EvaApplicationTests using Java 1.8.0_362 on chenjiaandeMBP2 with PID 52008 (started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
+2023-03-14 17:52:29.019 [main] INFO  com.itmo.eva.EvaApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2023-03-14 17:52:31.634 [main] INFO  com.itmo.eva.EvaApplicationTests - Started EvaApplicationTests in 2.845 seconds (JVM running for 3.376)
+2023-03-14 17:52:31.764 [main] INFO  com.itmo.eva.EvaApplicationTests - 校验评测中...
+2023-03-14 17:52:31.776 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-03-14 17:52:32.170 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-03-14 17:52:36.558 [main] INFO  com.itmo.eva.EvaApplicationTests - 2022-2023第一学期测评 评测平均分计算完成
+2023-03-14 17:52:37.842 [main] INFO  com.itmo.eva.EvaApplicationTests - 2022-2023第一学期测评 评测已经结束，当前时间：2023-03-14
+2023-03-14 17:52:39.194 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-03-14 17:52:39.316 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-03-14 17:53:30.387 [restartedMain] INFO  com.itmo.eva.EvaApplication - Starting EvaApplication using Java 1.8.0_362 on chenjiaandeMBP2 with PID 52231 (/Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva/target/classes started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
+2023-03-14 17:53:30.388 [restartedMain] INFO  com.itmo.eva.EvaApplication - No active profile set, falling back to 1 default profile: "default"
+2023-03-14 17:53:30.417 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-03-14 17:53:30.417 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-03-14 17:53:31.267 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-03-14 17:53:31.272 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-14 17:53:31.272 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-03-14 17:53:31.272 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.63]
+2023-03-14 17:53:31.321 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2023-03-14 17:53:31.321 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 904 ms
+2023-03-14 17:53:32.314 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2023-03-14 17:53:32.483 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2023-03-14 17:53:32.497 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/api'
+2023-03-14 17:53:32.774 [restartedMain] INFO  com.itmo.eva.EvaApplication - Started EvaApplication in 2.657 seconds (JVM running for 2.986)
+2023-03-14 17:53:38.326 [http-nio-8080-exec-1] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-14 17:53:38.327 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-03-14 17:53:38.328 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2023-03-14 17:53:38.366 [http-nio-8080-exec-1] INFO  com.itmo.eva.aop.LogInterceptor - request start，id: b80164f1-0d39-4f5e-b225-0e41618ce3d9, path: /api/admin/login, ip: 0:0:0:0:0:0:0:1, params: [AdminLoginRequest(username=admin, password=12345), org.apache.catalina.connector.RequestFacade@774bb6c7]
+2023-03-14 17:53:38.382 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-03-14 17:53:38.673 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-03-14 17:53:38.822 [http-nio-8080-exec-1] INFO  com.itmo.eva.utils.JwtUtil - 生成令牌中...
+2023-03-14 17:53:38.917 [http-nio-8080-exec-1] INFO  com.itmo.eva.aop.LogInterceptor - request end, id: b80164f1-0d39-4f5e-b225-0e41618ce3d9, cost: 554ms
+2023-03-14 17:53:38.917 [http-nio-8080-exec-1] INFO  com.itmo.eva.aop.LogInterceptor - 访问次数：1
+2023-03-14 17:53:44.562 [http-nio-8080-exec-3] INFO  com.itmo.eva.aop.LogInterceptor - request start，id: 6c3f21d4-32c1-4504-a4e0-d02a333032f6, path: /api/charts/get/static, ip: 0:0:0:0:0:0:0:1, params: []
+2023-03-14 17:53:44.644 [http-nio-8080-exec-3] INFO  com.itmo.eva.aop.LogInterceptor - request end, id: 6c3f21d4-32c1-4504-a4e0-d02a333032f6, cost: 82ms
+2023-03-14 17:53:44.644 [http-nio-8080-exec-3] INFO  com.itmo.eva.aop.LogInterceptor - 访问次数：2
+2023-03-14 17:53:48.563 [http-nio-8080-exec-4] INFO  com.itmo.eva.aop.LogInterceptor - request start，id: 6ec37f8e-7c06-4c01-801f-f12947342b84, path: /api/charts/get/system/chart, ip: 0:0:0:0:0:0:0:1, params: [IdRequest(id=4)]
+2023-03-14 17:53:48.745 [http-nio-8080-exec-4] INFO  com.itmo.eva.aop.LogInterceptor - request end, id: 6ec37f8e-7c06-4c01-801f-f12947342b84, cost: 182ms
+2023-03-14 17:53:48.746 [http-nio-8080-exec-4] INFO  com.itmo.eva.aop.LogInterceptor - 访问次数：3
+2023-03-14 17:53:53.859 [http-nio-8080-exec-5] INFO  com.itmo.eva.aop.LogInterceptor - request start，id: b787f97f-6c05-4637-8039-9e8a1d449970, path: /api/charts/get/rank/chart, ip: 0:0:0:0:0:0:0:1, params: [TeacherIdentityQueryRequest(identity=0)]
+2023-03-14 17:53:55.027 [http-nio-8080-exec-5] INFO  com.itmo.eva.aop.LogInterceptor - request end, id: b787f97f-6c05-4637-8039-9e8a1d449970, cost: 1168ms
+2023-03-14 17:53:55.028 [http-nio-8080-exec-5] INFO  com.itmo.eva.aop.LogInterceptor - 访问次数：4
+2023-03-14 17:54:06.481 [http-nio-8080-exec-7] INFO  com.itmo.eva.aop.LogInterceptor - request start，id: bef3ae62-fb4d-44b3-948d-86aee91c58b6, path: /api/charts/get/teacher/redline, ip: 0:0:0:0:0:0:0:1, params: []
+2023-03-14 17:54:07.157 [http-nio-8080-exec-7] INFO  com.itmo.eva.aop.LogInterceptor - request end, id: bef3ae62-fb4d-44b3-948d-86aee91c58b6, cost: 675ms
+2023-03-14 17:54:07.157 [http-nio-8080-exec-7] INFO  com.itmo.eva.aop.LogInterceptor - 访问次数：5
+2023-03-14 17:54:25.049 [http-nio-8080-exec-8] INFO  com.itmo.eva.aop.LogInterceptor - request start，id: e38ca352-890b-489d-903d-b87c545cabff, path: /api/score/get/rank/teacher/total, ip: 0:0:0:0:0:0:0:1, params: [ScoreFilterRequest(eid=null, sid=null, secondId=null, identity=1)]
+2023-03-14 17:54:25.220 [http-nio-8080-exec-8] INFO  com.itmo.eva.aop.LogInterceptor - request end, id: e38ca352-890b-489d-903d-b87c545cabff, cost: 171ms
+2023-03-14 17:54:25.221 [http-nio-8080-exec-8] INFO  com.itmo.eva.aop.LogInterceptor - 访问次数：6
+2023-03-14 17:54:42.194 [http-nio-8080-exec-9] INFO  com.itmo.eva.aop.LogInterceptor - request start，id: d11f88b3-b918-46c9-877a-cd5cedbde905, path: /api/score/get/rank/teacher/total, ip: 0:0:0:0:0:0:0:1, params: [ScoreFilterRequest(eid=null, sid=null, secondId=null, identity=0)]
+2023-03-14 17:54:42.350 [http-nio-8080-exec-9] INFO  com.itmo.eva.aop.LogInterceptor - request end, id: d11f88b3-b918-46c9-877a-cd5cedbde905, cost: 155ms
+2023-03-14 17:54:42.350 [http-nio-8080-exec-9] INFO  com.itmo.eva.aop.LogInterceptor - 访问次数：7
+2023-03-14 17:54:46.244 [http-nio-8080-exec-10] INFO  com.itmo.eva.aop.LogInterceptor - request start，id: e7fd6b53-3756-47b8-8ce9-73be4093d826, path: /api/score/get/rank/teacher/first, ip: 0:0:0:0:0:0:0:1, params: [ScoreFilterRequest(eid=25, sid=3, secondId=null, identity=0)]
+2023-03-14 17:54:46.308 [http-nio-8080-exec-10] INFO  com.itmo.eva.aop.LogInterceptor - request end, id: e7fd6b53-3756-47b8-8ce9-73be4093d826, cost: 63ms
+2023-03-14 17:54:46.308 [http-nio-8080-exec-10] INFO  com.itmo.eva.aop.LogInterceptor - 访问次数：8
+2023-03-14 17:54:54.737 [http-nio-8080-exec-2] INFO  com.itmo.eva.aop.LogInterceptor - request start，id: fc0ee738-aa55-4629-b7c2-a95613c9f926, path: /api/score/get/rank/teacher/first, ip: 0:0:0:0:0:0:0:1, params: [ScoreFilterRequest(eid=28, sid=3, secondId=null, identity=0)]
+2023-03-14 17:54:55.356 [http-nio-8080-exec-2] INFO  com.itmo.eva.aop.LogInterceptor - request end, id: fc0ee738-aa55-4629-b7c2-a95613c9f926, cost: 619ms
+2023-03-14 17:54:55.357 [http-nio-8080-exec-2] INFO  com.itmo.eva.aop.LogInterceptor - 访问次数：9
+2023-03-14 17:55:18.419 [http-nio-8080-exec-1] INFO  com.itmo.eva.aop.LogInterceptor - request start，id: 9f8b60e9-e46d-49d2-ac5c-b42f3404527d, path: /api/score/get/rank/teacher/second, ip: 0:0:0:0:0:0:0:1, params: [ScoreFilterRequest(eid=28, sid=null, secondId=9, identity=1)]
+2023-03-14 17:55:19.312 [http-nio-8080-exec-1] INFO  com.itmo.eva.aop.LogInterceptor - request end, id: 9f8b60e9-e46d-49d2-ac5c-b42f3404527d, cost: 893ms
+2023-03-14 17:55:19.313 [http-nio-8080-exec-1] INFO  com.itmo.eva.aop.LogInterceptor - 访问次数：10
+2023-03-14 17:55:55.642 [http-nio-8080-exec-3] INFO  com.itmo.eva.aop.LogInterceptor - request start，id: e000cb85-3c8c-4d13-9710-952440f76ac1, path: /api/score/get/rank/teacher/second, ip: 0:0:0:0:0:0:0:1, params: [ScoreFilterRequest(eid=28, sid=null, secondId=34, identity=1)]
+2023-03-14 17:55:56.571 [http-nio-8080-exec-3] INFO  com.itmo.eva.aop.LogInterceptor - request end, id: e000cb85-3c8c-4d13-9710-952440f76ac1, cost: 929ms
+2023-03-14 17:55:56.572 [http-nio-8080-exec-3] INFO  com.itmo.eva.aop.LogInterceptor - 访问次数：11
+2023-03-14 17:56:33.511 [http-nio-8080-exec-4] INFO  com.itmo.eva.aop.LogInterceptor - request start，id: 6f59995f-d296-47c1-a60c-606cc4f922d3, path: /api/score/get/rank/teacher/second, ip: 0:0:0:0:0:0:0:1, params: [ScoreFilterRequest(eid=28, sid=null, secondId=34, identity=1)]
+2023-03-14 17:56:34.458 [http-nio-8080-exec-4] INFO  com.itmo.eva.aop.LogInterceptor - request end, id: 6f59995f-d296-47c1-a60c-606cc4f922d3, cost: 947ms
+2023-03-14 17:56:34.460 [http-nio-8080-exec-4] INFO  com.itmo.eva.aop.LogInterceptor - 访问次数：12
+2023-03-14 18:00:00.013 [scheduling-1] INFO  com.itmo.eva.job.EmailSendJob - 邮件检测...
+2023-03-14 18:23:38.079 [scheduling-1] INFO  com.itmo.eva.job.EmailSendJob - 邮件检测...
+2023-03-14 18:26:56.744 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-03-14 18:26:57.258 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-03-14 18:27:00.569 [restartedMain] INFO  com.itmo.eva.EvaApplication - Starting EvaApplication using Java 1.8.0_362 on chenjiahandeMacBook-Pro-2.local with PID 56715 (/Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva/target/classes started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
+2023-03-14 18:27:00.570 [restartedMain] INFO  com.itmo.eva.EvaApplication - No active profile set, falling back to 1 default profile: "default"
+2023-03-14 18:27:00.598 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-03-14 18:27:00.598 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-03-14 18:27:01.433 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-03-14 18:27:01.437 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-14 18:27:01.438 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-03-14 18:27:01.438 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.63]
+2023-03-14 18:27:01.470 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2023-03-14 18:27:01.470 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 871 ms
+2023-03-14 18:27:02.735 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2023-03-14 18:27:02.901 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2023-03-14 18:27:02.914 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/api'
+2023-03-14 18:27:03.184 [restartedMain] INFO  com.itmo.eva.EvaApplication - Started EvaApplication in 2.909 seconds (JVM running for 3.223)
+2023-03-14 18:27:26.943 [http-nio-8080-exec-2] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-14 18:27:26.944 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-03-14 18:27:26.945 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2023-03-14 18:27:26.988 [http-nio-8080-exec-2] INFO  com.itmo.eva.aop.LogInterceptor - request start，id: afe31ee5-a7cb-4f18-8c6f-c6fb4c0f79df, path: /api/evaluate/add, ip: 0:0:0:0:0:0:0:1, params: [EvaluateAddRequest(name=asdgfasdgasdg, start_time=2024-1-21, e_time=2024-1-31)]
+2023-03-14 18:27:27.001 [http-nio-8080-exec-2] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-03-14 18:27:28.403 [http-nio-8080-exec-2] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-03-14 18:27:53.155 [http-nio-8080-exec-2] INFO  com.itmo.eva.aop.LogInterceptor - request end, id: afe31ee5-a7cb-4f18-8c6f-c6fb4c0f79df, cost: 26171ms
+2023-03-14 18:27:53.156 [http-nio-8080-exec-2] INFO  com.itmo.eva.aop.LogInterceptor - 访问次数：1
+2023-03-14 18:35:55.089 [scheduling-1] INFO  com.itmo.eva.job.EmailSendJob - 邮件检测...
+2023-03-14 18:36:33.689 [http-nio-8080-exec-4] INFO  com.itmo.eva.aop.LogInterceptor - request start，id: e302d013-2019-439b-bf7c-2fe36d562845, path: /api/evaluate/update/status, ip: 0:0:0:0:0:0:0:1, params: [eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEiLCJleHAiOjE2Nzg3ODg4MTgsImlhdCI6MTY3ODc4NzYxOCwidXNlcm5hbWUiOiJhZG1pbiJ9.DegjLdWrmy0qLq3AgrC9GMm-1n0TgT8lroJ1S5fIzfk, EvaluateIdRequest(eid=29)]
+2023-03-14 18:36:33.694 [http-nio-8080-exec-4] INFO  com.itmo.eva.utils.JwtUtil - 解析令牌中...
+2023-03-14 18:36:40.200 [http-nio-8080-exec-6] INFO  com.itmo.eva.aop.LogInterceptor - request start，id: 0aacac3c-1352-45fc-a2b4-c6dd4bd29c27, path: /api/admin/login, ip: 0:0:0:0:0:0:0:1, params: [AdminLoginRequest(username=admin, password=12345), org.apache.catalina.connector.RequestFacade@576955a2]
+2023-03-14 18:36:58.357 [restartedMain] INFO  com.itmo.eva.EvaApplication - Starting EvaApplication using Java 1.8.0_362 on chenjiahandeMacBook-Pro-2.local with PID 57625 (/Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva/target/classes started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
+2023-03-14 18:36:58.358 [restartedMain] INFO  com.itmo.eva.EvaApplication - No active profile set, falling back to 1 default profile: "default"
+2023-03-14 18:36:58.401 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-03-14 18:36:58.402 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-03-14 18:36:59.163 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-03-14 18:36:59.167 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-14 18:36:59.168 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-03-14 18:36:59.168 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.63]
+2023-03-14 18:36:59.207 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2023-03-14 18:36:59.207 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 805 ms
+2023-03-14 18:37:00.100 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2023-03-14 18:37:00.249 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2023-03-14 18:37:00.262 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/api'
+2023-03-14 18:37:00.521 [restartedMain] INFO  com.itmo.eva.EvaApplication - Started EvaApplication in 2.476 seconds (JVM running for 2.91)
+2023-03-14 18:37:02.493 [http-nio-8080-exec-1] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-14 18:37:02.493 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-03-14 18:37:02.495 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2023-03-14 18:37:02.536 [http-nio-8080-exec-1] INFO  com.itmo.eva.aop.LogInterceptor - request start，id: 46a5a04e-f6fc-4c7f-b0e9-7f0effddf1c7, path: /api/admin/login, ip: 0:0:0:0:0:0:0:1, params: [AdminLoginRequest(username=admin, password=12345), org.apache.catalina.connector.RequestFacade@13c8e81a]
+2023-03-14 18:37:02.552 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-03-14 18:37:03.155 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-03-14 18:37:03.516 [http-nio-8080-exec-1] INFO  com.itmo.eva.utils.JwtUtil - 生成令牌中...
+2023-03-14 18:37:03.529 [http-nio-8080-exec-1] INFO  com.itmo.eva.aop.LogInterceptor - request end, id: 46a5a04e-f6fc-4c7f-b0e9-7f0effddf1c7, cost: 996ms
+2023-03-14 18:37:03.530 [http-nio-8080-exec-1] INFO  com.itmo.eva.aop.LogInterceptor - 访问次数：1
+2023-03-14 18:37:06.689 [http-nio-8080-exec-4] INFO  com.itmo.eva.aop.LogInterceptor - request start，id: c5468b68-6888-4640-bf3b-751995774b4c, path: /api/evaluate/update/status, ip: 0:0:0:0:0:0:0:1, params: [eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEiLCJleHAiOjE2Nzg3OTE0MjMsImlhdCI6MTY3ODc5MDIyMywidXNlcm5hbWUiOiJhZG1pbiJ9.kt3cy9rXoZYJ97DlsU8lXgi8lYlPZQ74e11aqCN2PSM, EvaluateIdRequest(eid=29)]
+2023-03-14 18:37:06.705 [http-nio-8080-exec-4] INFO  com.itmo.eva.utils.JwtUtil - 解析令牌中...
+2023-03-14 18:37:06.849 [http-nio-8080-exec-4] INFO  com.itmo.eva.service.impl.EvaluateServiceImpl - admin正在对asdgfasdgasdg进行更改进行状态的操作
+2023-03-14 18:37:16.072 [http-nio-8080-exec-4] INFO  com.itmo.eva.service.impl.EvaluateServiceImpl - asdgfasdgasdg 评测平均分计算完成
+2023-03-14 18:37:16.159 [http-nio-8080-exec-4] INFO  com.itmo.eva.service.impl.EvaluateServiceImpl - asdgfasdgasdg 评测已经结束，当前时间：1678790236158
+2023-03-14 18:37:16.159 [http-nio-8080-exec-4] INFO  com.itmo.eva.aop.LogInterceptor - request end, id: c5468b68-6888-4640-bf3b-751995774b4c, cost: 9469ms
+2023-03-14 18:37:16.159 [http-nio-8080-exec-4] INFO  com.itmo.eva.aop.LogInterceptor - 访问次数：2
+2023-03-14 18:37:40.948 [http-nio-8080-exec-2] INFO  com.itmo.eva.aop.LogInterceptor - request start，id: 6182d1ed-21b2-4aa1-a3e4-9b4a5798205a, path: /api/evaluate/update/status, ip: 0:0:0:0:0:0:0:1, params: [eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEiLCJleHAiOjE2Nzg3OTE0MjMsImlhdCI6MTY3ODc5MDIyMywidXNlcm5hbWUiOiJhZG1pbiJ9.kt3cy9rXoZYJ97DlsU8lXgi8lYlPZQ74e11aqCN2PSM, EvaluateIdRequest(eid=29)]
+2023-03-14 18:37:40.948 [http-nio-8080-exec-2] INFO  com.itmo.eva.utils.JwtUtil - 解析令牌中...
+2023-03-14 18:37:41.232 [http-nio-8080-exec-2] INFO  com.itmo.eva.service.impl.EvaluateServiceImpl - admin正在对asdgfasdgasdg进行更改进行状态的操作
+2023-03-14 18:37:41.474 [http-nio-8080-exec-2] INFO  com.itmo.eva.service.impl.EvaluateServiceImpl - 删除average表中 0 条数据
+2023-03-14 18:38:00.229 [http-nio-8080-exec-5] INFO  com.itmo.eva.aop.LogInterceptor - request start，id: 220601f1-f2c0-4acd-8094-0e9c3c6ff233, path: /api/evaluate/update/status, ip: 0:0:0:0:0:0:0:1, params: [eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEiLCJleHAiOjE2Nzg3OTE0MjMsImlhdCI6MTY3ODc5MDIyMywidXNlcm5hbWUiOiJhZG1pbiJ9.kt3cy9rXoZYJ97DlsU8lXgi8lYlPZQ74e11aqCN2PSM, EvaluateIdRequest(eid=29)]
+2023-03-14 18:38:00.230 [http-nio-8080-exec-5] INFO  com.itmo.eva.utils.JwtUtil - 解析令牌中...
+2023-03-14 18:38:00.451 [http-nio-8080-exec-5] INFO  com.itmo.eva.service.impl.EvaluateServiceImpl - admin正在对asdgfasdgasdg进行更改进行状态的操作
+2023-03-14 18:38:00.596 [http-nio-8080-exec-5] INFO  com.itmo.eva.service.impl.EvaluateServiceImpl - 删除average表中 0 条数据
+2023-03-14 18:39:07.645 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-03-14 18:39:17.063 [restartedMain] INFO  com.itmo.eva.EvaApplication - Starting EvaApplication using Java 1.8.0_362 on chenjiahandeMacBook-Pro-2.local with PID 58121 (/Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva/target/classes started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
+2023-03-14 18:39:17.063 [restartedMain] INFO  com.itmo.eva.EvaApplication - No active profile set, falling back to 1 default profile: "default"
+2023-03-14 18:39:17.090 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-03-14 18:39:17.091 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-03-14 18:39:17.873 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-03-14 18:39:17.878 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-14 18:39:17.878 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-03-14 18:39:17.878 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.63]
+2023-03-14 18:39:17.921 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2023-03-14 18:39:17.922 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 831 ms
+2023-03-14 18:39:18.817 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2023-03-14 18:39:18.966 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2023-03-14 18:39:18.979 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/api'
+2023-03-14 18:39:19.246 [restartedMain] INFO  com.itmo.eva.EvaApplication - Started EvaApplication in 2.493 seconds (JVM running for 2.962)
+2023-03-14 18:39:25.572 [http-nio-8080-exec-1] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-14 18:39:25.573 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-03-14 18:39:25.574 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2023-03-14 18:39:25.616 [http-nio-8080-exec-1] INFO  com.itmo.eva.aop.LogInterceptor - request start，id: 3f900c37-d27f-4d53-a66c-218e44b03a46, path: /api/evaluate/delete, ip: 0:0:0:0:0:0:0:1, params: [DeleteRequest(id=29)]
+2023-03-14 18:39:25.622 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-03-14 18:39:26.359 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-03-14 18:39:27.201 [http-nio-8080-exec-1] INFO  com.itmo.eva.aop.LogInterceptor - request end, id: 3f900c37-d27f-4d53-a66c-218e44b03a46, cost: 1585ms
+2023-03-14 18:39:27.202 [http-nio-8080-exec-1] INFO  com.itmo.eva.aop.LogInterceptor - 访问次数：1
+2023-03-14 18:40:00.006 [scheduling-1] INFO  com.itmo.eva.job.EmailSendJob - 邮件检测...
+2023-03-14 18:40:26.014 [Thread-8] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-03-14 18:40:26.471 [Thread-8] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-03-14 18:40:29.532 [restartedMain] INFO  com.itmo.eva.EvaApplication - Starting EvaApplication using Java 1.8.0_362 on chenjiahandeMacBook-Pro-2.local with PID 58121 (/Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva/target/classes started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
+2023-03-14 18:40:29.532 [restartedMain] INFO  com.itmo.eva.EvaApplication - No active profile set, falling back to 1 default profile: "default"
+2023-03-14 18:40:29.712 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-03-14 18:40:29.713 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-03-14 18:40:29.713 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.63]
+2023-03-14 18:40:29.717 [restartedMain] INFO  o.a.c.c.C.[Tomcat-1].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2023-03-14 18:40:29.717 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 183 ms
+2023-03-14 18:40:29.726 [restartedMain] INFO  org.apache.catalina.core.StandardService - Stopping service [Tomcat]
+2023-03-14 18:40:29.730 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2023-03-14 18:40:31.191 [restartedMain] INFO  com.itmo.eva.EvaApplication - Starting EvaApplication using Java 1.8.0_362 on chenjiahandeMacBook-Pro-2.local with PID 58121 (/Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva/target/classes started by chenjiahan in /Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva)
+2023-03-14 18:40:31.191 [restartedMain] INFO  com.itmo.eva.EvaApplication - No active profile set, falling back to 1 default profile: "default"
+2023-03-14 18:40:31.378 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-03-14 18:40:31.378 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-03-14 18:40:31.378 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.63]
+2023-03-14 18:40:31.382 [restartedMain] INFO  o.a.c.c.C.[Tomcat-2].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2023-03-14 18:40:31.382 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 189 ms
+2023-03-14 18:40:31.894 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2023-03-14 18:40:31.976 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/api'
+2023-03-14 18:40:32.096 [restartedMain] INFO  com.itmo.eva.EvaApplication - Started EvaApplication in 0.936 seconds (JVM running for 75.814)
+2023-03-14 18:40:32.097 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged

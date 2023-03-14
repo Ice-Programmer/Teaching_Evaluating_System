@@ -66,6 +66,9 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
     private TeacherMapper teacherMapper;
 
     @Resource
+    private ScoreHistoryMapper scoreHistoryMapper;
+
+    @Resource
     private StudentClassMapper studentClassMapper;
 
     @Resource
@@ -79,6 +82,9 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
 
     @Resource
     private TableMapper tableMapper;
+
+    @Resource
+    private AverageScoreMapper averageScoreMapper;
 
     /**
      * 添加评测
@@ -247,8 +253,6 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
             redlineHistoryService.recordRedline(evaluate.getId());
             Date nowTime = Calendar.getInstance().getTime();
             log.info("{} 评测已经结束，当前时间：{}", evaluate.getName(), nowTime.getTime());
-
-
             return save;
         }
 
@@ -269,10 +273,16 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
+        // 将评测状态开启
         evaluate.setStatus(1);
-        boolean save = this.updateById(evaluate);
+        // 删除评测平均分
+        this.deleteAverageScore(eid);
+        // 删除最终分数
+        this.deleteScoreHistory(eid);
+        // 更新评测信息
+        boolean update = this.updateById(evaluate);
 
-        return save;
+        return update;
     }
 
     /**
@@ -483,6 +493,25 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
 
 
     }
+
+    /**
+     * 删除average表中所有相关评测分数
+     * @param eid
+     */
+    private void deleteAverageScore(Integer eid) {
+        LambdaQueryWrapper<AverageScore> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(AverageScore::getEid, eid);
+        int delete = averageScoreMapper.delete(queryWrapper);
+        log.info("删除average表中 {} 条数据", delete);
+    }
+
+    private void deleteScoreHistory(Integer eid) {
+        LambdaQueryWrapper<ScoreHistory> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(ScoreHistory::getEid, eid);
+        int remove = scoreHistoryMapper.delete(queryWrapper);
+        log.info("删除scoreHistory表中 {} 条数据", remove);
+    }
+
 
     /**
      * 在这里写一下分发逻辑 【帮助笨蛋开发者梳理逻辑】

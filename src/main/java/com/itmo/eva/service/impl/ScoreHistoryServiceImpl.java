@@ -464,7 +464,7 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
                 List<MarkHistory> markHistoryList = markHistoryMapper.selectList(queryWrapper);
                 if (CollectionUtils.isEmpty(markHistoryList)) {
                     log.error("在id为{}的评测中，{}教师平均分计算中，无{}这一级评价的相关分数", eid, teacher.getName(), firstSystem.getName());
-                    throw new BusinessException(ErrorCode.OPERATION_ERROR);
+                    continue;
                 }
                 // 取出所有分数
                 List<Integer> scoreList = markHistoryList.stream().map(MarkHistory::getScore).collect(Collectors.toList());
