@@ -70,7 +70,8 @@ public class RedlineHistoryServiceImpl extends ServiceImpl<RedlineHistoryMapper,
                     Date time = Calendar.getInstance().getTime();
                     String recordTime = dateFormat.format(time);
                     redlineHistory.setHappen_time(recordTime);
-
+                    redlineHistory.setSid(sid);
+                    redlineHistory.setEid(eid);
                     redlineHistoryMapper.insert(redlineHistory);
                 }
             }

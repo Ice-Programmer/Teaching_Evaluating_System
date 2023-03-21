@@ -36,6 +36,16 @@ public class RedlineHistory implements Serializable {
      */
     private String happen_time;
 
+    /**
+     * 一级评价指标id
+     */
+    private Integer sid;
+
+    /**
+     * 评测id
+     */
+    private Integer eid;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

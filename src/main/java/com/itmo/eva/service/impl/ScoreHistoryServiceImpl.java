@@ -68,80 +68,6 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
     private WeightMapper weightMapper;
 
     /**
-     * 获取中方老师所有的分数
-     *
-     * @return 中方分数
-     */
-    @Override
-    public List<ScoreHistoryVo> getChineseScore(ScoreFilterRequest scoreFilterRequest) {
-
-        // 获取当前评测eid
-        Integer eid = scoreFilterRequest.getEid();
-        // 判断当前评测是否正在进行
-        Integer status = evaluateMapper.getStatusById(eid);
-        if (status == 1) {
-            throw new BusinessException(ErrorCode.OPERATION_ERROR, "评测正在进行中");
-        }
-        // 获取所有的中国老师
-        List<Teacher> chineseTeacher = teacherMapper.getChineseTeacher();
-        List<ScoreHistoryVo> historyVoList = new ArrayList<>();
-        for (Teacher teacher : chineseTeacher) {
-            ScoreHistoryVo scoreHistoryVo = new ScoreHistoryVo();
-            // 获取教师id
-            Long tid = teacher.getId();
-            // 在average表中找到对应的所有一级评价分数
-            Map<Integer, Integer> detailScore = averageScoreMapper.getByEidAndTid(eid, tid).stream().collect(Collectors.toMap(AverageScore::getSid, AverageScore::getScore));
-
-            Integer score = detailScore.values().stream().reduce(Integer::sum).orElse(0);
-            scoreHistoryVo.setDetailScore(detailScore);
-            scoreHistoryVo.setTid(tid.intValue());
-            scoreHistoryVo.setTeacher(teacher.getName());
-            scoreHistoryVo.setScore(new BigDecimal(score / 10.0));
-            scoreHistoryVo.setIdentity(teacher.getIdentity());
-            historyVoList.add(scoreHistoryVo);
-        }
-
-        return historyVoList;
-    }
-
-    /**
-     * 获取俄方老师所有分数
-     *
-     * @return 俄方分数
-     */
-    @Override
-    public List<ScoreHistoryVo> getRussianScore(ScoreFilterRequest scoreFilterRequest) {
-        Integer eid = scoreFilterRequest.getEid();
-        // 判断当前评测是否正在进行
-        Integer status = evaluateMapper.getStatusById(eid);
-        if (status == 1) {
-            throw new BusinessException(ErrorCode.OPERATION_ERROR, "评测正在进行中");
-        }
-
-        // 获取所有的俄方老师
-        List<Teacher> russianTeacher = teacherMapper.getRussianTeacher();
-        List<ScoreHistoryVo> historyVoList = new ArrayList<>();
-        for (Teacher teacher : russianTeacher) {
-            ScoreHistoryVo scoreHistoryVo = new ScoreHistoryVo();
-            // 获取教师id
-            Long tid = teacher.getId();
-            // 在average表中找到对应的所有一级评价分数
-            Map<Integer, Integer> detailScore = averageScoreMapper.getByEidAndTid(eid, tid).stream().collect(Collectors.toMap(AverageScore::getSid, AverageScore::getScore));
-
-            Integer score = detailScore.values().stream().reduce(Integer::sum).orElse(0);
-            scoreHistoryVo.setDetailScore(detailScore);
-            scoreHistoryVo.setTid(tid.intValue());
-            scoreHistoryVo.setScore(new BigDecimal(score / 10.0));
-            scoreHistoryVo.setTeacher(teacher.getName());
-            scoreHistoryVo.setIdentity(teacher.getIdentity());
-            historyVoList.add(scoreHistoryVo);
-        }
-
-        return historyVoList;
-    }
-
-
-    /**
      * 获取教师总分数
      * 从average_score表中取数据
      *
@@ -197,6 +123,12 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
         Integer eid = scoreFilterRequest.getEid();
         Integer sid = scoreFilterRequest.getSid();
         Integer identity = scoreFilterRequest.getIdentity();
+
+        // 判断评测是否在进行中
+        Evaluate evaluate = evaluateMapper.selectById(eid);
+        if (evaluate == null || evaluate.getStatus() == 1) {
+            throw new BusinessException(ErrorCode.OPERATION_ERROR, "评测不存在或正在进行中");
+        }
 
         List<TeacherSystemScoreVo> teacherSystemScoreVoList = new ArrayList<>();
         // 获取教师id
@@ -262,8 +194,11 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
         Integer eid = scoreFilterRequest.getEid();
         Integer secondId = scoreFilterRequest.getSecondId();
         Integer identity = scoreFilterRequest.getIdentity();
-
-
+        // 判断评测是否在进行中
+        Evaluate evaluate = evaluateMapper.selectById(eid);
+        if (evaluate == null || evaluate.getStatus() == 1) {
+            throw new BusinessException(ErrorCode.OPERATION_ERROR, "评测不存在或正在进行中");
+        }
         List<TeacherSecondScoreVo> teacherSecondScoreVoList = new ArrayList<>();
         String tableName = "e_second_score_" + eid;
         String systemName = systemMapper.getChineseNameById(secondId);
@@ -288,148 +223,20 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
         return teacherSecondScoreVoList;
     }
 
-
-    /**
-     * 导出中方教师排名
-     *
-     * @param response           响应
-     * @param scoreFilterRequest 评测id
-     */
     @Override
-    public void exportChineseExcel(HttpServletResponse response, ScoreFilterRequest scoreFilterRequest) {
-        // 查询所有中方教师排名
-        List<ScoreHistoryVo> chineseRank = getChineseScore(scoreFilterRequest);
-        if (chineseRank.isEmpty()) {
-            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "暂无该评测相关排名");
-        }
-        // 建立Excel对象，封装数据
-        response.setCharacterEncoding("UTF-8");
-        // 创建Excel对象
-        XSSFWorkbook wb = new XSSFWorkbook();
-        // 创建sheet对象
-        XSSFSheet sheet = wb.createSheet("中方教师分数排名表");
-        // 创建表头
-        XSSFRow xssfRow = sheet.createRow(0);
-        xssfRow.createCell(0).setCellValue("教师姓名");
-        xssfRow.createCell(1).setCellValue("助学态度");
-        xssfRow.createCell(2).setCellValue("助学效果");
-        xssfRow.createCell(3).setCellValue("总分");
-        // 遍历数据，封装Excel工作对象
-        for (ScoreHistoryVo score : chineseRank) {
-            XSSFRow dataRow = sheet.createRow(sheet.getLastRowNum() + 1);
-            // 教师名称
-            String teacherName = score.getTeacher();
-            // todo 后面这里可能会改造成随着管理员对一级指标的更改，动态更改Excel单元格列展示的内容
-            Map<Integer, Integer> detailScore = score.getDetailScore();
-            // 第1个一级评价
-            Integer first = detailScore.get(1);
-            // 第2个一级评价
-            Integer second = detailScore.get(2);
-            // 总分
-            BigDecimal totalScore = score.getScore();
-            dataRow.createCell(0).setCellValue(teacherName);
-            dataRow.createCell(1).setCellValue(first / 10.0);
-            dataRow.createCell(2).setCellValue(second / 10.0);
-            dataRow.createCell(3).setCellValue((RichTextString) totalScore);
-        }
-        // 设置Excel名字，数据类型编码
-        try {
-            //输出Excel文件
-            String filename = "教师分数排名表.xlsx";
-            response.reset();
-            response.addHeader("Access-Control-Expose-Headers", "filetype");
-            response.setCharacterEncoding("UTF-8");
-            response.setHeader("Content-Disposition", "attachment; fileName=" + java.net.URLEncoder.encode(filename, "UTF-8"));
-            OutputStream output = response.getOutputStream();
-            wb.write(output);
-            output.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 导出俄方教师排名
-     *
-     * @param response           响应
-     * @param scoreFilterRequest 评测id
-     */
-    @Override
-    public void exportRussianExcel(HttpServletResponse response, ScoreFilterRequest scoreFilterRequest) {
-        // 查询所有中方教师排名
-        List<ScoreHistoryVo> russianScore = getRussianScore(scoreFilterRequest);
-        if (russianScore.isEmpty()) {
-            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "暂无该评测相关排名");
-        }
-        // 建立Excel对象，封装数据
-        response.setCharacterEncoding("UTF-8");
-        // 创建Excel对象
-        XSSFWorkbook wb = new XSSFWorkbook();
-        // 创建sheet对象
-        XSSFSheet sheet = wb.createSheet("俄方教师分数排名表");
-        // 创建表头
-        XSSFRow xssfRow = sheet.createRow(0);
-        xssfRow.createCell(0).setCellValue("教师姓名");
-        xssfRow.createCell(1).setCellValue("教学态度");
-        xssfRow.createCell(2).setCellValue("教学能力");
-        xssfRow.createCell(3).setCellValue("师生交流");
-        xssfRow.createCell(4).setCellValue("教学效果");
-        xssfRow.createCell(5).setCellValue("教学内容");
-        xssfRow.createCell(6).setCellValue("总分");
-
-        // 遍历数据，封装Excel工作对象
-        for (ScoreHistoryVo score : russianScore) {
-            XSSFRow dataRow = sheet.createRow(sheet.getLastRowNum() + 1);
-            // 教师名称
-            String teacherName = score.getTeacher();
-            // todo 后面这里可能会改造成随着管理员对一级指标的更改，动态更改Excel单元格列展示的内容
-            Map<Integer, Integer> detailScore = score.getDetailScore();
-            // 第1个一级评价
-            Integer first = detailScore.get(1);
-            // 第2个一级评价
-            Integer second = detailScore.get(2);
-            // 第3个一级评价
-            Integer third = detailScore.get(3);
-            // 第4个一级评价
-            Integer fourth = detailScore.get(4);
-            // 第5个一级评价
-            Integer fifth = detailScore.get(5);
-            // 总分
-            BigDecimal totalScore = score.getScore();
-            dataRow.createCell(0).setCellValue(teacherName);
-            dataRow.createCell(1).setCellValue(first / 10.0);
-            dataRow.createCell(2).setCellValue(second / 10.0);
-            dataRow.createCell(3).setCellValue(third / 10.0);
-            dataRow.createCell(4).setCellValue(fourth / 10.0);
-            dataRow.createCell(5).setCellValue(fifth / 10.0);
-            dataRow.createCell(6).setCellValue(totalScore.toString());
-        }
-        // 建立输出流，输出浏览器文件
-        OutputStream os = null;
-        // 设置Excel名字，数据类型编码
-        try {
-            String folderPath = "C:\\excel";
-            //创建上传文件目录
-            File folder = new File(folderPath);
-            //如果文件夹不存在创建对应的文件夹
-            if (!folder.exists()) {
-                folder.mkdirs();
-            }
-            //设置文件名
-            String fileName = "俄方分数排名表" + ".xlsx";
-            String savePath = folderPath + File.separator + fileName;
-            OutputStream fileOut = new FileOutputStream(savePath);
-            wb.write(fileOut);
-            fileOut.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (os != null)
-                    os.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+    public void exportExcel(HttpServletResponse response, ScoreFilterRequest scoreFilterRequest) {
+        // 根据scoreFilterRequest的传值来判断值
+        Integer mode = this.isMode(scoreFilterRequest);
+        switch (mode) {
+            case 1:
+                this.allScoreRankExcelImport(response, scoreFilterRequest);
+                break;
+            case 2:
+                this.FirstScoreRankExcelImport(response, scoreFilterRequest);
+                break;
+            case 3:
+                this.secondScoreRankExcelImport(response, scoreFilterRequest);
+                break;
         }
     }
 
@@ -567,9 +374,144 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
         return 3;
     }
 
+    /**
+     * 导出教师总体Excel
+     *
+     * @param response
+     * @param scoreFilterRequest
+     */
+    private void allScoreRankExcelImport(HttpServletResponse response, ScoreFilterRequest scoreFilterRequest) {
+        Integer identity = scoreFilterRequest.getIdentity();
+        // 获取教师所有信息
+        List<TeacherAllScoreVo> teacherTotalRankList = this.getTeacherRank(identity);
+        // 获取教师一级评价指标信息
+        List<System> systemList = systemMapper.getCountByKind(identity);
+        if (teacherTotalRankList.isEmpty()) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
+        }
+        // 建立Excel对象，封装数据
+        response.setCharacterEncoding("UTF-8");
+        // 创建Excel对象
+        XSSFWorkbook wb = new XSSFWorkbook();
+        // 创建sheet对象
+        XSSFSheet sheet = wb.createSheet("教师总分排名信息表");
+        // 创建表头
+        XSSFRow xssfRow = sheet.createRow(0);
+        xssfRow.createCell(0).setCellValue("教师姓名");
+        for (int i = 1; i <= systemList.size(); i++) {
+            xssfRow.createCell(i).setCellValue(systemList.get(i - 1).getName());
+        }
+        xssfRow.createCell(systemList.size() + 1).setCellValue("总分");
+        // 遍历数据，封装Excel工作对象
+        for (TeacherAllScoreVo scoreVo : teacherTotalRankList) {
+            XSSFRow dataRow = sheet.createRow(sheet.getLastRowNum() + 1);
+            int index = 0;
+            dataRow.createCell(index).setCellValue(scoreVo.getName());
+            List<FirstSystemScoreVo> scoreList = scoreVo.getScoreList();
+            for (FirstSystemScoreVo firstSystemScoreVo : scoreList) {
+                dataRow.createCell(++index).setCellValue(firstSystemScoreVo.getScore());
+            }
+            dataRow.createCell(++index).setCellValue(scoreVo.getTotalScore());
+        }
+        try {
+            // 输出Excel文件
+            String filename = "教师分数排名.xlsx";
+            response.reset();
+            response.addHeader("Access-Control-Expose-Headers", "filetype");
+            response.setCharacterEncoding("UTF-8");
+            response.setHeader("Content-Disposition", "attachment; fileName=" + java.net.URLEncoder.encode(filename, "UTF-8"));
+            OutputStream output = response.getOutputStream();
+            wb.write(output);
+            output.close();
+        } catch (Exception e) {
+            throw new BusinessException(ErrorCode.OPERATION_ERROR, "模版下载失败");
+        }
+    }
+
+    private void FirstScoreRankExcelImport(HttpServletResponse response, ScoreFilterRequest scoreFilterRequest) {
+        // 获取教师分数信息
+        List<TeacherSystemScoreVo> teacherFirstRankList = this.getTeacherFirstRank(scoreFilterRequest);
+        // 获取教师二级评价指标
+        List<System> systemList = systemMapper.getSecondSystemBySid(scoreFilterRequest.getSid());
+        if (teacherFirstRankList.isEmpty()) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
+        }
+        // 建立Excel对象，封装数据
+        response.setCharacterEncoding("UTF-8");
+        // 创建Excel对象
+        XSSFWorkbook wb = new XSSFWorkbook();
+        // 创建sheet对象
+        XSSFSheet sheet = wb.createSheet("教师一级指标排名信息表");
+        // 创建表头
+        XSSFRow xssfRow = sheet.createRow(0);
+        xssfRow.createCell(0).setCellValue("教师姓名");
+        for (int i = 1; i <= systemList.size(); i++) {
+            xssfRow.createCell(i).setCellValue(systemList.get(i - 1).getName());
+        }
+        xssfRow.createCell(systemList.size() + 1).setCellValue("总分");
+        // 遍历数据，封装Excel工作对象
+        for (TeacherSystemScoreVo scoreVo : teacherFirstRankList) {
+            XSSFRow dataRow = sheet.createRow(sheet.getLastRowNum() + 1);
+            int index = 0;
+            dataRow.createCell(index).setCellValue(scoreVo.getName());
+            List<SecondSystemScoreVo> scoreList = scoreVo.getScoreList();
+            for (SecondSystemScoreVo secondSystemScoreVo : scoreList) {
+                dataRow.createCell(++index).setCellValue(secondSystemScoreVo.getScore());
+            }
+            dataRow.createCell(++index).setCellValue(scoreVo.getTotalScore());
+        }
+        try {
+            //输出Excel文件
+            String filename = "教师一级分数分数排名.xlsx";
+            response.reset();
+            response.addHeader("Access-Control-Expose-Headers", "filetype");
+            response.setCharacterEncoding("UTF-8");
+            response.setHeader("Content-Disposition", "attachment; fileName=" + java.net.URLEncoder.encode(filename, "UTF-8"));
+            OutputStream output = response.getOutputStream();
+            wb.write(output);
+            output.close();
+        } catch (Exception e) {
+            throw new BusinessException(ErrorCode.OPERATION_ERROR, "模版下载失败");
+        }
+    }
+
+    private void secondScoreRankExcelImport(HttpServletResponse response, ScoreFilterRequest scoreFilterRequest) {
+        List<TeacherSecondScoreVo> teacherSecondScoreList = this.getTeacherSecondScore(scoreFilterRequest);
+        String systemName = teacherSecondScoreList.get(0).getSystemName();
+        if (teacherSecondScoreList.isEmpty()) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
+        }
+        // 建立Excel对象，封装数据
+        response.setCharacterEncoding("UTF-8");
+        // 创建Excel对象
+        XSSFWorkbook wb = new XSSFWorkbook();
+        // 创建sheet对象
+        XSSFSheet sheet = wb.createSheet("教师二级指标排名信息表");
+        // 创建表头
+        XSSFRow xssfRow = sheet.createRow(0);
+        xssfRow.createCell(0).setCellValue("教师姓名");
+        xssfRow.createCell(1).setCellValue(systemName);
+        for (TeacherSecondScoreVo scoreVo : teacherSecondScoreList) {
+            XSSFRow dataRow = sheet.createRow(sheet.getLastRowNum() + 1);
+            dataRow.createCell(0).setCellValue(scoreVo.getName());
+            dataRow.createCell(1).setCellValue(scoreVo.getScore());
+        }
+        try {
+            //输出Excel文件
+            String filename = "教师二级分数分数排名.xlsx";
+            response.reset();
+            response.addHeader("Access-Control-Expose-Headers", "filetype");
+            response.setCharacterEncoding("UTF-8");
+            response.setHeader("Content-Disposition", "attachment; fileName=" + java.net.URLEncoder.encode(filename, "UTF-8"));
+            OutputStream output = response.getOutputStream();
+            wb.write(output);
+            output.close();
+        } catch (Exception e) {
+            throw new BusinessException(ErrorCode.OPERATION_ERROR, "模版下载失败");
+        }
+    }
+
 }
-
-
 /**
  * 计算平均分的方法
  * 每个老师的每一个以及指标都应当又一个平均分  =》   从mark表中取老师的所有数据

@@ -4,10 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.itmo.eva.common.ErrorCode;
 import com.itmo.eva.exception.BusinessException;
 import com.itmo.eva.mapper.*;
-import com.itmo.eva.model.entity.AverageScore;
-import com.itmo.eva.model.entity.RedlineHistory;
-import com.itmo.eva.model.entity.ScoreHistory;
-import com.itmo.eva.model.entity.Teacher;
+import com.itmo.eva.model.entity.*;
 import com.itmo.eva.model.vo.chart.BasicChartsVo;
 import com.itmo.eva.model.vo.chart.DetailChartVo;
 import com.itmo.eva.model.vo.chart.ScoreVo;
@@ -57,7 +54,6 @@ public class ChartServiceImpl implements ChartService {
 
         // 俄方教师性别情况
         TeacherGenderVo russianGenderChart = getTeacherGenderNum(russianTeacher);
-//        chartsVo.setRussianTeacherGenderChart(russianGenderChart);
         Map<String, Long> RussianTeacherGenderMap = new HashMap<>();
         RussianTeacherGenderMap.put("男", russianGenderChart.getMaleNum());
         RussianTeacherGenderMap.put("女", russianGenderChart.getFemaleNum());
@@ -181,6 +177,11 @@ public class ChartServiceImpl implements ChartService {
 
     @Override
     public List<ScoreVo> getTeacherDetailScoreChart(Integer eid, Integer tid) {
+        // 判断评测是否在进行中
+        Evaluate evaluate = evaluateMapper.selectById(eid);
+        if (evaluate == null || evaluate.getStatus() == 1) {
+            throw new BusinessException(ErrorCode.OPERATION_ERROR, "评测不存在或正在进行中");
+        }
         LambdaQueryWrapper<AverageScore> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(AverageScore::getEid, eid);
         queryWrapper.eq(AverageScore::getTid, tid);
@@ -200,6 +201,10 @@ public class ChartServiceImpl implements ChartService {
         return teacherDetailChart;
     }
 
+    /**
+     * 获取红线教师
+     * @return
+     */
     @Override
     public List<TeacherNameVo> getRedlineTeacher() {
         List<RedlineHistory> redlineHistoryList = redlineHistoryMapper.selectList(null);
@@ -214,7 +219,13 @@ public class ChartServiceImpl implements ChartService {
             teacherNameVo.setId(tid.longValue());
             return teacherNameVo;
         }).collect(Collectors.toList());
-        return teacherNameVoList;
+        List<TeacherNameVo> redlineList = new ArrayList<>();
+        for (TeacherNameVo teacherNameVo : teacherNameVoList) {
+            if (!redlineList.contains(teacherNameVo)) {
+                redlineList.add(teacherNameVo);
+            }
+        }
+        return redlineList;
     }
 
     /**

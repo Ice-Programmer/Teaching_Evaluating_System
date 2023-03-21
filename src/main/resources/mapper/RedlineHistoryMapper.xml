@@ -9,10 +9,12 @@
             <result property="tid" column="tid" jdbcType="INTEGER"/>
             <result property="score" column="score" jdbcType="DECIMAL"/>
             <result property="happen_time" column="happen_time" jdbcType="VARCHAR"/>
+            <result property="tid" column="tid" jdbcType="INTEGER"/>
+            <result property="eid" column="eid" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,tid,
-        score,happen_time
+        score,happen_time,sid,eid
     </sql>
 </mapper>

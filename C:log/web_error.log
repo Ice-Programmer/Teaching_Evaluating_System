@@ -1,10 +1,100 @@
-2023-03-14 15:09:05.378 [scheduling-1] ERROR o.s.s.support.TaskUtils$LoggingErrorHandler - Unexpected error occurred in scheduled task
+2023-03-21 14:30:31.105 [scheduling-1] ERROR com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Exception during pool initialization.
+com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createCommunicationsException(SQLError.java:174)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:64)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:828)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:448)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:241)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:198)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:364)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:206)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:476)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
+	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:159)
+	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:117)
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:80)
+	at org.mybatis.spring.transaction.SpringManagedTransaction.openConnection(SpringManagedTransaction.java:80)
+	at org.mybatis.spring.transaction.SpringManagedTransaction.getConnection(SpringManagedTransaction.java:67)
+	at org.apache.ibatis.executor.BaseExecutor.getConnection(BaseExecutor.java:337)
+	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:86)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:62)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:325)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:89)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:151)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:145)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:140)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:427)
+	at com.sun.proxy.$Proxy82.selectList(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:224)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.executeForMany(MybatisMapperMethod.java:166)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:77)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
+	at com.sun.proxy.$Proxy97.selectList(Unknown Source)
+	at com.itmo.eva.job.EmailSendJob.sendEmail(EmailSendJob.java:43)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266)
+	at java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:167)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:89)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:120)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:948)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:818)
+	... 53 common frames omitted
+Caused by: java.net.SocketTimeoutException: connect timed out
+	at java.net.PlainSocketImpl.socketConnect(Native Method)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:607)
+	at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:153)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:63)
+	... 56 common frames omitted
+2023-03-21 14:30:31.112 [scheduling-1] ERROR o.s.s.support.TaskUtils$LoggingErrorHandler - Unexpected error occurred in scheduled task
 org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: 
-### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 1046979ms.
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
 ### The error may exist in com/itmo/eva/mapper/EmailHistoryMapper.java (best guess)
 ### The error may involve com.itmo.eva.mapper.EmailHistoryMapper.selectList
 ### The error occurred while executing a query
-### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 1046979ms.
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
 	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:96)
 	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:441)
 	at com.sun.proxy.$Proxy82.selectList(Unknown Source)
@@ -31,21 +121,28 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at java.lang.Thread.run(Thread.java:750)
 Caused by: org.apache.ibatis.exceptions.PersistenceException: 
-### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 1046979ms.
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
 ### The error may exist in com/itmo/eva/mapper/EmailHistoryMapper.java (best guess)
 ### The error may involve com.itmo.eva.mapper.EmailHistoryMapper.selectList
 ### The error occurred while executing a query
-### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 1046979ms.
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
 	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)
 	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:153)
 	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:145)
 	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:140)
-	at sun.reflect.GeneratedMethodAccessor105.invoke(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
 	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:427)
 	... 23 common frames omitted
-Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 1046979ms.
+Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
 	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:83)
 	at org.mybatis.spring.transaction.SpringManagedTransaction.openConnection(SpringManagedTransaction.java:80)
 	at org.mybatis.spring.transaction.SpringManagedTransaction.getConnection(SpringManagedTransaction.java:67)
@@ -57,29 +154,30 @@ Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to 
 	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
 	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:89)
 	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:151)
-	... 29 common frames omitted
-Caused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 1046979ms.
-	at com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:696)
-	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:197)
-	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:162)
-	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:128)
+	... 30 common frames omitted
+Caused by: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createCommunicationsException(SQLError.java:174)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:64)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:828)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:448)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:241)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:198)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:364)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:206)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:476)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
 	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:159)
 	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:117)
 	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:80)
-	... 39 common frames omitted
-Caused by: java.sql.SQLNonTransientConnectionException: No operations allowed after connection closed.
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110)
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:73)
-	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:73)
-	at com.mysql.cj.jdbc.ConnectionImpl.setNetworkTimeout(ConnectionImpl.java:2485)
-	at com.zaxxer.hikari.pool.PoolBase.setNetworkTimeout(PoolBase.java:566)
-	at com.zaxxer.hikari.pool.PoolBase.isConnectionAlive(PoolBase.java:173)
-	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:186)
-	... 44 common frames omitted
-Caused by: com.mysql.cj.exceptions.ConnectionIsClosedException: No operations allowed after connection closed.
+	... 40 common frames omitted
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
 	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
@@ -87,17 +185,29 @@ Caused by: com.mysql.cj.exceptions.ConnectionIsClosedException: No operations al
 	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
 	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
 	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
-	at com.mysql.cj.NativeSession.checkClosed(NativeSession.java:761)
-	at com.mysql.cj.jdbc.ConnectionImpl.checkClosed(ConnectionImpl.java:568)
-	at com.mysql.cj.jdbc.ConnectionImpl.setNetworkTimeout(ConnectionImpl.java:2481)
-	... 47 common frames omitted
-2023-03-14 15:33:52.905 [scheduling-1] ERROR o.s.s.support.TaskUtils$LoggingErrorHandler - Unexpected error occurred in scheduled task
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:167)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:89)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:120)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:948)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:818)
+	... 53 common frames omitted
+Caused by: java.net.SocketTimeoutException: connect timed out
+	at java.net.PlainSocketImpl.socketConnect(Native Method)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:607)
+	at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:153)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:63)
+	... 56 common frames omitted
+2023-03-21 16:28:33.089 [scheduling-1] ERROR o.s.s.support.TaskUtils$LoggingErrorHandler - Unexpected error occurred in scheduled task
 org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: 
-### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 55890ms.
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30065ms.
 ### The error may exist in com/itmo/eva/mapper/EmailHistoryMapper.java (best guess)
 ### The error may involve com.itmo.eva.mapper.EmailHistoryMapper.selectList
 ### The error occurred while executing a query
-### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 55890ms.
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30065ms.
 	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:96)
 	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:441)
 	at com.sun.proxy.$Proxy82.selectList(Unknown Source)
@@ -124,21 +234,22 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at java.lang.Thread.run(Thread.java:750)
 Caused by: org.apache.ibatis.exceptions.PersistenceException: 
-### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 55890ms.
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30065ms.
 ### The error may exist in com/itmo/eva/mapper/EmailHistoryMapper.java (best guess)
 ### The error may involve com.itmo.eva.mapper.EmailHistoryMapper.selectList
 ### The error occurred while executing a query
-### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 55890ms.
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30065ms.
 	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)
 	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:153)
 	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:145)
 	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:140)
-	at sun.reflect.GeneratedMethodAccessor105.invoke(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
 	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:427)
 	... 23 common frames omitted
-Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 55890ms.
+Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30065ms.
 	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:83)
 	at org.mybatis.spring.transaction.SpringManagedTransaction.openConnection(SpringManagedTransaction.java:80)
 	at org.mybatis.spring.transaction.SpringManagedTransaction.getConnection(SpringManagedTransaction.java:67)
@@ -150,8 +261,8 @@ Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to 
 	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
 	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:89)
 	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:151)
-	... 29 common frames omitted
-Caused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 55890ms.
+	... 30 common frames omitted
+Caused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30065ms.
 	at com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:696)
 	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:197)
 	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:162)
@@ -159,7 +270,7 @@ Caused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection i
 	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:159)
 	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:117)
 	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:80)
-	... 39 common frames omitted
+	... 40 common frames omitted
 Caused by: java.sql.SQLNonTransientConnectionException: No operations allowed after connection closed.
 	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110)
 	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
@@ -171,7 +282,7 @@ Caused by: java.sql.SQLNonTransientConnectionException: No operations allowed af
 	at com.zaxxer.hikari.pool.PoolBase.setNetworkTimeout(PoolBase.java:566)
 	at com.zaxxer.hikari.pool.PoolBase.isConnectionAlive(PoolBase.java:173)
 	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:186)
-	... 44 common frames omitted
+	... 45 common frames omitted
 Caused by: com.mysql.cj.exceptions.ConnectionIsClosedException: No operations allowed after connection closed.
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
@@ -183,1242 +294,4 @@ Caused by: com.mysql.cj.exceptions.ConnectionIsClosedException: No operations al
 	at com.mysql.cj.NativeSession.checkClosed(NativeSession.java:761)
 	at com.mysql.cj.jdbc.ConnectionImpl.checkClosed(ConnectionImpl.java:568)
 	at com.mysql.cj.jdbc.ConnectionImpl.setNetworkTimeout(ConnectionImpl.java:2481)
-	... 47 common frames omitted
-2023-03-14 16:16:49.679 [http-nio-8080-exec-1] ERROR com.itmo.eva.exception.GlobalExceptionHandler - runtimeException
-org.springframework.jdbc.BadSqlGrammarException: 
-### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: Table 'eva.e_second_score_25' doesn't exist
-### The error may exist in file [/Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva/target/classes/mapper/mapper.xml]
-### The error may involve defaultParameterMap
-### The error occurred while setting parameters
-### SQL: select score from e_second_score_25         where secondId = ? and tid = ?
-### Cause: java.sql.SQLSyntaxErrorException: Table 'eva.e_second_score_25' doesn't exist
-; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: Table 'eva.e_second_score_25' doesn't exist
-	at org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator.doTranslate(SQLErrorCodeSQLExceptionTranslator.java:239)
-	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:70)
-	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:91)
-	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:441)
-	at com.sun.proxy.$Proxy82.selectList(Unknown Source)
-	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:224)
-	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.executeForMany(MybatisMapperMethod.java:166)
-	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:77)
-	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
-	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
-	at com.sun.proxy.$Proxy101.getSecond(Unknown Source)
-	at com.itmo.eva.service.impl.ScoreHistoryServiceImpl.getTeacherSecondScore(ScoreHistoryServiceImpl.java:279)
-	at com.itmo.eva.service.impl.ScoreHistoryServiceImpl$$FastClassBySpringCGLIB$$25a17e90.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-	at org.springframework.aop.framework.CglibAopProxy.invokeMethod(CglibAopProxy.java:386)
-	at org.springframework.aop.framework.CglibAopProxy.access$000(CglibAopProxy.java:85)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:704)
-	at com.itmo.eva.service.impl.ScoreHistoryServiceImpl$$EnhancerBySpringCGLIB$$c3af5b2d.getTeacherSecondScore(<generated>)
-	at com.itmo.eva.controller.ScoreController.getTeacherSecondRank(ScoreController.java:87)
-	at com.itmo.eva.controller.ScoreController$$FastClassBySpringCGLIB$$c810fc4e.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
-	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:89)
-	at com.itmo.eva.aop.LogInterceptor.doInterceptor(LogInterceptor.java:57)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:634)
-	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:624)
-	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:72)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
-	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)
-	at com.itmo.eva.controller.ScoreController$$EnhancerBySpringCGLIB$$4d90669f.getTeacherSecondRank(<generated>)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1067)
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
-	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:681)
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-	at java.lang.Thread.run(Thread.java:750)
-Caused by: java.sql.SQLSyntaxErrorException: Table 'eva.e_second_score_25' doesn't exist
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120)
-	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:916)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:354)
-	at com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
-	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.execute(HikariProxyPreparedStatement.java)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.apache.ibatis.logging.jdbc.PreparedStatementLogger.invoke(PreparedStatementLogger.java:59)
-	at com.sun.proxy.$Proxy145.execute(Unknown Source)
-	at org.apache.ibatis.executor.statement.PreparedStatementHandler.query(PreparedStatementHandler.java:64)
-	at org.apache.ibatis.executor.statement.RoutingStatementHandler.query(RoutingStatementHandler.java:79)
-	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:63)
-	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:325)
-	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
-	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
-	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:89)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:151)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:145)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:140)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:427)
-	... 86 common frames omitted
-2023-03-14 16:18:13.763 [http-nio-8080-exec-5] ERROR com.itmo.eva.exception.GlobalExceptionHandler - runtimeException
-org.springframework.jdbc.BadSqlGrammarException: 
-### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: Table 'eva.e_second_score_27' doesn't exist
-### The error may exist in file [/Users/chenjiahan/项目开发/教学评价系统（管理员端重写）/eva/target/classes/mapper/mapper.xml]
-### The error may involve defaultParameterMap
-### The error occurred while setting parameters
-### SQL: select score from e_second_score_27         where secondId = ? and tid = ?
-### Cause: java.sql.SQLSyntaxErrorException: Table 'eva.e_second_score_27' doesn't exist
-; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: Table 'eva.e_second_score_27' doesn't exist
-	at org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator.doTranslate(SQLErrorCodeSQLExceptionTranslator.java:239)
-	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:70)
-	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:91)
-	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:441)
-	at com.sun.proxy.$Proxy82.selectList(Unknown Source)
-	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:224)
-	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.executeForMany(MybatisMapperMethod.java:166)
-	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:77)
-	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
-	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
-	at com.sun.proxy.$Proxy101.getSecond(Unknown Source)
-	at com.itmo.eva.service.impl.ScoreHistoryServiceImpl.getTeacherSecondScore(ScoreHistoryServiceImpl.java:279)
-	at com.itmo.eva.service.impl.ScoreHistoryServiceImpl$$FastClassBySpringCGLIB$$25a17e90.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-	at org.springframework.aop.framework.CglibAopProxy.invokeMethod(CglibAopProxy.java:386)
-	at org.springframework.aop.framework.CglibAopProxy.access$000(CglibAopProxy.java:85)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:704)
-	at com.itmo.eva.service.impl.ScoreHistoryServiceImpl$$EnhancerBySpringCGLIB$$c3af5b2d.getTeacherSecondScore(<generated>)
-	at com.itmo.eva.controller.ScoreController.getTeacherSecondRank(ScoreController.java:87)
-	at com.itmo.eva.controller.ScoreController$$FastClassBySpringCGLIB$$c810fc4e.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
-	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:89)
-	at com.itmo.eva.aop.LogInterceptor.doInterceptor(LogInterceptor.java:57)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:634)
-	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:624)
-	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:72)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
-	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)
-	at com.itmo.eva.controller.ScoreController$$EnhancerBySpringCGLIB$$4d90669f.getTeacherSecondRank(<generated>)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1067)
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
-	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:681)
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-	at java.lang.Thread.run(Thread.java:750)
-Caused by: java.sql.SQLSyntaxErrorException: Table 'eva.e_second_score_27' doesn't exist
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120)
-	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:916)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:354)
-	at com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
-	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.execute(HikariProxyPreparedStatement.java)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.apache.ibatis.logging.jdbc.PreparedStatementLogger.invoke(PreparedStatementLogger.java:59)
-	at com.sun.proxy.$Proxy145.execute(Unknown Source)
-	at org.apache.ibatis.executor.statement.PreparedStatementHandler.query(PreparedStatementHandler.java:64)
-	at org.apache.ibatis.executor.statement.RoutingStatementHandler.query(RoutingStatementHandler.java:79)
-	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:63)
-	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:325)
-	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
-	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
-	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:89)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:151)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:145)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:140)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:427)
-	... 86 common frames omitted
-2023-03-14 16:40:22.712 [http-nio-8080-exec-2] ERROR com.itmo.eva.exception.GlobalExceptionHandler - runtimeException
-com.auth0.jwt.exceptions.TokenExpiredException: The Token has expired on Tue Mar 07 12:19:43 CST 2023.
-	at com.auth0.jwt.JWTVerifier.assertDateIsFuture(JWTVerifier.java:379)
-	at com.auth0.jwt.JWTVerifier.assertValidDateClaim(JWTVerifier.java:370)
-	at com.auth0.jwt.JWTVerifier.verifyClaims(JWTVerifier.java:295)
-	at com.auth0.jwt.JWTVerifier.verify(JWTVerifier.java:278)
-	at com.auth0.jwt.JWTVerifier.verify(JWTVerifier.java:261)
-	at com.itmo.eva.utils.JwtUtil.decodeToken(JwtUtil.java:53)
-	at com.itmo.eva.service.impl.EvaluateServiceImpl.updateStatus(EvaluateServiceImpl.java:226)
-	at com.itmo.eva.service.impl.EvaluateServiceImpl$$FastClassBySpringCGLIB$$29eccdb9.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-	at org.springframework.aop.framework.CglibAopProxy.invokeMethod(CglibAopProxy.java:386)
-	at org.springframework.aop.framework.CglibAopProxy.access$000(CglibAopProxy.java:85)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:704)
-	at com.itmo.eva.service.impl.EvaluateServiceImpl$$EnhancerBySpringCGLIB$$52eb4745.updateStatus(<generated>)
-	at com.itmo.eva.controller.EvaluateController.updateStatus(EvaluateController.java:144)
-	at com.itmo.eva.controller.EvaluateController$$FastClassBySpringCGLIB$$83066495.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
-	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:89)
-	at com.itmo.eva.aop.LogInterceptor.doInterceptor(LogInterceptor.java:57)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:634)
-	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:624)
-	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:72)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
-	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)
-	at com.itmo.eva.controller.EvaluateController$$EnhancerBySpringCGLIB$$60e02a49.updateStatus(<generated>)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1067)
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
-	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:681)
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-	at java.lang.Thread.run(Thread.java:750)
-2023-03-14 16:40:31.500 [http-nio-8080-exec-4] ERROR com.itmo.eva.exception.GlobalExceptionHandler - businessException: 不存在该评测记录
-com.itmo.eva.exception.BusinessException: 不存在该评测记录
-	at com.itmo.eva.service.impl.EvaluateServiceImpl.updateStatus(EvaluateServiceImpl.java:232)
-	at com.itmo.eva.service.impl.EvaluateServiceImpl$$FastClassBySpringCGLIB$$29eccdb9.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-	at org.springframework.aop.framework.CglibAopProxy.invokeMethod(CglibAopProxy.java:386)
-	at org.springframework.aop.framework.CglibAopProxy.access$000(CglibAopProxy.java:85)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:704)
-	at com.itmo.eva.service.impl.EvaluateServiceImpl$$EnhancerBySpringCGLIB$$52eb4745.updateStatus(<generated>)
-	at com.itmo.eva.controller.EvaluateController.updateStatus(EvaluateController.java:144)
-	at com.itmo.eva.controller.EvaluateController$$FastClassBySpringCGLIB$$83066495.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
-	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:89)
-	at com.itmo.eva.aop.LogInterceptor.doInterceptor(LogInterceptor.java:57)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:634)
-	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:624)
-	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:72)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
-	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)
-	at com.itmo.eva.controller.EvaluateController$$EnhancerBySpringCGLIB$$60e02a49.updateStatus(<generated>)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1067)
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
-	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:681)
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-	at java.lang.Thread.run(Thread.java:750)
-2023-03-14 16:40:37.708 [http-nio-8080-exec-6] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为28的评测中，Sergei Bykovskii教师平均分计算中，无教学态度这一级评价的相关分数
-2023-03-14 16:40:37.732 [http-nio-8080-exec-6] ERROR com.itmo.eva.exception.GlobalExceptionHandler - businessException: 操作失败
-com.itmo.eva.exception.BusinessException: 操作失败
-	at com.itmo.eva.service.impl.ScoreHistoryServiceImpl.calculateScoreAverage(ScoreHistoryServiceImpl.java:467)
-	at com.itmo.eva.service.impl.ScoreHistoryServiceImpl$$FastClassBySpringCGLIB$$25a17e90.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
-	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:123)
-	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:388)
-	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)
-	at com.itmo.eva.service.impl.ScoreHistoryServiceImpl$$EnhancerBySpringCGLIB$$9c17182a.calculateScoreAverage(<generated>)
-	at com.itmo.eva.service.impl.EvaluateServiceImpl.updateStatus(EvaluateServiceImpl.java:244)
-	at com.itmo.eva.service.impl.EvaluateServiceImpl$$FastClassBySpringCGLIB$$29eccdb9.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-	at org.springframework.aop.framework.CglibAopProxy.invokeMethod(CglibAopProxy.java:386)
-	at org.springframework.aop.framework.CglibAopProxy.access$000(CglibAopProxy.java:85)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:704)
-	at com.itmo.eva.service.impl.EvaluateServiceImpl$$EnhancerBySpringCGLIB$$52eb4745.updateStatus(<generated>)
-	at com.itmo.eva.controller.EvaluateController.updateStatus(EvaluateController.java:144)
-	at com.itmo.eva.controller.EvaluateController$$FastClassBySpringCGLIB$$83066495.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
-	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:89)
-	at com.itmo.eva.aop.LogInterceptor.doInterceptor(LogInterceptor.java:57)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:634)
-	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:624)
-	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:72)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
-	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)
-	at com.itmo.eva.controller.EvaluateController$$EnhancerBySpringCGLIB$$60e02a49.updateStatus(<generated>)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1067)
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
-	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:681)
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-	at java.lang.Thread.run(Thread.java:750)
-2023-03-14 17:49:18.510 [main] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为28的评测中，唐越彬教师平均分计算中，无教学态度这一级评价的相关分数
-2023-03-14 17:54:01.112 [http-nio-8080-exec-6] ERROR com.itmo.eva.exception.GlobalExceptionHandler - runtimeException
-org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.itmo.eva.common.BaseResponse<java.util.List<com.itmo.eva.model.vo.chart.ScoreVo>> com.itmo.eva.controller.ChartsController.getTeacherDetailScoreChart(com.itmo.eva.model.dto.teacher.TeacherQueryRequest)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.readWithMessageConverters(RequestResponseBodyMethodProcessor.java:163)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.resolveArgument(RequestResponseBodyMethodProcessor.java:133)
-	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122)
-	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:179)
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:146)
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1067)
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
-	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:681)
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-	at java.lang.Thread.run(Thread.java:750)
-2023-03-14 18:24:08.132 [scheduling-1] ERROR o.s.s.support.TaskUtils$LoggingErrorHandler - Unexpected error occurred in scheduled task
-org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: 
-### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30051ms.
-### The error may exist in com/itmo/eva/mapper/EmailHistoryMapper.java (best guess)
-### The error may involve com.itmo.eva.mapper.EmailHistoryMapper.selectList
-### The error occurred while executing a query
-### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30051ms.
-	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:96)
-	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:441)
-	at com.sun.proxy.$Proxy82.selectList(Unknown Source)
-	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:224)
-	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.executeForMany(MybatisMapperMethod.java:166)
-	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:77)
-	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
-	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
-	at com.sun.proxy.$Proxy97.selectList(Unknown Source)
-	at com.itmo.eva.job.EmailSendJob.sendEmail(EmailSendJob.java:43)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84)
-	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
-	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95)
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
-	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266)
-	at java.util.concurrent.FutureTask.run(FutureTask.java)
-	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
-	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-	at java.lang.Thread.run(Thread.java:750)
-Caused by: org.apache.ibatis.exceptions.PersistenceException: 
-### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30051ms.
-### The error may exist in com/itmo/eva/mapper/EmailHistoryMapper.java (best guess)
-### The error may involve com.itmo.eva.mapper.EmailHistoryMapper.selectList
-### The error occurred while executing a query
-### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30051ms.
-	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:153)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:145)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:140)
-	at sun.reflect.GeneratedMethodAccessor132.invoke(Unknown Source)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:427)
-	... 23 common frames omitted
-Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30051ms.
-	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:83)
-	at org.mybatis.spring.transaction.SpringManagedTransaction.openConnection(SpringManagedTransaction.java:80)
-	at org.mybatis.spring.transaction.SpringManagedTransaction.getConnection(SpringManagedTransaction.java:67)
-	at org.apache.ibatis.executor.BaseExecutor.getConnection(BaseExecutor.java:337)
-	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:86)
-	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:62)
-	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:325)
-	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
-	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
-	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:89)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:151)
-	... 29 common frames omitted
-Caused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30051ms.
-	at com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:696)
-	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:197)
-	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:162)
-	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:128)
-	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:159)
-	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:117)
-	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:80)
-	... 39 common frames omitted
-Caused by: java.sql.SQLNonTransientConnectionException: No operations allowed after connection closed.
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110)
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:73)
-	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:73)
-	at com.mysql.cj.jdbc.ConnectionImpl.setNetworkTimeout(ConnectionImpl.java:2485)
-	at com.zaxxer.hikari.pool.PoolBase.setNetworkTimeout(PoolBase.java:566)
-	at com.zaxxer.hikari.pool.PoolBase.isConnectionAlive(PoolBase.java:173)
-	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:186)
-	... 44 common frames omitted
-Caused by: com.mysql.cj.exceptions.ConnectionIsClosedException: No operations allowed after connection closed.
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
-	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
-	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
-	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
-	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
-	at com.mysql.cj.NativeSession.checkClosed(NativeSession.java:761)
-	at com.mysql.cj.jdbc.ConnectionImpl.checkClosed(ConnectionImpl.java:568)
-	at com.mysql.cj.jdbc.ConnectionImpl.setNetworkTimeout(ConnectionImpl.java:2481)
-	... 47 common frames omitted
-2023-03-14 18:36:25.296 [scheduling-1] ERROR o.s.s.support.TaskUtils$LoggingErrorHandler - Unexpected error occurred in scheduled task
-org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: 
-### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30060ms.
-### The error may exist in com/itmo/eva/mapper/EmailHistoryMapper.java (best guess)
-### The error may involve com.itmo.eva.mapper.EmailHistoryMapper.selectList
-### The error occurred while executing a query
-### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30060ms.
-	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:96)
-	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:441)
-	at com.sun.proxy.$Proxy82.selectList(Unknown Source)
-	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:224)
-	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.executeForMany(MybatisMapperMethod.java:166)
-	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:77)
-	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
-	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
-	at com.sun.proxy.$Proxy97.selectList(Unknown Source)
-	at com.itmo.eva.job.EmailSendJob.sendEmail(EmailSendJob.java:43)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84)
-	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
-	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95)
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
-	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266)
-	at java.util.concurrent.FutureTask.run(FutureTask.java)
-	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
-	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-	at java.lang.Thread.run(Thread.java:750)
-Caused by: org.apache.ibatis.exceptions.PersistenceException: 
-### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30060ms.
-### The error may exist in com/itmo/eva/mapper/EmailHistoryMapper.java (best guess)
-### The error may involve com.itmo.eva.mapper.EmailHistoryMapper.selectList
-### The error occurred while executing a query
-### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30060ms.
-	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:153)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:145)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:140)
-	at sun.reflect.GeneratedMethodAccessor127.invoke(Unknown Source)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:427)
-	... 23 common frames omitted
-Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30060ms.
-	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:83)
-	at org.mybatis.spring.transaction.SpringManagedTransaction.openConnection(SpringManagedTransaction.java:80)
-	at org.mybatis.spring.transaction.SpringManagedTransaction.getConnection(SpringManagedTransaction.java:67)
-	at org.apache.ibatis.executor.BaseExecutor.getConnection(BaseExecutor.java:337)
-	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:86)
-	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:62)
-	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:325)
-	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
-	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
-	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:89)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:151)
-	... 29 common frames omitted
-Caused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30060ms.
-	at com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:696)
-	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:197)
-	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:162)
-	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:128)
-	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:159)
-	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:117)
-	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:80)
-	... 39 common frames omitted
-Caused by: java.sql.SQLNonTransientConnectionException: No operations allowed after connection closed.
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110)
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:73)
-	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:73)
-	at com.mysql.cj.jdbc.ConnectionImpl.setNetworkTimeout(ConnectionImpl.java:2485)
-	at com.zaxxer.hikari.pool.PoolBase.setNetworkTimeout(PoolBase.java:566)
-	at com.zaxxer.hikari.pool.PoolBase.isConnectionAlive(PoolBase.java:173)
-	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:186)
-	... 44 common frames omitted
-Caused by: com.mysql.cj.exceptions.ConnectionIsClosedException: No operations allowed after connection closed.
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
-	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
-	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
-	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
-	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
-	at com.mysql.cj.NativeSession.checkClosed(NativeSession.java:761)
-	at com.mysql.cj.jdbc.ConnectionImpl.checkClosed(ConnectionImpl.java:568)
-	at com.mysql.cj.jdbc.ConnectionImpl.setNetworkTimeout(ConnectionImpl.java:2481)
-	... 47 common frames omitted
-2023-03-14 18:36:33.713 [http-nio-8080-exec-4] ERROR com.itmo.eva.exception.GlobalExceptionHandler - runtimeException
-com.auth0.jwt.exceptions.TokenExpiredException: The Token has expired on Tue Mar 14 18:13:38 CST 2023.
-	at com.auth0.jwt.JWTVerifier.assertDateIsFuture(JWTVerifier.java:379)
-	at com.auth0.jwt.JWTVerifier.assertValidDateClaim(JWTVerifier.java:370)
-	at com.auth0.jwt.JWTVerifier.verifyClaims(JWTVerifier.java:295)
-	at com.auth0.jwt.JWTVerifier.verify(JWTVerifier.java:278)
-	at com.auth0.jwt.JWTVerifier.verify(JWTVerifier.java:261)
-	at com.itmo.eva.utils.JwtUtil.decodeToken(JwtUtil.java:53)
-	at com.itmo.eva.service.impl.EvaluateServiceImpl.updateStatus(EvaluateServiceImpl.java:229)
-	at com.itmo.eva.service.impl.EvaluateServiceImpl$$FastClassBySpringCGLIB$$29eccdb9.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-	at org.springframework.aop.framework.CglibAopProxy.invokeMethod(CglibAopProxy.java:386)
-	at org.springframework.aop.framework.CglibAopProxy.access$000(CglibAopProxy.java:85)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:704)
-	at com.itmo.eva.service.impl.EvaluateServiceImpl$$EnhancerBySpringCGLIB$$e745fa1e.updateStatus(<generated>)
-	at com.itmo.eva.controller.EvaluateController.updateStatus(EvaluateController.java:144)
-	at com.itmo.eva.controller.EvaluateController$$FastClassBySpringCGLIB$$83066495.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
-	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:89)
-	at com.itmo.eva.aop.LogInterceptor.doInterceptor(LogInterceptor.java:57)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:634)
-	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:624)
-	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:72)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
-	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)
-	at com.itmo.eva.controller.EvaluateController$$EnhancerBySpringCGLIB$$9e132a69.updateStatus(<generated>)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1067)
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
-	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:681)
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-	at java.lang.Thread.run(Thread.java:750)
-2023-03-14 18:37:07.196 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，Sergei Bykovskii教师平均分计算中，无教学态度这一级评价的相关分数
-2023-03-14 18:37:07.237 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，Sergei Bykovskii教师平均分计算中，无师生交流这一级评价的相关分数
-2023-03-14 18:37:07.276 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，Sergei Bykovskii教师平均分计算中，无教学效果这一级评价的相关分数
-2023-03-14 18:37:07.313 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，Sergei Bykovskii教师平均分计算中，无教学内容这一级评价的相关分数
-2023-03-14 18:37:07.358 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，Sergei Bykovskii教师平均分计算中，无教学能力这一级评价的相关分数
-2023-03-14 18:37:07.399 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，Elizabeth教师平均分计算中，无教学态度这一级评价的相关分数
-2023-03-14 18:37:07.474 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，Elizabeth教师平均分计算中，无师生交流这一级评价的相关分数
-2023-03-14 18:37:07.524 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，Elizabeth教师平均分计算中，无教学效果这一级评价的相关分数
-2023-03-14 18:37:07.597 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，Elizabeth教师平均分计算中，无教学内容这一级评价的相关分数
-2023-03-14 18:37:07.638 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，Elizabeth教师平均分计算中，无教学能力这一级评价的相关分数
-2023-03-14 18:37:07.673 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，ElenaBoldyreva教师平均分计算中，无教学态度这一级评价的相关分数
-2023-03-14 18:37:07.712 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，ElenaBoldyreva教师平均分计算中，无师生交流这一级评价的相关分数
-2023-03-14 18:37:07.754 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，ElenaBoldyreva教师平均分计算中，无教学效果这一级评价的相关分数
-2023-03-14 18:37:07.798 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，ElenaBoldyreva教师平均分计算中，无教学内容这一级评价的相关分数
-2023-03-14 18:37:07.840 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，ElenaBoldyreva教师平均分计算中，无教学能力这一级评价的相关分数
-2023-03-14 18:37:07.912 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，Iurii Korenkov 教师平均分计算中，无教学态度这一级评价的相关分数
-2023-03-14 18:37:07.953 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，Iurii Korenkov 教师平均分计算中，无师生交流这一级评价的相关分数
-2023-03-14 18:37:07.993 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，Iurii Korenkov 教师平均分计算中，无教学效果这一级评价的相关分数
-2023-03-14 18:37:08.034 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，Iurii Korenkov 教师平均分计算中，无教学内容这一级评价的相关分数
-2023-03-14 18:37:08.074 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，Iurii Korenkov 教师平均分计算中，无教学能力这一级评价的相关分数
-2023-03-14 18:37:08.153 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，吴越1教师平均分计算中，无助学态度这一级评价的相关分数
-2023-03-14 18:37:08.200 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，吴越1教师平均分计算中，无助学效果这一级评价的相关分数
-2023-03-14 18:37:08.234 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，吴越1教师平均分计算中，无思政行为这一级评价的相关分数
-2023-03-14 18:37:08.279 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，孔明杰教师平均分计算中，无教学态度这一级评价的相关分数
-2023-03-14 18:37:08.314 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，孔明杰教师平均分计算中，无师生交流这一级评价的相关分数
-2023-03-14 18:37:08.354 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，孔明杰教师平均分计算中，无教学效果这一级评价的相关分数
-2023-03-14 18:37:08.395 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，孔明杰教师平均分计算中，无教学内容这一级评价的相关分数
-2023-03-14 18:37:08.441 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，孔明杰教师平均分计算中，无教学能力这一级评价的相关分数
-2023-03-14 18:37:08.481 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，唐越彬教师平均分计算中，无教学态度这一级评价的相关分数
-2023-03-14 18:37:08.518 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，唐越彬教师平均分计算中，无师生交流这一级评价的相关分数
-2023-03-14 18:37:08.552 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，唐越彬教师平均分计算中，无教学效果这一级评价的相关分数
-2023-03-14 18:37:08.592 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，唐越彬教师平均分计算中，无教学内容这一级评价的相关分数
-2023-03-14 18:37:08.640 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，唐越彬教师平均分计算中，无教学能力这一级评价的相关分数
-2023-03-14 18:37:08.677 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，武博涛教师平均分计算中，无助学态度这一级评价的相关分数
-2023-03-14 18:37:08.715 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，武博涛教师平均分计算中，无助学效果这一级评价的相关分数
-2023-03-14 18:37:08.752 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，武博涛教师平均分计算中，无思政行为这一级评价的相关分数
-2023-03-14 18:37:08.794 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，韦瑾瑜教师平均分计算中，无教学态度这一级评价的相关分数
-2023-03-14 18:37:08.838 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，韦瑾瑜教师平均分计算中，无师生交流这一级评价的相关分数
-2023-03-14 18:37:08.874 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，韦瑾瑜教师平均分计算中，无教学效果这一级评价的相关分数
-2023-03-14 18:37:08.914 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，韦瑾瑜教师平均分计算中，无教学内容这一级评价的相关分数
-2023-03-14 18:37:08.955 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，韦瑾瑜教师平均分计算中，无教学能力这一级评价的相关分数
-2023-03-14 18:37:08.995 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，韦烨华教师平均分计算中，无教学态度这一级评价的相关分数
-2023-03-14 18:37:09.037 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，韦烨华教师平均分计算中，无师生交流这一级评价的相关分数
-2023-03-14 18:37:09.073 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，韦烨华教师平均分计算中，无教学效果这一级评价的相关分数
-2023-03-14 18:37:09.118 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，韦烨华教师平均分计算中，无教学内容这一级评价的相关分数
-2023-03-14 18:37:09.162 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，韦烨华教师平均分计算中，无教学能力这一级评价的相关分数
-2023-03-14 18:37:09.197 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，Tom教师平均分计算中，无教学态度这一级评价的相关分数
-2023-03-14 18:37:09.272 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，Tom教师平均分计算中，无师生交流这一级评价的相关分数
-2023-03-14 18:37:09.314 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，Tom教师平均分计算中，无教学效果这一级评价的相关分数
-2023-03-14 18:37:09.358 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，Tom教师平均分计算中，无教学内容这一级评价的相关分数
-2023-03-14 18:37:09.399 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，Tom教师平均分计算中，无教学能力这一级评价的相关分数
-2023-03-14 18:37:09.435 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，白梓晨教师平均分计算中，无教学态度这一级评价的相关分数
-2023-03-14 18:37:09.474 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，白梓晨教师平均分计算中，无师生交流这一级评价的相关分数
-2023-03-14 18:37:09.512 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，白梓晨教师平均分计算中，无教学效果这一级评价的相关分数
-2023-03-14 18:37:09.553 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，白梓晨教师平均分计算中，无教学内容这一级评价的相关分数
-2023-03-14 18:37:09.593 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，白梓晨教师平均分计算中，无教学能力这一级评价的相关分数
-2023-03-14 18:37:09.632 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，薛乐驹教师平均分计算中，无助学态度这一级评价的相关分数
-2023-03-14 18:37:09.672 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，薛乐驹教师平均分计算中，无助学效果这一级评价的相关分数
-2023-03-14 18:37:09.717 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，薛乐驹教师平均分计算中，无思政行为这一级评价的相关分数
-2023-03-14 18:37:09.752 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，白思教师平均分计算中，无助学态度这一级评价的相关分数
-2023-03-14 18:37:09.797 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，白思教师平均分计算中，无助学效果这一级评价的相关分数
-2023-03-14 18:37:09.834 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，白思教师平均分计算中，无思政行为这一级评价的相关分数
-2023-03-14 18:37:09.874 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，阎子骞教师平均分计算中，无教学态度这一级评价的相关分数
-2023-03-14 18:37:09.918 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，阎子骞教师平均分计算中，无师生交流这一级评价的相关分数
-2023-03-14 18:37:09.952 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，阎子骞教师平均分计算中，无教学效果这一级评价的相关分数
-2023-03-14 18:37:09.995 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，阎子骞教师平均分计算中，无教学内容这一级评价的相关分数
-2023-03-14 18:37:10.035 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，阎子骞教师平均分计算中，无教学能力这一级评价的相关分数
-2023-03-14 18:37:10.072 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，郝瑞霖教师平均分计算中，无助学态度这一级评价的相关分数
-2023-03-14 18:37:10.119 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，郝瑞霖教师平均分计算中，无助学效果这一级评价的相关分数
-2023-03-14 18:37:10.153 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，郝瑞霖教师平均分计算中，无思政行为这一级评价的相关分数
-2023-03-14 18:37:10.192 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，郝峻熙教师平均分计算中，无教学态度这一级评价的相关分数
-2023-03-14 18:37:10.232 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，郝峻熙教师平均分计算中，无师生交流这一级评价的相关分数
-2023-03-14 18:37:10.273 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，郝峻熙教师平均分计算中，无教学效果这一级评价的相关分数
-2023-03-14 18:37:10.312 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，郝峻熙教师平均分计算中，无教学内容这一级评价的相关分数
-2023-03-14 18:37:10.354 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，郝峻熙教师平均分计算中，无教学能力这一级评价的相关分数
-2023-03-14 18:37:10.393 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，冯昊强教师平均分计算中，无教学态度这一级评价的相关分数
-2023-03-14 18:37:10.432 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，冯昊强教师平均分计算中，无师生交流这一级评价的相关分数
-2023-03-14 18:37:10.472 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，冯昊强教师平均分计算中，无教学效果这一级评价的相关分数
-2023-03-14 18:37:10.512 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，冯昊强教师平均分计算中，无教学内容这一级评价的相关分数
-2023-03-14 18:37:10.558 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，冯昊强教师平均分计算中，无教学能力这一级评价的相关分数
-2023-03-14 18:37:10.592 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，魏梓晨教师平均分计算中，无助学态度这一级评价的相关分数
-2023-03-14 18:37:10.637 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，魏梓晨教师平均分计算中，无助学效果这一级评价的相关分数
-2023-03-14 18:37:10.678 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，魏梓晨教师平均分计算中，无思政行为这一级评价的相关分数
-2023-03-14 18:37:10.717 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，江浩轩教师平均分计算中，无助学态度这一级评价的相关分数
-2023-03-14 18:37:10.758 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，江浩轩教师平均分计算中，无助学效果这一级评价的相关分数
-2023-03-14 18:37:10.793 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，江浩轩教师平均分计算中，无思政行为这一级评价的相关分数
-2023-03-14 18:37:10.832 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，汪聪健教师平均分计算中，无助学态度这一级评价的相关分数
-2023-03-14 18:37:10.873 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，汪聪健教师平均分计算中，无助学效果这一级评价的相关分数
-2023-03-14 18:37:10.913 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，汪聪健教师平均分计算中，无思政行为这一级评价的相关分数
-2023-03-14 18:37:10.953 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，周鸿涛教师平均分计算中，无教学态度这一级评价的相关分数
-2023-03-14 18:37:10.993 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，周鸿涛教师平均分计算中，无师生交流这一级评价的相关分数
-2023-03-14 18:37:11.033 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，周鸿涛教师平均分计算中，无教学效果这一级评价的相关分数
-2023-03-14 18:37:11.074 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，周鸿涛教师平均分计算中，无教学内容这一级评价的相关分数
-2023-03-14 18:37:11.113 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，周鸿涛教师平均分计算中，无教学能力这一级评价的相关分数
-2023-03-14 18:37:11.154 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，陆睿渊教师平均分计算中，无教学态度这一级评价的相关分数
-2023-03-14 18:37:11.193 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，陆睿渊教师平均分计算中，无师生交流这一级评价的相关分数
-2023-03-14 18:37:11.233 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，陆睿渊教师平均分计算中，无教学效果这一级评价的相关分数
-2023-03-14 18:37:11.274 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，陆睿渊教师平均分计算中，无教学内容这一级评价的相关分数
-2023-03-14 18:37:11.312 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，陆睿渊教师平均分计算中，无教学能力这一级评价的相关分数
-2023-03-14 18:37:11.354 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，陈玉清教师平均分计算中，无助学态度这一级评价的相关分数
-2023-03-14 18:37:11.398 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，陈玉清教师平均分计算中，无助学效果这一级评价的相关分数
-2023-03-14 18:37:11.438 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，陈玉清教师平均分计算中，无思政行为这一级评价的相关分数
-2023-03-14 18:37:11.472 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，吴施伊教师平均分计算中，无助学态度这一级评价的相关分数
-2023-03-14 18:37:11.513 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，吴施伊教师平均分计算中，无助学效果这一级评价的相关分数
-2023-03-14 18:37:11.552 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，吴施伊教师平均分计算中，无思政行为这一级评价的相关分数
-2023-03-14 18:37:11.594 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，戴彧教师平均分计算中，无助学态度这一级评价的相关分数
-2023-03-14 18:37:11.637 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，戴彧教师平均分计算中，无助学效果这一级评价的相关分数
-2023-03-14 18:37:11.673 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，戴彧教师平均分计算中，无思政行为这一级评价的相关分数
-2023-03-14 18:37:11.717 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，cqk教师平均分计算中，无教学态度这一级评价的相关分数
-2023-03-14 18:37:11.752 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，cqk教师平均分计算中，无师生交流这一级评价的相关分数
-2023-03-14 18:37:11.792 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，cqk教师平均分计算中，无教学效果这一级评价的相关分数
-2023-03-14 18:37:11.833 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，cqk教师平均分计算中，无教学内容这一级评价的相关分数
-2023-03-14 18:37:11.873 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，cqk教师平均分计算中，无教学能力这一级评价的相关分数
-2023-03-14 18:37:11.913 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，Dai Yu教师平均分计算中，无助学态度这一级评价的相关分数
-2023-03-14 18:37:11.953 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，Dai Yu教师平均分计算中，无助学效果这一级评价的相关分数
-2023-03-14 18:37:11.997 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，Dai Yu教师平均分计算中，无思政行为这一级评价的相关分数
-2023-03-14 18:37:12.034 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，asddcac教师平均分计算中，无助学态度这一级评价的相关分数
-2023-03-14 18:37:12.072 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，asddcac教师平均分计算中，无助学效果这一级评价的相关分数
-2023-03-14 18:37:12.112 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，asddcac教师平均分计算中，无思政行为这一级评价的相关分数
-2023-03-14 18:37:12.152 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，qwe教师平均分计算中，无助学态度这一级评价的相关分数
-2023-03-14 18:37:12.192 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，qwe教师平均分计算中，无助学效果这一级评价的相关分数
-2023-03-14 18:37:12.233 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，qwe教师平均分计算中，无思政行为这一级评价的相关分数
-2023-03-14 18:37:12.279 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，al教师平均分计算中，无助学态度这一级评价的相关分数
-2023-03-14 18:37:12.314 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，al教师平均分计算中，无助学效果这一级评价的相关分数
-2023-03-14 18:37:12.357 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，al教师平均分计算中，无思政行为这一级评价的相关分数
-2023-03-14 18:37:12.393 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，shen教师平均分计算中，无教学态度这一级评价的相关分数
-2023-03-14 18:37:12.432 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，shen教师平均分计算中，无师生交流这一级评价的相关分数
-2023-03-14 18:37:12.472 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，shen教师平均分计算中，无教学效果这一级评价的相关分数
-2023-03-14 18:37:12.512 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，shen教师平均分计算中，无教学内容这一级评价的相关分数
-2023-03-14 18:37:12.553 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，shen教师平均分计算中，无教学能力这一级评价的相关分数
-2023-03-14 18:37:12.598 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，戴然教师平均分计算中，无助学态度这一级评价的相关分数
-2023-03-14 18:37:12.632 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，戴然教师平均分计算中，无助学效果这一级评价的相关分数
-2023-03-14 18:37:12.672 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，戴然教师平均分计算中，无思政行为这一级评价的相关分数
-2023-03-14 18:37:12.712 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，戴1教师平均分计算中，无助学态度这一级评价的相关分数
-2023-03-14 18:37:12.752 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，戴1教师平均分计算中，无助学效果这一级评价的相关分数
-2023-03-14 18:37:12.792 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，戴1教师平均分计算中，无思政行为这一级评价的相关分数
-2023-03-14 18:37:12.834 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，dr教师平均分计算中，无助学态度这一级评价的相关分数
-2023-03-14 18:37:12.878 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，dr教师平均分计算中，无助学效果这一级评价的相关分数
-2023-03-14 18:37:12.913 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，dr教师平均分计算中，无思政行为这一级评价的相关分数
-2023-03-14 18:37:12.957 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，er教师平均分计算中，无助学态度这一级评价的相关分数
-2023-03-14 18:37:12.994 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，er教师平均分计算中，无助学效果这一级评价的相关分数
-2023-03-14 18:37:13.038 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，er教师平均分计算中，无思政行为这一级评价的相关分数
-2023-03-14 18:37:13.078 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，dd教师平均分计算中，无助学态度这一级评价的相关分数
-2023-03-14 18:37:13.113 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，dd教师平均分计算中，无助学效果这一级评价的相关分数
-2023-03-14 18:37:13.155 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，dd教师平均分计算中，无思政行为这一级评价的相关分数
-2023-03-14 18:37:13.192 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，yy教师平均分计算中，无助学态度这一级评价的相关分数
-2023-03-14 18:37:13.232 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，yy教师平均分计算中，无助学效果这一级评价的相关分数
-2023-03-14 18:37:13.277 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，yy教师平均分计算中，无思政行为这一级评价的相关分数
-2023-03-14 18:37:13.313 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，d1教师平均分计算中，无助学态度这一级评价的相关分数
-2023-03-14 18:37:13.353 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，d1教师平均分计算中，无助学效果这一级评价的相关分数
-2023-03-14 18:37:13.392 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，d1教师平均分计算中，无思政行为这一级评价的相关分数
-2023-03-14 18:37:13.433 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，aja教师平均分计算中，无教学态度这一级评价的相关分数
-2023-03-14 18:37:13.472 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，aja教师平均分计算中，无师生交流这一级评价的相关分数
-2023-03-14 18:37:13.512 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，aja教师平均分计算中，无教学效果这一级评价的相关分数
-2023-03-14 18:37:13.562 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，aja教师平均分计算中，无教学内容这一级评价的相关分数
-2023-03-14 18:37:13.597 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，aja教师平均分计算中，无教学能力这一级评价的相关分数
-2023-03-14 18:37:13.637 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，lili教师平均分计算中，无教学态度这一级评价的相关分数
-2023-03-14 18:37:13.672 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，lili教师平均分计算中，无师生交流这一级评价的相关分数
-2023-03-14 18:37:13.716 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，lili教师平均分计算中，无教学效果这一级评价的相关分数
-2023-03-14 18:37:13.753 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，lili教师平均分计算中，无教学内容这一级评价的相关分数
-2023-03-14 18:37:13.800 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，lili教师平均分计算中，无教学能力这一级评价的相关分数
-2023-03-14 18:37:13.832 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，asddca教师平均分计算中，无助学态度这一级评价的相关分数
-2023-03-14 18:37:13.873 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，asddca教师平均分计算中，无助学效果这一级评价的相关分数
-2023-03-14 18:37:13.912 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，asddca教师平均分计算中，无思政行为这一级评价的相关分数
-2023-03-14 18:37:13.953 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，1教师平均分计算中，无教学态度这一级评价的相关分数
-2023-03-14 18:37:13.996 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，1教师平均分计算中，无师生交流这一级评价的相关分数
-2023-03-14 18:37:14.036 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，1教师平均分计算中，无教学效果这一级评价的相关分数
-2023-03-14 18:37:14.073 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，1教师平均分计算中，无教学内容这一级评价的相关分数
-2023-03-14 18:37:14.112 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，1教师平均分计算中，无教学能力这一级评价的相关分数
-2023-03-14 18:37:14.154 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，戴彧1教师平均分计算中，无教学态度这一级评价的相关分数
-2023-03-14 18:37:14.193 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，戴彧1教师平均分计算中，无师生交流这一级评价的相关分数
-2023-03-14 18:37:14.232 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，戴彧1教师平均分计算中，无教学效果这一级评价的相关分数
-2023-03-14 18:37:14.273 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，戴彧1教师平均分计算中，无教学内容这一级评价的相关分数
-2023-03-14 18:37:14.312 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，戴彧1教师平均分计算中，无教学能力这一级评价的相关分数
-2023-03-14 18:37:14.353 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，ddr教师平均分计算中，无助学态度这一级评价的相关分数
-2023-03-14 18:37:14.392 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，ddr教师平均分计算中，无助学效果这一级评价的相关分数
-2023-03-14 18:37:14.432 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，ddr教师平均分计算中，无思政行为这一级评价的相关分数
-2023-03-14 18:37:14.477 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，Elizabethas教师平均分计算中，无助学态度这一级评价的相关分数
-2023-03-14 18:37:14.534 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，Elizabethas教师平均分计算中，无助学效果这一级评价的相关分数
-2023-03-14 18:37:14.590 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，Elizabethas教师平均分计算中，无思政行为这一级评价的相关分数
-2023-03-14 18:37:14.633 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，dd零教师平均分计算中，无助学态度这一级评价的相关分数
-2023-03-14 18:37:14.673 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，dd零教师平均分计算中，无助学效果这一级评价的相关分数
-2023-03-14 18:37:14.715 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，dd零教师平均分计算中，无思政行为这一级评价的相关分数
-2023-03-14 18:37:14.754 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，opp教师平均分计算中，无助学态度这一级评价的相关分数
-2023-03-14 18:37:14.792 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，opp教师平均分计算中，无助学效果这一级评价的相关分数
-2023-03-14 18:37:14.833 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，opp教师平均分计算中，无思政行为这一级评价的相关分数
-2023-03-14 18:37:14.877 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，Amy教师平均分计算中，无教学态度这一级评价的相关分数
-2023-03-14 18:37:14.912 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，Amy教师平均分计算中，无师生交流这一级评价的相关分数
-2023-03-14 18:37:14.954 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，Amy教师平均分计算中，无教学效果这一级评价的相关分数
-2023-03-14 18:37:14.994 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，Amy教师平均分计算中，无教学内容这一级评价的相关分数
-2023-03-14 18:37:15.034 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，Amy教师平均分计算中，无教学能力这一级评价的相关分数
-2023-03-14 18:37:15.072 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，沈曹祎教师平均分计算中，无助学态度这一级评价的相关分数
-2023-03-14 18:37:15.112 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，沈曹祎教师平均分计算中，无助学效果这一级评价的相关分数
-2023-03-14 18:37:15.152 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，沈曹祎教师平均分计算中，无思政行为这一级评价的相关分数
-2023-03-14 18:37:15.193 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，沈曹祎1教师平均分计算中，无教学态度这一级评价的相关分数
-2023-03-14 18:37:15.233 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，沈曹祎1教师平均分计算中，无师生交流这一级评价的相关分数
-2023-03-14 18:37:15.274 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，沈曹祎1教师平均分计算中，无教学效果这一级评价的相关分数
-2023-03-14 18:37:15.317 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，沈曹祎1教师平均分计算中，无教学内容这一级评价的相关分数
-2023-03-14 18:37:15.353 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，沈曹祎1教师平均分计算中，无教学能力这一级评价的相关分数
-2023-03-14 18:37:15.393 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，沈曹祎12教师平均分计算中，无助学态度这一级评价的相关分数
-2023-03-14 18:37:15.433 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，沈曹祎12教师平均分计算中，无助学效果这一级评价的相关分数
-2023-03-14 18:37:15.472 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，沈曹祎12教师平均分计算中，无思政行为这一级评价的相关分数
-2023-03-14 18:37:15.514 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，沈曹祎122教师平均分计算中，无教学态度这一级评价的相关分数
-2023-03-14 18:37:15.554 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，沈曹祎122教师平均分计算中，无师生交流这一级评价的相关分数
-2023-03-14 18:37:15.595 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，沈曹祎122教师平均分计算中，无教学效果这一级评价的相关分数
-2023-03-14 18:37:15.634 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，沈曹祎122教师平均分计算中，无教学内容这一级评价的相关分数
-2023-03-14 18:37:15.673 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，沈曹祎122教师平均分计算中，无教学能力这一级评价的相关分数
-2023-03-14 18:37:15.713 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，沈曹祎11教师平均分计算中，无教学态度这一级评价的相关分数
-2023-03-14 18:37:15.754 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，沈曹祎11教师平均分计算中，无师生交流这一级评价的相关分数
-2023-03-14 18:37:15.793 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，沈曹祎11教师平均分计算中，无教学效果这一级评价的相关分数
-2023-03-14 18:37:15.835 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，沈曹祎11教师平均分计算中，无教学内容这一级评价的相关分数
-2023-03-14 18:37:15.873 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，沈曹祎11教师平均分计算中，无教学能力这一级评价的相关分数
-2023-03-14 18:37:15.912 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，cjh教师平均分计算中，无助学态度这一级评价的相关分数
-2023-03-14 18:37:15.952 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，cjh教师平均分计算中，无助学效果这一级评价的相关分数
-2023-03-14 18:37:15.994 [http-nio-8080-exec-4] ERROR com.itmo.eva.service.impl.ScoreHistoryServiceImpl - 在id为29的评测中，cjh教师平均分计算中，无思政行为这一级评价的相关分数
-2023-03-14 18:37:41.611 [http-nio-8080-exec-2] ERROR com.itmo.eva.exception.GlobalExceptionHandler - businessException: 操作失败
-com.itmo.eva.exception.BusinessException: 操作失败
-	at com.itmo.eva.service.impl.EvaluateServiceImpl.deleteScoreHistory(EvaluateServiceImpl.java:510)
-	at com.itmo.eva.service.impl.EvaluateServiceImpl.updateStatus(EvaluateServiceImpl.java:278)
-	at com.itmo.eva.service.impl.EvaluateServiceImpl$$FastClassBySpringCGLIB$$29eccdb9.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-	at org.springframework.aop.framework.CglibAopProxy.invokeMethod(CglibAopProxy.java:386)
-	at org.springframework.aop.framework.CglibAopProxy.access$000(CglibAopProxy.java:85)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:704)
-	at com.itmo.eva.service.impl.EvaluateServiceImpl$$EnhancerBySpringCGLIB$$9e5fc0a6.updateStatus(<generated>)
-	at com.itmo.eva.controller.EvaluateController.updateStatus(EvaluateController.java:144)
-	at com.itmo.eva.controller.EvaluateController$$FastClassBySpringCGLIB$$83066495.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
-	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:89)
-	at com.itmo.eva.aop.LogInterceptor.doInterceptor(LogInterceptor.java:57)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:634)
-	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:624)
-	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:72)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
-	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)
-	at com.itmo.eva.controller.EvaluateController$$EnhancerBySpringCGLIB$$669bcf5.updateStatus(<generated>)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1067)
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
-	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:681)
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-	at java.lang.Thread.run(Thread.java:750)
-2023-03-14 18:38:00.677 [http-nio-8080-exec-5] ERROR com.itmo.eva.exception.GlobalExceptionHandler - businessException: 操作失败
-com.itmo.eva.exception.BusinessException: 操作失败
-	at com.itmo.eva.service.impl.EvaluateServiceImpl.deleteScoreHistory(EvaluateServiceImpl.java:510)
-	at com.itmo.eva.service.impl.EvaluateServiceImpl.updateStatus(EvaluateServiceImpl.java:278)
-	at com.itmo.eva.service.impl.EvaluateServiceImpl$$FastClassBySpringCGLIB$$29eccdb9.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-	at org.springframework.aop.framework.CglibAopProxy.invokeMethod(CglibAopProxy.java:386)
-	at org.springframework.aop.framework.CglibAopProxy.access$000(CglibAopProxy.java:85)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:704)
-	at com.itmo.eva.service.impl.EvaluateServiceImpl$$EnhancerBySpringCGLIB$$9e5fc0a6.updateStatus(<generated>)
-	at com.itmo.eva.controller.EvaluateController.updateStatus(EvaluateController.java:144)
-	at com.itmo.eva.controller.EvaluateController$$FastClassBySpringCGLIB$$83066495.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
-	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:89)
-	at com.itmo.eva.aop.LogInterceptor.doInterceptor(LogInterceptor.java:57)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:634)
-	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:624)
-	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:72)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
-	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)
-	at com.itmo.eva.controller.EvaluateController$$EnhancerBySpringCGLIB$$669bcf5.updateStatus(<generated>)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1067)
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
-	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:681)
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-	at java.lang.Thread.run(Thread.java:750)
-2023-03-14 18:40:29.733 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
-
-***************************
-APPLICATION FAILED TO START
-***************************
-
-Description:
-
-A component required a bean of type 'com.itmo.eva.service.AdminService' that could not be found.
-
-
-Action:
-
-Consider defining a bean of type 'com.itmo.eva.service.AdminService' in your configuration.
-
+	... 48 common frames omitted

@@ -236,6 +236,9 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
                 String major = row.getCell(2).getStringCellValue();
                 String teacher = row.getCell(3).getStringCellValue();
                 String grade = row.getCell(4).getStringCellValue();
+                if ("".equals(cName)) {
+                    continue;
+                }
                 if (!"计算机科学与技术".equals(major) && !"自动化".equals(major)) {
                     String error = "在第" + i + "行，专业错误";
                     throw new BusinessException(ErrorCode.PARAMS_ERROR, error);
