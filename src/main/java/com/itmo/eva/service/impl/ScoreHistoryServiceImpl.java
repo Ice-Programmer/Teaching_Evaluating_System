@@ -22,6 +22,7 @@ import com.itmo.eva.model.vo.score.TeacherSystemScoreVo;
 import com.itmo.eva.model.vo.system.FirstSystemScoreVo;
 import com.itmo.eva.model.vo.system.SecondSystemScoreVo;
 import com.itmo.eva.service.ScoreHistoryService;
+import com.itmo.eva.utils.DownLoadUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -380,7 +381,8 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
      * @param response
      * @param scoreFilterRequest
      */
-    private void allScoreRankExcelImport(HttpServletResponse response, ScoreFilterRequest scoreFilterRequest) {
+    @Override
+    public void allScoreRankExcelImport(HttpServletResponse response, ScoreFilterRequest scoreFilterRequest) {
         Integer identity = scoreFilterRequest.getIdentity();
         // 获取教师所有信息
         List<TeacherAllScoreVo> teacherTotalRankList = this.getTeacherRank(identity);
@@ -414,15 +416,15 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
             dataRow.createCell(++index).setCellValue(scoreVo.getTotalScore());
         }
         try {
-            // 输出Excel文件
-            String filename = "教师分数排名.xlsx";
-            response.reset();
-            response.addHeader("Access-Control-Expose-Headers", "filetype");
-            response.setCharacterEncoding("UTF-8");
-            response.setHeader("Content-Disposition", "attachment; fileName=" + java.net.URLEncoder.encode(filename, "UTF-8"));
-            OutputStream output = response.getOutputStream();
-            wb.write(output);
-            output.close();
+            //输出Excel文件
+            String filename = "教师总分排名表";
+            FileOutputStream out = new FileOutputStream(new File("C:\\excel\\" + filename + ".xlsx"));
+            wb.write(out);
+            out.close();
+            String path = "C:\\excel\\教师总分排名表.xlsx";
+            DownLoadUtil.uploadFile(response, path);
+            File file = new File(path);
+            file.delete();
         } catch (Exception e) {
             throw new BusinessException(ErrorCode.OPERATION_ERROR, "模版下载失败");
         }
@@ -462,14 +464,14 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
         }
         try {
             //输出Excel文件
-            String filename = "教师一级分数分数排名.xlsx";
-            response.reset();
-            response.addHeader("Access-Control-Expose-Headers", "filetype");
-            response.setCharacterEncoding("UTF-8");
-            response.setHeader("Content-Disposition", "attachment; fileName=" + java.net.URLEncoder.encode(filename, "UTF-8"));
-            OutputStream output = response.getOutputStream();
-            wb.write(output);
-            output.close();
+            String filename = "教师一级分数分数排名";
+            FileOutputStream out = new FileOutputStream(new File("C:\\excel\\" + filename + ".xlsx"));
+            wb.write(out);
+            out.close();
+            String path = "C:\\excel\\教师一级分数分数排名.xlsx";
+            DownLoadUtil.uploadFile(response, path);
+            File file = new File(path);
+            file.delete();
         } catch (Exception e) {
             throw new BusinessException(ErrorCode.OPERATION_ERROR, "模版下载失败");
         }
@@ -498,14 +500,14 @@ public class ScoreHistoryServiceImpl extends ServiceImpl<ScoreHistoryMapper, Sco
         }
         try {
             //输出Excel文件
-            String filename = "教师二级分数分数排名.xlsx";
-            response.reset();
-            response.addHeader("Access-Control-Expose-Headers", "filetype");
-            response.setCharacterEncoding("UTF-8");
-            response.setHeader("Content-Disposition", "attachment; fileName=" + java.net.URLEncoder.encode(filename, "UTF-8"));
-            OutputStream output = response.getOutputStream();
-            wb.write(output);
-            output.close();
+            String filename = "教师二级分数分数排名";
+            FileOutputStream out = new FileOutputStream(new File("C:\\excel\\" + filename + ".xlsx"));
+            wb.write(out);
+            out.close();
+            String path = "C:\\excel\\教师二级分数分数排名.xlsx";
+            DownLoadUtil.uploadFile(response, path);
+            File file = new File(path);
+            file.delete();
         } catch (Exception e) {
             throw new BusinessException(ErrorCode.OPERATION_ERROR, "模版下载失败");
         }

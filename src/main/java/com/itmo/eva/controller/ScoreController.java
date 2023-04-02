@@ -64,5 +64,12 @@ public class ScoreController {
     public void getExcel(HttpServletResponse response, @RequestBody ScoreFilterRequest scoreFilterRequest) {
         scoreHistoryService.exportExcel(response, scoreFilterRequest);
     }
+
+    @GetMapping("/test")
+    public void excel(HttpServletResponse response) {
+        ScoreFilterRequest scoreFilterRequest = new ScoreFilterRequest();
+        scoreFilterRequest.setIdentity(0);
+        scoreHistoryService.exportExcel(response, scoreFilterRequest);
+    }
 }
 

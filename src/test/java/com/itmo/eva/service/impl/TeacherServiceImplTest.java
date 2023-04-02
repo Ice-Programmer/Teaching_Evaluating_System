@@ -10,12 +10,21 @@ import com.itmo.eva.service.TeacherService;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.util.StringUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 
 import javax.annotation.Resource;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 class TeacherServiceImplTest {
@@ -64,4 +73,48 @@ class TeacherServiceImplTest {
             System.out.println(false);
         }
     }
+
+    private static final JavaMailSenderImpl sender = new JavaMailSenderImpl();
+
+    static {
+
+        //服务器
+        sender.setHost("smtp.qq.com");
+        //协议
+        sender.setProtocol("smtps");
+        //端口号
+        sender.setPort(465);
+        //邮箱账号
+        sender.setUsername("2473159069@qq.com");
+        //邮箱授权码
+        sender.setPassword("pglxksrspsnudjhh");
+        //编码
+        sender.setDefaultEncoding("Utf-8");
+        Properties p = new Properties();
+        p.setProperty("mail.smtp.ssl.enable", "true");
+        sender.setJavaMailProperties(p);
+    }
+
+
+    @Test
+    void sendMail() throws MessagingException {
+        //复杂邮件
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("2473159069@qq.com");
+        message.setTo("22320328@hdu.edu.cn");
+        message.setSubject("Happy New Year");
+        message.setText("新年快乐！");
+        String content = "陈琪凯" + "，你好, 您的验证码如下<br/>" + "250" + "<p> 您不需要回复这封邮件。<p/>";
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+        try {
+            Date time = dateFormat.parse("2023-3-24 22-30-00");
+            message.setSentDate(time);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        sender.send(message);
+
+    }
+
 }

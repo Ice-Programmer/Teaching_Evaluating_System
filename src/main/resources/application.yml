@@ -12,14 +12,14 @@ spring:
       matching-strategy: ANT_PATH_MATCHER
 
 server:
-  port: 8080
+  port: 8099
   servlet:
     context-path: /api
 
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: false
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 logging:
   file:

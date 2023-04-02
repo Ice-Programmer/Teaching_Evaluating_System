@@ -1,0 +1,16 @@
+2023-03-23 22:46:27.395 [restartedMain] WARN  c.b.mybatisplus.core.injector.DefaultSqlInjector - class com.itmo.eva.model.entity.Redline ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2023-03-23 22:50:56.461 [main] WARN  c.b.mybatisplus.core.injector.DefaultSqlInjector - class com.itmo.eva.model.entity.Redline ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2023-03-23 22:51:40.705 [main] WARN  c.b.mybatisplus.core.injector.DefaultSqlInjector - class com.itmo.eva.model.entity.Redline ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2023-03-23 22:52:02.140 [main] WARN  c.b.mybatisplus.core.injector.DefaultSqlInjector - class com.itmo.eva.model.entity.Redline ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2023-03-23 23:38:33.902 [main] WARN  c.b.mybatisplus.core.injector.DefaultSqlInjector - class com.itmo.eva.model.entity.Redline ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2023-03-23 23:38:50.157 [main] WARN  c.b.mybatisplus.core.injector.DefaultSqlInjector - class com.itmo.eva.model.entity.Redline ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2023-03-23 23:39:44.485 [main] WARN  c.b.mybatisplus.core.injector.DefaultSqlInjector - class com.itmo.eva.model.entity.Redline ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2023-03-23 23:40:17.739 [main] WARN  c.b.mybatisplus.core.injector.DefaultSqlInjector - class com.itmo.eva.model.entity.Redline ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2023-03-23 23:41:03.667 [main] WARN  c.b.mybatisplus.core.injector.DefaultSqlInjector - class com.itmo.eva.model.entity.Redline ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2023-03-23 23:41:35.730 [main] WARN  c.b.mybatisplus.core.injector.DefaultSqlInjector - class com.itmo.eva.model.entity.Redline ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2023-03-23 23:41:46.134 [main] WARN  c.b.mybatisplus.core.injector.DefaultSqlInjector - class com.itmo.eva.model.entity.Redline ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2023-03-23 23:43:48.371 [main] WARN  c.b.mybatisplus.core.injector.DefaultSqlInjector - class com.itmo.eva.model.entity.Redline ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2023-03-23 23:44:06.425 [main] WARN  c.b.mybatisplus.core.injector.DefaultSqlInjector - class com.itmo.eva.model.entity.Redline ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2023-03-23 23:44:26.672 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=47s548ms).
+2023-03-23 23:45:13.817 [main] WARN  c.b.mybatisplus.core.injector.DefaultSqlInjector - class com.itmo.eva.model.entity.Redline ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2023-03-23 23:48:25.101 [main] WARN  c.b.mybatisplus.core.injector.DefaultSqlInjector - class com.itmo.eva.model.entity.Redline ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.

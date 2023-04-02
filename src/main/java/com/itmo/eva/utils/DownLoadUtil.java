@@ -29,5 +29,4 @@ public class DownLoadUtil {
             ex.printStackTrace();
         }
     }
-
 }

@@ -485,9 +485,6 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate>
                     // 插入数据库
                     markHistoryMapper.insert(markHistory);
                 }
-
-
-
             }
         }
 

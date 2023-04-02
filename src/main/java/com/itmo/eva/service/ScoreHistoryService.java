@@ -62,4 +62,7 @@ public interface ScoreHistoryService extends IService<ScoreHistory> {
      * @param scoreFilterRequest
      */
     void exportExcel(HttpServletResponse response, ScoreFilterRequest scoreFilterRequest);
+
+
+    void allScoreRankExcelImport(HttpServletResponse response, ScoreFilterRequest scoreFilterRequest);
 }

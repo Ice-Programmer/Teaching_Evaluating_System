@@ -1,22 +1,33 @@
 package com.itmo.eva;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.itmo.eva.job.once.importExcel;
 import com.itmo.eva.mapper.*;
 import com.itmo.eva.model.entity.System;
 import com.itmo.eva.model.entity.*;
-import com.itmo.eva.service.AdminService;
-import com.itmo.eva.service.RedlineHistoryService;
-import com.itmo.eva.service.ScoreHistoryService;
-import com.itmo.eva.service.TeacherService;
+import com.itmo.eva.service.*;
+import com.itmo.eva.utils.DownLoadUtil;
 import com.itmo.eva.utils.MailUtil;
+import com.itmo.eva.utils.SplitDemo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -59,6 +70,9 @@ class EvaApplicationTests {
 
     @Resource
     private EvaluateMapper evaluateMapper;
+
+    @Autowired
+    private SystemService systemService;
 
     @Test
     void contextLoads() {
@@ -132,7 +146,7 @@ class EvaApplicationTests {
     void handout() {
         List<Student> studentList = studentMapper.selectList(null);
 
-        Integer evaluateId = 24;
+        Integer evaluateId = 29;
 
         for (Student student : studentList) {
             // 取出grade和major，来查询学生的响应课程
@@ -210,5 +224,103 @@ class EvaApplicationTests {
         log.info("{} 评测已经结束，当前时间：{}", evaluateGoing.getName(), dateFormat.format(nowTime));
         // 将教师一级指标平均分折合成总分存入总分表中(mark_history表 -> score_history表)
         scoreHistoryService.saveTotalScore(evaluateGoing.getId());
+    }
+
+    @Test
+    void divideScore() throws IOException {
+        String path = "/Users/chenjiahan/Desktop/外教得分详情(1).xlsx";
+        FileInputStream fileInputStream = new FileInputStream(path);
+        XSSFWorkbook sheets = new XSSFWorkbook(fileInputStream);
+        XSSFSheet sheet = sheets.getSheetAt(0);
+        XSSFRow row = null;
+
+        Map<String, List<Double>> teacherMap = new HashMap<>();
+
+        for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
+            row = sheet.getRow(i);
+            String name = row.getCell(0).getStringCellValue();
+            List<Double> scoreList = new ArrayList<>();
+            Double totalScore = row.getCell(1).getNumericCellValue();
+            scoreList.add(totalScore);
+            Double score1 = row.getCell(2).getNumericCellValue();
+            scoreList.add(score1);
+            Double score2 = row.getCell(3).getNumericCellValue();
+            scoreList.add(score2);
+            Double score3 = row.getCell(4).getNumericCellValue();
+            scoreList.add(score3);
+            Double score4 = row.getCell( 5).getNumericCellValue();
+            scoreList.add(score4);
+            teacherMap.put(name, scoreList);
+        }
+
+        DecimalFormat decimalFormat = new DecimalFormat("0");
+
+        Map<String, List<Double>> teacherScoreList = new HashMap<>();
+
+        for (String teacherName : teacherMap.keySet()) {
+            List<Double> teacherScore = teacherMap.get(teacherName);
+            List<Double> teacherSecondScore = new ArrayList<>();
+
+            for (int i = 1; i < teacherScore.size(); i++) {
+                Integer sid = i;
+                LambdaQueryWrapper<System> queryWrapper = new LambdaQueryWrapper<>();
+                queryWrapper.eq(System::getSid, sid);
+                List<System> secondSystem = systemService.list(queryWrapper);
+                Double score = teacherScore.get(i);
+                double scoreM = score * 100;
+                int scoreToDivide = Integer.parseInt(decimalFormat.format(scoreM));
+                // 拆分分数 => 若干分数
+                List<Long> scoreList = SplitDemo.demo(scoreToDivide, secondSystem.size());
+                scoreList.add((long) scoreToDivide);
+                for (Long scoreLong : scoreList) {
+                    double secondScore = scoreLong / 100.00;
+                    teacherSecondScore.add(secondScore);
+                }
+            }
+            teacherScoreList.put(teacherName, teacherSecondScore);
+        }
+        for (String teacherName : teacherScoreList.keySet()) {
+            log.info("{} : {}", teacherName, teacherScoreList.get(teacherName));
+        }
+        // 创建Excel对象
+        XSSFWorkbook wb = new XSSFWorkbook();
+        // 创建sheet对象
+        XSSFSheet sheetName = wb.createSheet("教师二级指标分数表");
+        // 创建表头
+        XSSFRow xssfRow = sheetName.createRow(0);
+        xssfRow.createCell(0).setCellValue("教师姓名");
+        xssfRow.createCell(1).setCellValue("教师姓名");
+        xssfRow.createCell(2).setCellValue("教师姓名");
+        xssfRow.createCell(3).setCellValue("教师姓名");
+        xssfRow.createCell(4).setCellValue("教师姓名");
+        xssfRow.createCell(5).setCellValue("教师姓名");
+        xssfRow.createCell(6).setCellValue("教师姓名");
+        xssfRow.createCell(7).setCellValue("教师姓名");
+        xssfRow.createCell(8).setCellValue("教师姓名");
+        xssfRow.createCell(9).setCellValue("教师姓名");
+        xssfRow.createCell(10).setCellValue("教师姓名");
+        xssfRow.createCell(11).setCellValue("教师姓名");
+        xssfRow.createCell(12).setCellValue("教师姓名");
+        xssfRow.createCell(13).setCellValue("教师姓名");
+        xssfRow.createCell(14).setCellValue("教师姓名");
+        xssfRow.createCell(15).setCellValue("教师姓名");
+        xssfRow.createCell(16).setCellValue("教师姓名");
+        xssfRow.createCell(17).setCellValue("教师姓名");
+
+
+        for (String teacherName : teacherScoreList.keySet()) {
+            List<Double> teacherSecondList = teacherScoreList.get(teacherName);
+            XSSFRow dataRow = sheetName.createRow(sheetName.getLastRowNum() + 1);
+            dataRow.createCell(0).setCellValue(teacherName);
+            int index = 0;
+            for (Double secondScore : teacherSecondList) {
+                dataRow.createCell(++index).setCellValue(secondScore);
+            }
+            //输出Excel文件
+            String filename = "教师二级指标分数表";
+            FileOutputStream out = new FileOutputStream(new File("/Users/chenjiahan/Desktop/未命名文件夹/" + filename + ".xlsx"));
+            wb.write(out);
+            out.close();
+        }
     }
 }
